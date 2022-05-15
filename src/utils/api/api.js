@@ -4,7 +4,7 @@ const doGet = (requestUrl) => {
   return instance.get(requestUrl);
 }
 
-const doPost = (requestUrl paramBody):  => {
+const doPost = (requestUrl, paramBody)  => {
   return instance.post(requestUrl, paramBody);
 }
 

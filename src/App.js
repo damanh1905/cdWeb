@@ -4,8 +4,8 @@ import { publicRouterUser } from "./routers";
 import DefaultLayout from "./components/Layout/DefaultLayout";
 function App() {
   return (
+    
     <Router>
-      <div>
         <Routes>
           {publicRouterUser.map((router, index) => {
             const Layout = router.layout === null ? Fragment:  DefaultLayout;
@@ -22,9 +22,9 @@ function App() {
               />
             );
           })}
-        </Routes>
-      </div>
+          </Routes>
     </Router>
+ 
   );
 }
 

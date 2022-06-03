@@ -4,10 +4,6 @@ import React from "react";
 function ShopGrid() {
   return (
     <>
-   <div>
-  <div id="preloder">
-    <div className="loader" />
-  </div>
  <section className="hero hero-normal">
   <div className="container">
     <div className="row">
@@ -670,7 +666,7 @@ function ShopGrid() {
     </div>
   </section>
   {/* Product Section End */}
-</div>
+                  
 
  
     </>

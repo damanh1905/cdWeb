@@ -2,13 +2,11 @@ import React from "react";
 
 
 function ShopDetail() {
+ 
   return (
     <>
      
- <div>
-  <div id="preloder">
-    <div className="loader" />
-  </div>
+
 <section className="hero hero-normal">
   <div className="container">
     <div className="row">
@@ -316,7 +314,7 @@ function ShopDetail() {
     </div>
   </section>
   {/* Related Product Section End */}
-</div>
+
 
     </>
     )}

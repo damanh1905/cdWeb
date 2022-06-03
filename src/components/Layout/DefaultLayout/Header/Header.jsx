@@ -1,6 +1,6 @@
 import React from "react";
 
-
+import { Link } from "react-router-dom";
 function Header() {
   return (
     <header className="header">
@@ -34,7 +34,10 @@ function Header() {
                                 </ul>
                             </div>
                             <div className="header__top__right__auth">
-                                <a href="#"><i className="fa fa-user"></i> Login</a>
+                            <Link to={"/login"}>Login</Link>
+                            </div>
+                            <div className="header__top__right__auth">
+                            <Link to={"/register"} style={{marginLeft:"18px"}}> Register</Link>
                             </div>
                         </div>
                     </div>
@@ -51,18 +54,18 @@ function Header() {
                 <div className="col-lg-6">
                     <nav className="header__menu">
                         <ul>
-                            <li className="active"><a href="./index.html">Home</a></li>
-                            <li><a href="./shop-grid.html">Shop</a></li>
+                            <li className="active"><Link to={"/"}>Home</Link></li>
+                            <li><Link to={"/shopGrid"}>Shop</Link></li>
                             <li><a href="#">Pages</a>
                                 <ul className="header__menu__dropdown">
-                                    <li><a href="./shop-details.html">Shop Details</a></li>
-                                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                                    <li><a href="./checkout.html">Check Out</a></li>
-                                    <li><a href="./blog-details.html">Blog Details</a></li>
+                                    <li><Link to={"/shopDetail"}>ShopDetail</Link></li>
+                                    <li><Link to={"/shoppingCart"}>Shopping Cart</Link></li>
+                                    <li><Link to={"/checkout"}>Checkout</Link></li>
+                                    <li><Link to={"/blogDetail"}>Blog Details</Link></li>
                                 </ul>
                             </li>
-                            <li><a href="./blog.html">Blog</a></li>
-                            <li><a href="./contact.html">Contact</a></li>
+                            <li><Link to={"/blog"}>Blog</Link></li>
+                            <li><Link to={"/contact"}>Contact</Link></li>
                         </ul>
                     </nav>
                 </div>

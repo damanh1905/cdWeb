@@ -1,0 +1,138 @@
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import "./Register.module.scss";
+import "./register.scss";
+const Register = () => {
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      name: "",
+      phone: "",
+      password: "",
+      confirmedPassword: "",
+      emailVerify: "",
+    },
+    validationSchema: Yup.object({
+      name: Yup.string()
+        .required("Required")
+        .min(12, "Must be 12 characters or more"),
+        emailVerify: Yup.string()
+        .required("Required")
+        .min(12, "Must be 12 characters or more"),
+      email: Yup.string()
+        .required("Required")
+        .matches(
+          /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+          "Please enter a valid email address"
+        ),
+      password: Yup.string()
+        .required("Required")
+        .matches(
+          /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$/,
+          "Password must be 7-19 characters and contain at least one letter, one number and a special character"
+        ),
+      confirmedPassword: Yup.string()
+        .required("Required")
+        .oneOf([Yup.ref("password"), null], "Password must match"),
+      phone: Yup.string()
+        .required("Required")
+        .matches(
+          /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/,
+          "Must be a valid phone number"
+        ),
+        
+    }),
+    onSubmit: (values) => {
+      window.alert("Form submitted");
+      console.log(values);
+    },
+  });
+
+  return (
+      <div className="container-Register">
+<div className="Register">
+          <header>Sign up</header>
+          <section>
+      <form className="infoform" onSubmit={formik.handleSubmit}>
+        <label>  Username </label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value={formik.values.name}
+          onChange={formik.handleChange}
+          placeholder="Enter  Username"
+        />
+        {formik.errors.name && (
+          <p className="errorMsg"> {formik.errors.name} </p>
+        )}
+        <label> Email address </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={formik.values.email}
+          onChange={formik.handleChange}
+          placeholder="Enter your email"
+        />
+        {formik.errors.email && (
+          <p className="errorMsg"> {formik.errors.email} </p>
+        )}
+        <label> Password </label>
+        <input
+          type="text"
+          id="password"
+          name="password"
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          placeholder="Enter your password"
+        />
+        {formik.errors.password && (
+          <p className="errorMsg"> {formik.errors.password} </p>
+        )}
+        <label> Confirm Password </label>
+        <input
+          type="text"
+          id="confirmedPassword"
+          name="confirmedPassword"
+          value={formik.values.confirmedPassword}
+          onChange={formik.handleChange}
+          placeholder="Confirm your password"
+        />
+        {formik.errors.confirmedPassword && (
+          <p className="errorMsg"> {formik.errors.confirmedPassword} </p>
+        )}
+        <label> Phone number </label>
+        <input
+          type="text"
+          id="phone"
+          name="phone"
+          value={formik.values.phone}
+          onChange={formik.handleChange}
+          placeholder="Enter your phone numbers"
+        />
+
+        {formik.errors.phone && (
+          <p className="errorMsg"> {formik.errors.phone} </p>
+        )}
+              <label>Email Verification</label>
+        <input
+          type="text"
+          id="emailVerify"
+          name="emailVerify"
+          value={formik.values.emailVerify}
+          onChange={formik.handleChange}
+          placeholder="Enter your emailVerify"
+        />
+           {formik.errors.emailVerify && (
+          <p className="errorMsg"> {formik.errors.emailVerify} </p>
+        )}
+        <button type="submit"> Register </button>
+      </form>
+    </section>
+    </div>
+      </div>
+  );
+};
+
+export default Register;

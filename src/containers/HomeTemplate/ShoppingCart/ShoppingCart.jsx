@@ -4,11 +4,9 @@ import React from "react";
 function ShoppingCart() {
   return (
     <>
- <div>
+
   {/* Page Preloder */}
-  <div id="preloder">
-    <div className="loader" />
-  </div>
+ 
   <section className="hero hero-normal">
   <div className="container">
     <div className="row">
@@ -203,7 +201,6 @@ function ShoppingCart() {
     </div>
   </section>
   {/* Shoping Cart Section End */}
-</div>
 
 
  

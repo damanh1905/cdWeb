@@ -324,11 +324,12 @@ function Home() {
         <div className="col-lg-4 col-md-6">
           <div className="latest-product__text">
             <h4>Latest Products</h4>
-            <div className="latest-product__slider owl-carousel">
+            {/* <div className="latest-product__slider owl-carousel">
               <div className="latest-prdouct__slider__item">
                 <a href="#" className="latest-product__item">
                   <div className="latest-product__item__pic">
-                    <img src="assets/img/latest-product/lp-1.jpg"  />
+                    <img src="/assets/img/latest-product/lp-1.jpg" />
+                    <p>dasdasda</p>
                   </div>
                   <div className="latest-product__item__text">
                     <h6>Crab Pool Security</h6>
@@ -383,7 +384,9 @@ function Home() {
                   </div>
                 </a>
               </div>
-            </div>
+            </div> */}
+
+            <div>dasdsada</div>
           </div>
         </div>
         <div className="col-lg-4 col-md-6">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState ,useRef,useEffect} from 'react';
 import 'antd/dist/antd.css';
 import './register.scss'
 import {
@@ -46,6 +46,29 @@ const tailFormItemLayout = {
 };
 
 const Register = () => {
+  const [state,setState]=useState(0);
+  const [disable,setdisable]=useState(true);
+  const ref=useRef();
+  const refEmail=useRef();
+  useEffect(() => {
+    console.log(ref.current.input.value)
+  },[state]);
+  
+// handle disabled
+function handleOnchange(){
+    setState(state+1)
+}
+useEffect(() => {
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if(refEmail.current.input.value.match(mailformat))
+    {
+      setdisable(false)
+
+    }else{
+      setdisable(true)
+    }
+  
+},[state]);
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
@@ -120,7 +143,7 @@ const Register = () => {
           },
         ]}
       >
-        <Input />
+        <Input onChange={handleOnchange} ref={refEmail}/>
       </Form.Item>
 
       <Form.Item
@@ -174,10 +197,11 @@ const Register = () => {
         </Select>
       </Form.Item>
 
-      <Form.Item label="Captcha" extra="We must make sure that your are a human.">
+      <Form.Item label="Captcha">
         <Row gutter={8}>
           <Col span={12}>
             <Form.Item
+              id='hello' 
               name="captcha"
               noStyle
               rules={[
@@ -187,11 +211,13 @@ const Register = () => {
                 },
               ]}
             >
-              <Input />
+              <Input  ref={ref}/> 
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Button>Get captcha</Button>
+            <Button  disabled={disable} onClick={()=>{//xu li lick lay gia tri o day
+                  setState(state+1)
+            }}>Get captcha</Button>
           </Col>
         </Row>
       </Form.Item>

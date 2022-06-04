@@ -1,57 +1,89 @@
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import "./Login.module.scss";
-import "./login.scss";
+import React from 'react';
+import 'antd/dist/antd.css';
+import './login.scss'
+import { Form, Input, Button, Checkbox } from 'antd';
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
+
 const Login = () => {
-  const formik = useFormik({
-    initialValues: {
+  const onFinish = (values) => {
+    console.log('Success:', values);
+  };
 
-      name: "",
-
-      password: "",
-
-    },
-
-    onSubmit: (values) => {
-      window.alert("Form submitted");
-      console.log(values);
-    },
-  });
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
 
   return (
-      <div className="container-Login">
-<div className="Login">
-          <header>Login</header>
-          <section>
-      <form className="infoform" onSubmit={formik.handleSubmit}>
-        <label> Username </label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value={formik.values.name}
-          onChange={formik.handleChange}
-          placeholder="Enter your name"
+        <div className='container-form'>
+              <h2>Welcome to Organi</h2>
+              <div className='container-login'>
+              <Form
+      name="normal_login"
+      className="login-form"
+      initialValues={{
+        remember: true,
+      }}
+      onFinish={onFinish}
+    >
+      <Form.Item
+        name="username"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your Username!',
+          },
+        ]}
+      >
+        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+      </Form.Item>
+      <Form.Item
+        name="password"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your Password!',
+          },
+        ]}
+      >
+        <Input
+          prefix={<LockOutlined className="site-form-item-icon" />}
+          type="password"
+          placeholder="Password"
         />
-        {formik.errors.name && (
-          <p className="errorMsg"> {formik.errors.name} </p>
-        )}
+      </Form.Item>
+      <Form.Item>
+        <Form.Item name="remember" valuePropName="checked" noStyle>
+          <Checkbox>Remember me</Checkbox>
+        </Form.Item>
 
-        <label> Password </label>
-        <input
-          type="text"
-          id="password"
-          name="password"
-          value={formik.values.password}
-          onChange={formik.handleChange}
-          placeholder="Enter your password"
-        />
+        <a className="login-form-forgot" href="">
+          Forgot password
+        </a>
+      </Form.Item>
 
-        <button type="submit"> Login </button>
-      </form>
-    </section>
-    </div>
-      </div>
+      <Form.Item>
+        <Button type="primary" htmlType="submit" className="login-form-button">
+          Log in
+        </Button>
+        Or       <Link to={"/register"} > Register now</Link>
+      </Form.Item>
+    </Form>
+            <div className='container-right-login'>
+                  <div className='container-button'>
+                  <button className='login-with-facebook'>
+                  <i className="fa-brands fa-facebook-f"></i>
+                          Facebook
+                  </button>
+                  <button className='login-with-google'>
+                  <i className="fa-brands fa-google"></i>
+                          Google
+                  </button>
+                  </div>
+            </div>
+              </div>
+             
+        </div>
   );
 };
 

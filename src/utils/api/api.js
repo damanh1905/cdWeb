@@ -1,4 +1,4 @@
-import instance from "./axios";
+import instance from "./Axios";
 
 const doGet = (requestUrl) => {
   return instance.get(requestUrl);

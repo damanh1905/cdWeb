@@ -8,11 +8,11 @@ import GlobalStyles from "./styles/GlobalStyles";
 
 ReactDOM.render(
   <Provider store={store}>
-    <React.StrictMode>
+    {/* <React.StrictMode> */}
       <GlobalStyles>
         <App />
       </GlobalStyles>
-    </React.StrictMode>
+    {/* </React.StrictMode> */}
   </Provider>,
   document.getElementById("root")
 );

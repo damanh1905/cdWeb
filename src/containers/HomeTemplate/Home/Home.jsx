@@ -1,15 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { doGet } from "../../../utils/api/api";
+import { doGet, doPost } from "../../../utils/api/api";
+import { Link } from "react-router-dom";
 
 function Home() {
-  const [name, setName] = useState("");
+  const [product, setProduct] = useState([]);
+
+  const handleAddCart = (id) => {
+    console.log(id);
+    (async () => {
+      try {
+        const data = await doPost(`cart/addUpdateRemove?action=add`, {
+          productId: id,
+          quantity: 1,
+        });
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  };
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await doGet("product/ShowAndsearch?pageIndex=1&pageSize=1");
-        console.log(data);
-        // setName(data.name);
+        const { data } = await doGet("product/ShowAndsearch");
+        console.log(data.data.products);
+
+        setProduct(data.data.products);
       } catch (e) {
+        console.log(e);
         // setNavigate(true);
       }
     })();
@@ -95,14 +113,13 @@ function Home() {
                       "url(" + "assets/img/hero/banner.jpg" + ")",
                   }}
                 >
-                  >
                   <div className="hero__text">
                     <span>FRUIT FRESH</span>
                     <h2>
                       Vegetable <br />
                       100% Organic
                     </h2>
-                    <p>Free Pickup and Delivery Available</p>
+                    {/* <p>Free Pickup and Delivery Available</p> */}
                     <a href="#" className="primary-btn">
                       SHOP NOW
                     </a>
@@ -214,43 +231,59 @@ function Home() {
               </div>
             </div>
             <div className="row featured__filter">
-              <div className="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
-                <div className="featured__item">
+              {product &&
+                product.map((items, index) => (
                   <div
-                    className="featured__item__pic set-bg"
-                    style={{
-                      backgroundImage:
-                        "url(" + "assets/img/featured/feature-1.jpg" + ")",
-                    }}
-                    data-setbg="assets/img/featured/feature-1.jpg"
+                    key={index}
+                    className="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat"
                   >
-                    <ul className="featured__item__pic__hover">
-                      <li>
-                        <a href="#">
-                          <i className="fa fa-heart" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i className="fa fa-retweet" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i className="fa fa-shopping-cart" />
-                        </a>
-                      </li>
-                    </ul>
+                    <div className="featured__item">
+                      <div
+                        className="featured__item__pic set-bg"
+                        style={{
+                          backgroundImage:
+                            "url(" + "assets/img/featured/feature-1.jpg" + ")",
+                        }}
+                        data-setbg="assets/img/featured/feature-2.jpg"
+                      >
+                        <ul className="featured__item__pic__hover">
+                          <li>
+                            <a href="#">
+                              <i className="fa fa-heart" />
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              <i className="fa fa-retweet" />
+                            </a>
+                          </li>
+                          <li>
+                            <a>
+                              <i
+                                onClick={() => handleAddCart(items.id)}
+                                className="fa fa-shopping-cart"
+                              />
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                      <div className="featured__item__text">
+                        <h6>
+                          <Link to={{ pathname: `shopDetail/${items.id}` }}>
+                            {items.name}
+                          </Link>
+                        </h6>
+                        <h5 fontSize="16px" fontWeight="bold" mr={1}>
+                          {new Intl.NumberFormat("vi-VN", {
+                            style: "currency",
+                            currency: "VND",
+                          }).format(items.price)}
+                        </h5>
+                      </div>
+                    </div>
                   </div>
-                  <div className="featured__item__text">
-                    <h6>
-                      <a href="#">Crab Pool Security</a>
-                    </h6>
-                    <h5>$30.00</h5>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-3 col-md-4 col-sm-6 mix vegetables fastfood">
+                ))}
+              {/* <div className="col-lg-3 col-md-4 col-sm-6 mix vegetables fastfood">
                 <div className="featured__item">
                   <div
                     className="featured__item__pic set-bg"
@@ -501,7 +534,7 @@ function Home() {
                     <h5>$30.00</h5>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </section>
@@ -758,10 +791,10 @@ function Home() {
                     <h5>
                       <a href="#">Cooking tips make cooking simple</a>
                     </h5>
-                    <p>
+                    {/* <p>
                       Sed quia non numquam modi tempora indunt ut labore et
                       dolore magnam aliquam quaerat{" "}
-                    </p>
+                    </p> */}
                   </div>
                 </div>
               </div>
@@ -782,10 +815,10 @@ function Home() {
                     <h5>
                       <a href="#">6 ways to prepare breakfast for 30</a>
                     </h5>
-                    <p>
+                    {/* <p>
                       Sed quia non numquam modi tempora indunt ut labore et
                       dolore magnam aliquam quaerat{" "}
-                    </p>
+                    </p> */}
                   </div>
                 </div>
               </div>
@@ -806,10 +839,10 @@ function Home() {
                     <h5>
                       <a href="#">Visit the clean farm in the US</a>
                     </h5>
-                    <p>
+                    {/* <p>
                       Sed quia non numquam modi tempora indunt ut labore et
                       dolore magnam aliquam quaerat{" "}
-                    </p>
+                    </p> */}
                   </div>
                 </div>
               </div>

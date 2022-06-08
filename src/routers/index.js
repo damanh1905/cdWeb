@@ -17,11 +17,12 @@ const publicRouterUser = [
   { path: "/checkout", component: CheckOut },
   { path: "/contact", component: Contact },
   { path: "/home", component: Home },
-  { path: "/shopDetail", component: ShopDetail },
+  { path: "/shopDetail/:id", component: ShopDetail },
+  // { path: "/shopDetail", component: ShopDetail },
   { path: "/shopGrid", component: ShopGrid },
   { path: "/shoppingCart", component: ShoppingCart },
-  { path: "/product", component: Product,layout:null },
-  { path: "/register", component: Register,layout:null },
-  { path: "/login", component: Login,layout:null },
+  { path: "/product", component: Product, layout: null },
+  { path: "/register", component: Register, layout: null },
+  { path: "/login", component: Login, layout: null },
 ];
-export {publicRouterUser} 
+export { publicRouterUser };

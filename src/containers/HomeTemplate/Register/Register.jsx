@@ -54,25 +54,6 @@ const Register = () => {
   const [disableverify, setDisableverify] = useState(false);
   let navigate = useNavigate();
 
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const { data } = await doGet(`auth/checkEmail?email=${email}`);
-
-  //       setCheckEmail(true);
-  //       // console.log(checkEmail);
-  //     } catch (e) {
-  //       setCheckEmail(false);
-  //       // console.log("aaaaaaa");
-  //     }
-  //   })();
-  //   var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-  //   if (email?.match(mailformat)) {
-  //     setdisable(false);
-  //   } else {
-  //     setdisable(true);
-  //   }
-  // }, [email]);
   const [form] = Form.useForm();
   const handleCheckUser = () => {
     return doGet(
@@ -185,16 +166,7 @@ const Register = () => {
               {
                 async validator(_, value) {
                   const data = await handleCheckUser();
-                  // const data1 = _.debounce(handleCheckUser(), 2000);
-                  // const data = debounce(() => {
-                  //   const data = handleCheckUser();
-                  //   if (data.data.status === 404) {
-                  //     console.log("user is already taken!");
-                  //     return Promise.reject(new Error("user is already taken!"));
-                  //   }
-                  //   return Promise.resolve();
-                  // }, 2000);
-                  // console.log("data: ", data);
+
                   if (data.data.status === 404 && disableverify === false) {
                     console.log(disableverify);
                     console.log("user is already taken!");
@@ -258,7 +230,7 @@ const Register = () => {
                     {
                       async validator(_, value) {
                         const data = await handleCheckCode();
-                        // console.log("data: ", data);
+                        console.log("data: ", data);
                         if (
                           data.data.status === 404 &&
                           disableverify === false

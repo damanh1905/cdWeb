@@ -15,7 +15,8 @@ const Login = () => {
   const onFinish = async ({ username, password }) => {
     try {
       const { data } = await doPost("auth/login", { username, password });
-      // console.log(data['token']);
+      console.log(data['username']);
+      localStorage.setItem("username",data['username']);
       Cookies.set('token', data['token'], { expires: 1, path: '/' })
       Cookies.set('refreshToken', data['refreshToken'], { expires: 7, path: '/' })
       // console.log( Cookies.get('token'));

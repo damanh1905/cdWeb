@@ -17,7 +17,7 @@ const publicRouterUser = [
   { path: "/checkout", component: CheckOut },
   { path: "/contact", component: Contact },
   { path: "/home", component: Home },
-  { path: "/shopDetail/:id", component: ShopDetail },
+  { path: "/:id", component: ShopDetail },
   // { path: "/shopDetail", component: ShopDetail },
   { path: "/shopGrid", component: ShopGrid },
   { path: "/shoppingCart", component: ShoppingCart },

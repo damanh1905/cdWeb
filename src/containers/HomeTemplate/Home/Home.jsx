@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { doGet, doPost } from "../../../utils/api/api";
 import { Link } from "react-router-dom";
 
+import SearchProduct from "../../../components/Layout/Search/SearchProduct";
+
 function Home() {
   const [product, setProduct] = useState([]);
 
@@ -19,11 +21,12 @@ function Home() {
       }
     })();
   };
+
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await doGet("product/ShowAndsearch");
-        console.log(data.data.products);
+        const { data } = await doGet("product/ShowAndsearch?searchValue=all");
+        // console.log(data.data.products);
 
         setProduct(data.data.products);
       } catch (e) {
@@ -83,18 +86,7 @@ function Home() {
               </div>
               <div className="col-lg-9">
                 <div className="hero__search">
-                  <div className="hero__search__form">
-                    <form action="#">
-                      <div className="hero__search__categories">
-                        All Categories
-                        <span className="arrow_carrot-down" />
-                      </div>
-                      <input type="text" placeholder="What do yo u need?" />
-                      <button type="submit" className="site-btn">
-                        SEARCH
-                      </button>
-                    </form>
-                  </div>
+                  <SearchProduct />
                   <div className="hero__search__phone">
                     <div className="hero__search__phone__icon">
                       <i className="fa fa-phone" />
@@ -269,7 +261,7 @@ function Home() {
                       </div>
                       <div className="featured__item__text">
                         <h6>
-                          <Link to={{ pathname: `shopDetail/${items.id}` }}>
+                          <Link to={{ pathname: `/${items.id}` }}>
                             {items.name}
                           </Link>
                         </h6>

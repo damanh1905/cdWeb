@@ -131,10 +131,10 @@ function ShopDetail() {
                 <div className="product__details__pic__item">
                   <Image
                     className="product__details__pic__item--large"
-                    src="/assets/img/product/details/product-details-1.jpg"
+                    src="/assets/img/blog/blog-1.jpg"
                   />
                 </div>
-                <div className={styles.wrapper}></div>
+                {/* <div className={styles.wrapper}></div> */}
                 {/* <div className="product__details__pic__slider owl-carousel">
                   <Image
                     // data-imgbigurl="img/product/details/product-details-2.jpg"

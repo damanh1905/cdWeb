@@ -5,32 +5,35 @@ import { Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { doPost } from "../../../utils/api/api";
-import Cookies from 'js-cookie'
-import {Navigate} from "react-router-dom";
-import instance from "../../../utils/api/Axios"
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+import instance from "../../../utils/api/Axios";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [err, setErr] = useState(false);
-  const [navigate, setNavigate] = useState(false);
+
   const onFinish = async ({ username, password }) => {
     try {
       const { data } = await doPost("auth/login", { username, password });
-      console.log(data['username']);
-      localStorage.setItem("username",data['username']);
-      Cookies.set('token', data['token'], { expires: 1, path: '/' })
-      Cookies.set('refreshToken', data['refreshToken'], { expires: 7, path: '/' })
+      console.log(data["username"]);
+      localStorage.setItem("username", data["username"]);
+      Cookies.set("token", data["token"], { expires: 1, path: "/" });
+      Cookies.set("refreshToken", data["refreshToken"], {
+        expires: 7,
+        path: "/",
+      });
       // console.log( Cookies.get('token'));
-      instance.defaults.headers.common['Authorization'] = `Bearer ${Cookies.get('token')}`;
-
+      instance.defaults.headers.common["Authorization"] = `Bearer ${Cookies.get(
+        "token"
+      )}`;
+      navigate("/");
     } catch (error) {
       console.log(error);
       setErr(true);
+      navigate("/login");
     }
-    setNavigate(true);
   };
-  if (navigate) {
-    return <Navigate to="/"/>;
-}
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -114,7 +117,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-     {err && (<h5> UserName or password wrong</h5>)}
+      {err && <h5> UserName or password wrong</h5>}
     </div>
   );
 };

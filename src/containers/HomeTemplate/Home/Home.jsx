@@ -6,6 +6,8 @@ import SearchProduct from "../../../components/Layout/Search/SearchProduct";
 
 function Home() {
   const [product, setProduct] = useState([]);
+  // const [accessories, setAccessories] = useState([]);
+  // const [footwer, setFootwer] = useState([]);
 
   const handleAddCart = (id) => {
     console.log(id);
@@ -21,20 +23,58 @@ function Home() {
       }
     })();
   };
+  const handleAllProduct = async () => {
+    try {
+      const { data } = await doGet("product/ShowAndsearch?searchValue=all");
+      // console.log(data.data.products);
 
+      setProduct(data.data.products);
+    } catch (e) {
+      console.log(e);
+      // setNavigate(true);
+    }
+  };
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await doGet("product/ShowAndsearch?searchValue=all");
-        // console.log(data.data.products);
-
-        setProduct(data.data.products);
+        handleAllProduct();
       } catch (e) {
         console.log(e);
         // setNavigate(true);
       }
     })();
   }, []);
+  const handleAccessories = () => {
+    (async () => {
+      try {
+        const { data } = await doGet(
+          "category/showCategory?nameCategory=accessories"
+        );
+        // console.log(data.data);
+
+        setProduct(data.data.productResponses);
+      } catch (e) {
+        console.log(e);
+        // setNavigate(true);
+      }
+    })();
+  };
+  const handleootwer = () => {
+    (async () => {
+      try {
+        const { data } = await doGet(
+          "category/showCategory?nameCategory=footwer"
+        );
+        console.log(data.data.productResponses);
+
+        setProduct(data.data.productResponses);
+      } catch (e) {
+        console.log(e);
+        // setNavigate(true);
+      }
+    })();
+  };
+
   return (
     <>
       <div>
@@ -200,7 +240,8 @@ function Home() {
             </div>
           </div>
         </section>
-        {/* Categories Section End */}
+
+        {/* Featured Section End */}
         {/* Featured Section Begin */}
         <section className="featured spad">
           <div className="container">
@@ -211,11 +252,19 @@ function Home() {
                 </div>
                 <div className="featured__controls">
                   <ul>
-                    <li className="active" data-filter="*">
+                    <li
+                      className="active"
+                      data-filter="*"
+                      onClick={handleAllProduct}
+                    >
                       All
                     </li>
-                    <li data-filter=".oranges">Oranges</li>
-                    <li data-filter=".fresh-meat">Fresh Meat</li>
+                    <li data-filter=".oranges" onClick={handleAccessories}>
+                      Oranges
+                    </li>
+                    <li data-filter=".fresh-meat" onClick={handleootwer}>
+                      Fresh Meat
+                    </li>
                     <li data-filter=".vegetables">Vegetables</li>
                     <li data-filter=".fastfood">Fastfood</li>
                   </ul>
@@ -227,15 +276,21 @@ function Home() {
                 product.map((items, index) => (
                   <div
                     key={index}
-                    className="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat"
+                    className="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat "
                   >
                     <div className="featured__item">
                       <div
                         className="featured__item__pic set-bg"
                         style={{
                           backgroundImage:
-                            "url(" + "assets/img/featured/feature-1.jpg" + ")",
+                            "url(" +
+                            `/assets/img/secondhand/accessories/${items.imageEntity[0].url}` +
+                            ")",
                         }}
+                        // style={{
+                        //   backgroundImage:
+                        //     "url(" + "assets/img/featured/feature-1.jpg" + ")",
+                        // }}
                         data-setbg="assets/img/featured/feature-2.jpg"
                       >
                         <ul className="featured__item__pic__hover">
@@ -275,258 +330,6 @@ function Home() {
                     </div>
                   </div>
                 ))}
-              {/* <div className="col-lg-3 col-md-4 col-sm-6 mix vegetables fastfood">
-                <div className="featured__item">
-                  <div
-                    className="featured__item__pic set-bg"
-                    style={{
-                      backgroundImage:
-                        "url(" + "assets/img/featured/feature-2.jpg" + ")",
-                    }}
-                    data-setbg="assets/img/featured/feature-2.jpg"
-                  >
-                    <ul className="featured__item__pic__hover">
-                      <li>
-                        <a href="#">
-                          <i className="fa fa-heart" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i className="fa fa-retweet" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i className="fa fa-shopping-cart" />
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="featured__item__text">
-                    <h6>
-                      <a href="#">Crab Pool Security</a>
-                    </h6>
-                    <h5>$30.00</h5>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-3 col-md-4 col-sm-6 mix vegetables fresh-meat">
-                <div className="featured__item">
-                  <div
-                    className="featured__item__pic set-bg"
-                    style={{
-                      backgroundImage:
-                        "url(" + "assets/img/featured/feature-3.jpg" + ")",
-                    }}
-                    data-setbg="assets/img/featured/feature-3.jpg"
-                  >
-                    <ul className="featured__item__pic__hover">
-                      <li>
-                        <a href="#">
-                          <i className="fa fa-heart" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i className="fa fa-retweet" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i className="fa fa-shopping-cart" />
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="featured__item__text">
-                    <h6>
-                      <a href="#">Crab Pool Security</a>
-                    </h6>
-                    <h5>$30.00</h5>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-3 col-md-4 col-sm-6 mix fastfood oranges">
-                <div className="featured__item">
-                  <div
-                    className="featured__item__pic set-bg"
-                    style={{
-                      backgroundImage:
-                        "url(" + "assets/img/featured/feature-4.jpg" + ")",
-                    }}
-                    data-setbg="assets/img/featured/feature-4.jpg"
-                  >
-                    <ul className="featured__item__pic__hover">
-                      <li>
-                        <a href="#">
-                          <i className="fa fa-heart" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i className="fa fa-retweet" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i className="fa fa-shopping-cart" />
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="featured__item__text">
-                    <h6>
-                      <a href="#">Crab Pool Security</a>
-                    </h6>
-                    <h5>$30.00</h5>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
-                <div className="featured__item">
-                  <div
-                    className="featured__item__pic set-bg"
-                    style={{
-                      backgroundImage:
-                        "url(" + "assets/img/featured/feature-5.jpg" + ")",
-                    }}
-                    data-setbg="assets/img/featured/feature-5.jpg"
-                  >
-                    <ul className="featured__item__pic__hover">
-                      <li>
-                        <a href="#">
-                          <i className="fa fa-heart" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i className="fa fa-retweet" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i className="fa fa-shopping-cart" />
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="featured__item__text">
-                    <h6>
-                      <a href="#">Crab Pool Security</a>
-                    </h6>
-                    <h5>$30.00</h5>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-3 col-md-4 col-sm-6 mix oranges fastfood">
-                <div className="featured__item">
-                  <div
-                    className="featured__item__pic set-bg"
-                    style={{
-                      backgroundImage:
-                        "url(" + "assets/img/featured/feature-6.jpg" + ")",
-                    }}
-                    data-setbg="assets/img/featured/feature-6.jpg"
-                  >
-                    <ul className="featured__item__pic__hover">
-                      <li>
-                        <a href="#">
-                          <i className="fa fa-heart" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i className="fa fa-retweet" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i className="fa fa-shopping-cart" />
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="featured__item__text">
-                    <h6>
-                      <a href="#">Crab Pool Security</a>
-                    </h6>
-                    <h5>$30.00</h5>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
-                <div className="featured__item">
-                  <div
-                    className="featured__item__pic set-bg"
-                    style={{
-                      backgroundImage:
-                        "url(" + "assets/img/featured/feature-7.jpg" + ")",
-                    }}
-                    data-setbg="assets/img/featured/feature-7.jpg"
-                  >
-                    <ul className="featured__item__pic__hover">
-                      <li>
-                        <a href="#">
-                          <i className="fa fa-heart" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i className="fa fa-retweet" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i className="fa fa-shopping-cart" />
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="featured__item__text">
-                    <h6>
-                      <a href="#">Crab Pool Security</a>
-                    </h6>
-                    <h5>$30.00</h5>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-3 col-md-4 col-sm-6 mix fastfood vegetables">
-                <div className="featured__item">
-                  <div
-                    className="featured__item__pic set-bg"
-                    style={{
-                      backgroundImage:
-                        "url(" + "assets/img/featured/feature-8.jpg" + ")",
-                    }}
-                    data-setbg="assets/img/featured/feature-8.jpg"
-                  >
-                    <ul className="featured__item__pic__hover">
-                      <li>
-                        <a href="#">
-                          <i className="fa fa-heart" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i className="fa fa-retweet" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i className="fa fa-shopping-cart" />
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="featured__item__text">
-                    <h6>
-                      <a href="#">Crab Pool Security</a>
-                    </h6>
-                    <h5>$30.00</h5>
-                  </div>
-                </div>
-              </div> */}
             </div>
           </div>
         </section>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { doGet, doPost } from "../../../utils/api/api";
-import HeadlessTippy from '@tippyjs/react/headless';
+import HeadlessTippy from "@tippyjs/react/headless";
 
 import styles from "./SearchProduct.module.scss";
 import Wrapper from "../Popper";
@@ -14,8 +14,7 @@ function SearchProduct() {
   const [showResult, setShowResult] = useState(true);
   const [loading, setLoading] = useState(false);
 
- 
-  const useBounce = useDebounce(searchValue, 500);
+  const useBounce = useDebounce(searchValue, 700);
   useEffect(() => {
     if (!searchValue) {
       setSearchResult([]);
@@ -49,60 +48,56 @@ function SearchProduct() {
   };
   return (
     <div>
-    <HeadlessTippy
-      placement="bottom"
-      interactive
-      visible={showResult && searchResult.length > 0}
-      render={(attrs) => (
-        <div className={styles["search-result"]} tabIndex="-1" {...attrs}>
-          <Wrapper>
-            <h6 style={{ marginLeft: "25px" }}>Product </h6>
-            {searchResult.map((result) => (
-              <ProductItem key={result.id} data={result} />
-            ))}
-           
+      <HeadlessTippy
+        placement="bottom"
+        interactive
+        visible={showResult && searchResult.length > 0}
+        render={(attrs) => (
+          <div className={styles["search-result"]} tabIndex="-1" {...attrs}>
+            <Wrapper>
+              <h6 style={{ marginLeft: "25px" }}>Product </h6>
+              {searchResult.map((result) => (
+                <ProductItem key={result.id} data={result} />
+              ))}
+            </Wrapper>
+          </div>
+        )}
+        onClickOutside={handleHideResult}
+      >
+        <div className="hero__search__form">
+          <div className={styles.wrapper}>
+            <input
+              ref={inputRef}
+              value={searchValue}
+              onChange={handleChange}
+              className={styles.valueInput}
+              placeholder="What do you need?"
+              onFocus={() => setShowResult(true)}
+            />
+            {!!searchValue && !loading && (
+              <button
+                onClick={() => {
+                  setSearchValue("");
+                  setSearchResult([]);
+                  inputRef.current.focus();
+                }}
+                className={styles.clear}
+              >
+                <i class="fa-solid fa-circle-xmark"></i>
+              </button>
+            )}
 
-
-
-          </Wrapper>
-        </div>
-      )}
-      onClickOutside={handleHideResult}
-    >
-      <div className="hero__search__form">
-        <div className={styles.wrapper}>
-          <input
-            ref={inputRef}
-            value={searchValue}
-            onChange={handleChange}
-            className={styles.valueInput}
-            placeholder="What do you need?"
-            onFocus={() => setShowResult(true)}
-          />
-          {!!searchValue && !loading && (
-            <button
-              onClick={() => {
-                setSearchValue("");
-                setSearchResult([]);
-                inputRef.current.focus();
-              }}
-              className={styles.clear}
-            >
-              <i class="fa-solid fa-circle-xmark"></i>
+            {loading && (
+              <button className={styles.loading}>
+                <i class="fa-solid fa-spinner"></i>
+              </button>
+            )}
+            <button onClick={handleSearch} type="submit" className="site-btn">
+              SEARCH
             </button>
-          )}
-
-          {loading && (
-            <button className={styles.loading}>
-              <i class="fa-solid fa-spinner"></i>
-            </button>
-          )}
-          <button onClick={handleSearch} type="submit" className="site-btn">
-            SEARCH
-          </button>
+          </div>
         </div>
-      </div>
-    </HeadlessTippy>
+      </HeadlessTippy>
     </div>
   );
 }

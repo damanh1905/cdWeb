@@ -7,7 +7,7 @@ function ProductItem({ data }) {
     <Link to={{ pathname: `/${data.id}` }} className={styles["wrapper"]}>
       <img
         className={styles["avatar"]}
-        src="https://thumbs.dreamstime.com/b/no-image-available-icon-flat-vector-no-image-available-icon-flat-vector-illustration-132482953.jpg"
+        src="/assets/img/blog/blog-1.jpg"
         alt="Hoaa"
       />
       <div className={styles["info"]}>

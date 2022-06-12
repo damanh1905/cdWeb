@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "antd/dist/antd.css";
 import "./register.scss";
@@ -17,6 +17,7 @@ import {
 import { doGet, doPost } from "../../../utils/api/api";
 import { debounce } from "lodash";
 import Password from "antd/lib/input/Password";
+
 const { Option } = Select;
 const formItemLayout = {
   labelCol: {
@@ -67,15 +68,18 @@ const Register = () => {
   };
   const handleSubmitEmail = async () => {
     if (form.getFieldValue("username").length > 6) {
-      const data = await doPost("auth/registerEmail", {
+      const { data } = await doPost("auth/registerEmail", {
         name: form.getFieldValue("username"),
         email: form.getFieldValue("email"),
       });
-      console.log(data);
+      console.log(data.status);
+      
     } else {
       console.log("user lớn hơn 6 nha");
     }
   };
+
+  console.log("render2");
 
   const onFinish = async (values) => {
     const { password, phone, gender, username } = values;
@@ -240,6 +244,7 @@ const Register = () => {
                           );
                         }
                         setDisableverify(true);
+                        setDisable(true);
                         console.log("user is already taken!");
                         return Promise.resolve();
                       },

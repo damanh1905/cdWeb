@@ -20,7 +20,7 @@ function ShoppingCart() {
         });
         console.log(data);
         setChechChange(false);
-        console.log("input", checkChage);
+        // console.log("input", checkChage);
       } catch (error) {
         console.log(error);
       }
@@ -33,7 +33,7 @@ function ShoppingCart() {
         quantity: 0,
       });
 
-      console.log(data);
+      // console.log(data);
       setChechChange(false);
     })();
   };

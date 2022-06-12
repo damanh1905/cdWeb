@@ -136,12 +136,14 @@ function Header() {
                 <ul>
                   <li>
                     <a href="#">
-                      <i className="fa fa-heart"></i> <span>1</span>
+                      <i className="fa fa-heart"></i>
+                       {/* <span>1</span> */}
                     </a>
                   </li>
                   <li>
                     <Link to="/shoppingCart">
-                      <i className="fa fa-shopping-bag"></i> <span>3</span>
+                      <i className="fa fa-shopping-bag"></i> 
+                      {/* <span>3</span> */}
                     </Link>
                   </li>
                 </ul>

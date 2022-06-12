@@ -10,6 +10,9 @@ import ShopGrid from "../containers/HomeTemplate/ShopGrid";
 import ShoppingCart from "../containers/HomeTemplate/ShoppingCart";
 import Register from "../containers/HomeTemplate/Register/Register";
 import Login from "../containers/HomeTemplate/Login/Login";
+import Wishlist from "../containers/HomeTemplate/Wishlist";
+import EditUser from "../containers/HomeTemplate/EditUser";
+import Sell from "../containers/HomeTemplate/Sell";
 const publicRouterUser = [
   { path: "/", component: Home },
   { path: "/blogDetail", component: BlogDetail },
@@ -21,6 +24,9 @@ const publicRouterUser = [
   // { path: "/shopDetail", component: ShopDetail },
   { path: "/shopGrid", component: ShopGrid },
   { path: "/shoppingCart", component: ShoppingCart },
+  { path: "/wishlist", component: Wishlist },
+  { path: "/edituser", component: EditUser },
+  { path: "/sell", component: Sell },
   { path: "/product", component: Product, layout: null },
   { path: "/register", component: Register, layout: null },
   { path: "/login", component: Login, layout: null },

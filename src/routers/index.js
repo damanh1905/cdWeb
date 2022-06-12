@@ -8,11 +8,13 @@ import Home from "../containers/HomeTemplate/Home";
 import ShopDetail from "../containers/HomeTemplate/ShopDetail";
 import ShopGrid from "../containers/HomeTemplate/ShopGrid";
 import ShoppingCart from "../containers/HomeTemplate/ShoppingCart";
-import Register from "../containers/HomeTemplate/Register/Register";
+import Register from "../containers/HomeTemplate/Register";
 import Login from "../containers/HomeTemplate/Login/Login";
 import Wishlist from "../containers/HomeTemplate/Wishlist";
 import EditUser from "../containers/HomeTemplate/EditUser";
 import Sell from "../containers/HomeTemplate/Sell";
+import ForgotPassword from "../containers/HomeTemplate/ForgotPassword";
+
 const publicRouterUser = [
   { path: "/", component: Home },
   { path: "/blogDetail", component: BlogDetail },
@@ -30,5 +32,6 @@ const publicRouterUser = [
   { path: "/product", component: Product, layout: null },
   { path: "/register", component: Register, layout: null },
   { path: "/login", component: Login, layout: null },
+  { path: "/forgotpassword", component: ForgotPassword, layout: null },
 ];
 export { publicRouterUser };

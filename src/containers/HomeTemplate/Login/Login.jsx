@@ -14,6 +14,7 @@ import FacebookLogin from "react-facebook-login";
 const responseGoogle = (response) => {
   console.log(response);
 };
+
 const responseFacebook = (response) => {
   console.log(response);
 };
@@ -126,7 +127,6 @@ const Login = () => {
               // onClick={componentClicked}
               callback={responseFacebook}
             />
-            
             {/* <button className="login-with-google">
               <i className="fa-brands fa-google"></i>
               Google

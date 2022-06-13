@@ -8,6 +8,15 @@ import { doPost } from "../../../utils/api/api";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import instance from "../../../utils/api/Axios";
+import { GoogleLogin } from "react-google-login";
+import FacebookLogin from "react-facebook-login";
+
+const responseGoogle = (response) => {
+  console.log(response);
+};
+const responseFacebook = (response) => {
+  console.log(response);
+};
 
 const Login = () => {
   const navigate = useNavigate();
@@ -106,14 +115,28 @@ const Login = () => {
         </Form>
         <div className="container-right-login">
           <div className="container-button">
-            <button className="login-with-facebook">
+            {/* <button className="login-with-facebook">
               <i className="fa-brands fa-facebook-f"></i>
               Facebook
-            </button>
-            <button className="login-with-google">
+            </button> */}
+            <FacebookLogin
+              appId="1088597931155576"
+              autoLoad={true}
+              fields="name,email,picture"
+              // onClick={componentClicked}
+              callback={responseFacebook}
+            />
+            {/* <button className="login-with-google">
               <i className="fa-brands fa-google"></i>
               Google
-            </button>
+            </button> */}
+            <GoogleLogin
+              clientId="176687431821-4q6tbvv2rn86p6rtvp4919tljbnofq3v.apps.googleusercontent.com"
+              buttonText="Login"
+              onSuccess={responseGoogle}
+              onFailure={responseGoogle}
+              cookiePolicy={"single_host_origin"}
+            />
           </div>
         </div>
       </div>

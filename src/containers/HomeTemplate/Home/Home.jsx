@@ -6,9 +6,6 @@ import SearchProduct from "../../../components/Layout/Search/SearchProduct";
 
 function Home() {
   const [product, setProduct] = useState([]);
-  // const [accessories, setAccessories] = useState([]);
-  // const [footwer, setFootwer] = useState([]);
-
   const handleAddCart = (id) => {
     console.log(id);
     (async () => {

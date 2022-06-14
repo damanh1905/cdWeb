@@ -4,25 +4,46 @@ import "./login.scss";
 import { Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import { doPost } from "../../../utils/api/api";
+import { doGet, doPost } from "../../../utils/api/api";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import instance from "../../../utils/api/Axios";
 import { GoogleLogin } from "react-google-login";
 import FacebookLogin from "react-facebook-login";
 
-const responseGoogle = (response) => {
-  console.log(response);
-};
-
-const responseFacebook = (response) => {
-  console.log(response);
-};
+// const responseFacebook = (response) => {
+//   console.log(response);
+// };
 
 const Login = () => {
   const navigate = useNavigate();
   const [err, setErr] = useState(false);
 
+  const responseGoogle = async (response) => {
+    try {
+      const { data } = await doGet(
+        `auth/checkLoginGG?username=${response.profileObj.name}&email=${response.profileObj.email}`
+      );
+      // console.log(data["username"]);
+      console.log(data);
+
+      localStorage.setItem("username", data["username"]);
+      Cookies.set("token", data["token"], { expires: 1, path: "/" });
+      Cookies.set("refreshToken", data["refreshToken"], {
+        expires: 7,
+        path: "/",
+      });
+      // console.log( Cookies.get('token'));
+      instance.defaults.headers.common["Authorization"] = `Bearer ${Cookies.get(
+        "token"
+      )}`;
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+      setErr(true);
+      navigate("/login");
+    }
+  };
   const onFinish = async ({ username, password }) => {
     try {
       const { data } = await doPost("auth/login", { username, password });
@@ -120,14 +141,14 @@ const Login = () => {
               <i className="fa-brands fa-facebook-f"></i>
               Facebook
             </button> */}
-            <FacebookLogin
+            {/* <FacebookLogin
               appId="1088597931155576"
               autoLoad={true}
               fields="name,email,picture"
               // onClick={componentClicked}
               callback={responseFacebook}
-            />
-            
+            /> */}
+
             {/* <button className="login-with-google">
               <i className="fa-brands fa-google"></i>
               Google

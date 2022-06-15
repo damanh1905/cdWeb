@@ -1,0 +1,13 @@
+{
+  "Thanks": {
+    "1": "Thank you"
+  },
+  "header": {
+    "home": "Home",
+    "page": "Pages",
+    "contract": "Contract",
+
+    "login": "Login",
+    "register": "Register"
+  }
+}

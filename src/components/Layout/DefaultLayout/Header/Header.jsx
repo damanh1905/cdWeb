@@ -4,9 +4,17 @@ import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 import { doGet } from "../../../../utils/api/api";
 import { useNavigate } from "react-router-dom";
-import NavBelowHeader from "../../NavBelowHeader/NavBelowHeader";
+import { useTranslation } from 'react-i18next';
 
-function Header() {
+
+function Header(props) {
+  const { t, i18n } = useTranslation();
+  const changeLanguage = (lng) => {
+    console.log(lng);
+    i18n.changeLanguage(lng);
+    localStorage.setItem("lang", lng);
+  }
+
   const [userName, setUserName] = useState();
   const [checkLogin, setCheckLogin] = useState(true);
   useEffect(() => {
@@ -65,10 +73,10 @@ function Header() {
                     <span className="arrow_carrot-down"></span>
                     <ul>
                       <li>
-                        <a href="#">Spanis</a>
+                        <a onClick={() => changeLanguage('en')} href="#">English</a>
                       </li>
                       <li>
-                        <a href="#">English</a>
+                        <a onClick={() => changeLanguage('vn')} href="#">VietNamese</a>
                       </li>
                     </ul>
                   </div>
@@ -103,13 +111,13 @@ function Header() {
               <nav className="header__menu">
                 <ul>
                   <li className="active">
-                    <Link to={"/"}>Home</Link>
+                    <Link to={"/"}>{t('header.home')}</Link>
                   </li>
                   <li>
                     <Link to={"/shopGrid"}>Shop</Link>
                   </li>
                   <li>
-                    <a href="#">Pages</a>
+                    <a href="#">{t('header.page')}</a>
                     <ul className="header__menu__dropdown">
                       <li>
                         <Link to={"/shoppingCart"}>Shopping Cart</Link>
@@ -126,7 +134,7 @@ function Header() {
                     <Link to={"/blog"}>Blog</Link>
                   </li>
                   <li>
-                    <Link to={"/contact"}>Contact</Link>
+                    <Link to={"/contact"}>{t('header.contract')}</Link>
                   </li>
                 </ul>
               </nav>

@@ -5,14 +5,14 @@ import reportWebVitals from "./reportWebVitals";
 import store from "./redux/store";
 import { Provider } from "react-redux";
 import GlobalStyles from "./styles/GlobalStyles";
+import i18n from './i18n';
+
 
 ReactDOM.render(
   <Provider store={store}>
-    {/* <React.StrictMode> */}
       <GlobalStyles>
         <App />
       </GlobalStyles>
-    {/* </React.StrictMode> */}
   </Provider>,
   document.getElementById("root")
 );

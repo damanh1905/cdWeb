@@ -142,7 +142,7 @@ const Register = () => {
   }));
   return (
     <div className="container-register">
-      <h2>{t('register.register')} Organi</h2>
+      <h2>{t('register.register')} <b>Second Hand Town</b></h2>
       <div className="container-register-form">
         <Form
           {...formItemLayout}

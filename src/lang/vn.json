@@ -1,14 +1,13 @@
 {
   "header": {
     "home": "Trang chủ",
-    "shop": "Shop 1",
-    "page": "Các trang",
-    "cart": "Shopping Cart 1",
-    "checkout": "Checkout 1",
-    "details": "Blog Details 1",
-    "item": "item 1",
-
-    "blog": "Blog1",
+    "shop": "Cửa hàng",
+    "page": "Trang",
+    "cart": "Giỏ hàng",
+    "checkout": "Thanh toán",
+    "details": "Chi tiết",
+    "item": "Sản phẩm",
+    "blog": "Bài viết",
     "contract": "Liên hệ",
 
     "login": "Đăng nhập",
@@ -16,39 +15,39 @@
   },
 
   "footer": {
-    "address": "Address 1",
-    "phone": "Phone 1",
-    "email": "Email 1",
-    "title1": "Join Our Newsletter Now 1",
-    "title2": "Get E-mail updates about our latest shop and special offers. 1",
-    "subscribe": "Subscribe 1"
+    "address": "Địa chỉ",
+    "phone": "Số điện thoại",
+    "email": "Email",
+    "title1": "Gửi email cho chúng tôi",
+    "title2": "Để nhận được các ưu đãi và phần quà mới nhất",
+    "subscribe": "Gửi"
   },
 
   "product": "Sản phẩm",
 
   "login": {
-    "welcom": "Welcome to 1",
-    "remember": "Remember me 1",
-    "passwd": "Forgot password 1",
-    "login": "Log in 1",
-    "or": "Or 1",
-    "register": "Register now 1",
-    "err": "UserName or password wrong 1"
+    "welcom": "Chào mừng bạn",
+    "remember": "Nhớ mật khẩu",
+    "passwd": "Quên mật khẩu",
+    "login": "Đăng nhập",
+    "or": "Hoặc",
+    "register": "Đăng ký ngay",
+    "err": "Tên đăng nhập hoặc mật khẩu không hợp lệ"
   },
 
   "register": {
-    "register": "Register to 1",
-    "username": "username 1",
-    "mail": "E-mai 1",
-    "code": "Code 1",
-    "password": "Password 1",
-    "phone": "Phone Number 1",
-    "gender": "Gender 1",
-    "male": "Male 1",
-    "female": "Female ",
-    "other": "Other 1",
-    "title": "I have read the 1",
-    "agreement": "agreement 1",
-    "verify": " Get verify 1"
+    "register": "Đăng ký tài khoản",
+    "username": "Tên người dùng",
+    "mail": "E-mail",
+    "code": "Mã code",
+    "password": "Mật khẩu",
+    "phone": "Số điện thoại",
+    "gender": "Giới tính",
+    "male": "Nam",
+    "female": "Nữ",
+    "other": "Khác",
+    "title": "Tôi đã đọc kỹ",
+    "agreement": "cam kết",
+    "verify": "Lấy mã"
   }
 }

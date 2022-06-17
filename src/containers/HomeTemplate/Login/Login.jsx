@@ -74,7 +74,7 @@ const Login = () => {
 
   return (
     <div className="container-form">
-      <h2>{t('login.welcom')} Organi</h2>
+      <h2>{t('login.welcom')} <b>Second Hand Town</b></h2>
       <div className="container-login">
         <Form
           name="normal_login"

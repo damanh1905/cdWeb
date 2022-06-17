@@ -132,7 +132,7 @@ function Header(props) {
                     </ul>
                   </li>
                   <li>
-                    <Link to={"/blog"}>Blog</Link>
+                    <Link to={"/blog"}>{t('header.blog')}</Link>
                   </li>
                   <li>
                     <Link to={"/contact"}>{t('header.contract')}</Link>

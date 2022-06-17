@@ -417,6 +417,7 @@ ol {
 
 .header__menu {
 	padding: 24px 0;
+	width: 110%;
 }
 
 .header__menu ul li {

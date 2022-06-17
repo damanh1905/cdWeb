@@ -6,8 +6,10 @@ import styles from "./SearchProduct.module.scss";
 import Wrapper from "../Popper";
 import ProductItem from "../ProductItem/ProductItem";
 import { useDebounce } from "../../../Hooks";
+import { useTranslation } from 'react-i18next';
 
 function SearchProduct() {
+  const { t } = useTranslation();
   const inputRef = useRef();
   const [searchResult, setSearchResult] = useState([]);
   const [searchValue, setSearchValue] = useState("");
@@ -55,7 +57,7 @@ function SearchProduct() {
         render={(attrs) => (
           <div className={styles["search-result"]} tabIndex="-1" {...attrs}>
             <Wrapper>
-              <h6 style={{ marginLeft: "25px" }}>Product </h6>
+              <h6 style={{ marginLeft: "25px" }}>{t('product')} </h6>
               {searchResult.map((result) => (
                 <ProductItem key={result.id} data={result} />
               ))}

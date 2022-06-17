@@ -1,13 +1,54 @@
 {
-  "Thanks": {
-    "1": "Thank you"
-  },
   "header": {
     "home": "Home",
+    "shop": "Shop",
     "page": "Pages",
+    "cart": "Shopping Cart",
+    "checkout": "Checkout",
+    "details": "Blog Details",
+    "item": "item",
+
+    "blog": "Blog",
     "contract": "Contract",
 
     "login": "Login",
     "register": "Register"
+  },
+
+  "footer": {
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email",
+    "title1": "Join Our Newsletter Now",
+    "title2": "Get E-mail updates about our latest shop and special offers.",
+    "subscribe": "Subscribe"
+  },
+
+  "product": "Product",
+
+  "login": {
+    "welcom": "Welcome to",
+    "remember": "Remember me",
+    "passwd": "Forgot password",
+    "login": "Log in",
+    "or": "Or",
+    "register": "Register now",
+    "err": "UserName or password wrong"
+  },
+
+  "register": {
+    "register": "Register to",
+    "username": "username",
+    "mail": "E-mai",
+    "code": "Code",
+    "password": "Password",
+    "phone": "Phone Number",
+    "gender": "Gender",
+    "male": "Male",
+    "female": "Female",
+    "other": "Other",
+    "title": "I have read the",
+    "agreement": "agreement",
+    "verify": " Get verify"
   }
 }

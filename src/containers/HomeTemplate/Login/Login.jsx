@@ -10,12 +10,14 @@ import { useNavigate } from "react-router-dom";
 import instance from "../../../utils/api/Axios";
 import { GoogleLogin } from "react-google-login";
 import FacebookLogin from "react-facebook-login";
+import { useTranslation } from 'react-i18next';
 
 // const responseFacebook = (response) => {
 //   console.log(response);
 // };
 
 const Login = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [err, setErr] = useState(false);
 
@@ -72,7 +74,7 @@ const Login = () => {
 
   return (
     <div className="container-form">
-      <h2>Welcome to Organi</h2>
+      <h2>{t('login.welcom')} Organi</h2>
       <div className="container-login">
         <Form
           name="normal_login"
@@ -116,11 +118,11 @@ const Login = () => {
           </Form.Item>
           <Form.Item>
             <Form.Item name="remember" valuePropName="checked" noStyle>
-              <Checkbox>Remember me</Checkbox>
+              <Checkbox>{t('login.remember')}</Checkbox>
             </Form.Item>
 
             <a className="login-form-forgot" href="">
-              Forgot password
+            {t('login.passwd')}
             </a>
           </Form.Item>
 
@@ -130,9 +132,9 @@ const Login = () => {
               htmlType="submit"
               className="login-form-button"
             >
-              Log in
+              {t('login.login')}
             </Button>
-            Or <Link to={"/register"}> Register now</Link>
+            {t('login.or')} <Link to={"/register"}>{t('login.register')}</Link>
           </Form.Item>
         </Form>
         <div className="container-right-login">
@@ -163,7 +165,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-      {err && <h5> UserName or password wrong</h5>}
+      {err && <h5> {t('login.err')}</h5>}
     </div>
   );
 };

@@ -1,13 +1,54 @@
 {
-  "Thanks": {
-    "1": "Cam on"
-  },
   "header": {
     "home": "Trang chủ",
+    "shop": "Shop 1",
     "page": "Các trang",
+    "cart": "Shopping Cart 1",
+    "checkout": "Checkout 1",
+    "details": "Blog Details 1",
+    "item": "item 1",
+
+    "blog": "Blog1",
     "contract": "Liên hệ",
+
     "login": "Đăng nhập",
-    "Register": "Đăng ký"
+    "register": "Đăng ký"
   },
-  "home": "Trang chủ"
+
+  "footer": {
+    "address": "Address 1",
+    "phone": "Phone 1",
+    "email": "Email 1",
+    "title1": "Join Our Newsletter Now 1",
+    "title2": "Get E-mail updates about our latest shop and special offers. 1",
+    "subscribe": "Subscribe 1"
+  },
+
+  "product": "Sản phẩm",
+
+  "login": {
+    "welcom": "Welcome to 1",
+    "remember": "Remember me 1",
+    "passwd": "Forgot password 1",
+    "login": "Log in 1",
+    "or": "Or 1",
+    "register": "Register now 1",
+    "err": "UserName or password wrong 1"
+  },
+
+  "register": {
+    "register": "Register to 1",
+    "username": "username 1",
+    "mail": "E-mai 1",
+    "code": "Code 1",
+    "password": "Password 1",
+    "phone": "Phone Number 1",
+    "gender": "Gender 1",
+    "male": "Male 1",
+    "female": "Female ",
+    "other": "Other 1",
+    "title": "I have read the 1",
+    "agreement": "agreement 1",
+    "verify": " Get verify 1"
+  }
 }

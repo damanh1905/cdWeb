@@ -17,6 +17,7 @@ import {
 import { doGet, doPost } from "../../../utils/api/api";
 import { debounce } from "lodash";
 import Password from "antd/lib/input/Password";
+import { useTranslation } from 'react-i18next';
 
 const { Option } = Select;
 const formItemLayout = {
@@ -51,6 +52,7 @@ const tailFormItemLayout = {
 };
 
 const Register = () => {
+  const { t } = useTranslation();
   const [disable, setDisable] = useState(true);
   const [disableverify, setDisableverify] = useState(false);
   let navigate = useNavigate();
@@ -73,7 +75,7 @@ const Register = () => {
         email: form.getFieldValue("email"),
       });
       console.log(data.status);
-      
+
     } else {
       console.log("user lớn hơn 6 nha");
     }
@@ -140,7 +142,7 @@ const Register = () => {
   }));
   return (
     <div className="container-register">
-      <h2>Register to Organi</h2>
+      <h2>{t('register.register')} Organi</h2>
       <div className="container-register-form">
         <Form
           {...formItemLayout}
@@ -155,7 +157,7 @@ const Register = () => {
         >
           <Form.Item
             name="username"
-            label="username"
+            label={t('register.username')}
             rules={[
               {
                 type: "text",
@@ -186,7 +188,7 @@ const Register = () => {
 
           <Form.Item
             name="email"
-            label="E-mail"
+            label={t('register.mail')}
             rules={[
               {
                 type: "email",
@@ -220,7 +222,7 @@ const Register = () => {
           >
             <Input />
           </Form.Item>
-          <Form.Item label="Code">
+          <Form.Item label={t('register.code')}>
             <Row gutter={8}>
               <Col span={15}>
                 <Form.Item
@@ -256,14 +258,14 @@ const Register = () => {
               </Col>
               <Col span={7}>
                 <Button onClick={handleSubmitEmail} disabled={disable}>
-                  Get verify
+                  {t('register.verify')}
                 </Button>
               </Col>
             </Row>
           </Form.Item>
           <Form.Item
             name="password"
-            label="Password"
+            label={t('register.password')}
             rules={[
               {
                 required: true,
@@ -280,7 +282,7 @@ const Register = () => {
           </Form.Item>
           <Form.Item
             name="phone"
-            label="Phone Number"
+            label={t('register.phone')}
             rules={[
               {
                 min: 10,
@@ -301,7 +303,7 @@ const Register = () => {
           </Form.Item>
           <Form.Item
             name="gender"
-            label="Gender"
+            label={t('register.gender')}
             rules={[
               {
                 required: true,
@@ -310,9 +312,9 @@ const Register = () => {
             ]}
           >
             <Select placeholder="select your gender">
-              <Option value="male">Male</Option>
-              <Option value="female">Female</Option>
-              <Option value="other">Other</Option>
+              <Option value="male">{t('register.male')}</Option>
+              <Option value="female">{t('register.female')}</Option>
+              <Option value="other">{t('register.other')}</Option>
             </Select>
           </Form.Item>
           <Form.Item
@@ -329,12 +331,12 @@ const Register = () => {
             {...tailFormItemLayout}
           >
             <Checkbox>
-              I have read the <a href="">agreement</a>
+              {t('register.title')} <a href="">{t('register.agreement')}</a>
             </Checkbox>
           </Form.Item>
           <Form.Item {...tailFormItemLayout}>
             <Button type="primary" htmlType="submit">
-              Register
+              {t('header.register')}
             </Button>
           </Form.Item>
         </Form>

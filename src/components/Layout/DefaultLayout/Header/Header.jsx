@@ -12,6 +12,7 @@ function Header(props) {
   const changeLanguage = (lng) => {
     console.log(lng);
     i18n.changeLanguage(lng);
+    console.log(lng);
     localStorage.setItem("lang", lng);
   }
 
@@ -114,19 +115,19 @@ function Header(props) {
                     <Link to={"/"}>{t('header.home')}</Link>
                   </li>
                   <li>
-                    <Link to={"/shopGrid"}>Shop</Link>
+                    <Link to={"/shopGrid"}>{t('header.shop')}</Link>
                   </li>
                   <li>
                     <a href="#">{t('header.page')}</a>
                     <ul className="header__menu__dropdown">
                       <li>
-                        <Link to={"/shoppingCart"}>Shopping Cart</Link>
+                        <Link to={"/shoppingCart"}>{t('header.cart')}</Link>
                       </li>
                       <li>
-                        <Link to={"/checkout"}>Checkout</Link>
+                        <Link to={"/checkout"}>{t('header.checkout')}</Link>
                       </li>
                       <li>
-                        <Link to={"/blogDetail"}>Blog Details</Link>
+                        <Link to={"/blogDetail"}>{t('header.details')}</Link>
                       </li>
                     </ul>
                   </li>
@@ -156,7 +157,7 @@ function Header(props) {
                   </li>
                 </ul>
                 <div className="header__cart__price">
-                  item: <span>$150.00</span>
+                  {t('header.item')}: <span>$150.00</span>
                 </div>
               </div>
             </div>
@@ -171,6 +172,7 @@ function Header(props) {
   );
 }
 function FormLogin({ checkLogin, setCheckLogin }) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const handleLogout = () => {
     const userName = localStorage.getItem("username");
@@ -190,11 +192,11 @@ function FormLogin({ checkLogin, setCheckLogin }) {
     return (
       <>
         <div className="header__top__right__auth">
-          <Link to={"/login"}>Login</Link>
+          <Link to={"/login"}>{t('header.login')}</Link>
         </div>
         <div className="header__top__right__auth">
           <Link to={"/register"} style={{ marginLeft: "18px" }}>
-            Register
+            {t('header.register')}
           </Link>
         </div>
       </>

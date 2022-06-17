@@ -1,11 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import SearchProduct from "../../../components/Layout/Search/SearchProduct";
-
+import { Link } from "react-router-dom";
+import { doGet } from "../../../utils/api/api";
 function Wishlist(props) {
+  const [dataWishList, setDataWishList] = useState([]);
+  const [checkData, setCheckData] = useState(true);
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await doGet(`wishlist/findAll?action=show`);
+        console.log(data);
+        setDataWishList(data);
+        setCheckData(true);
+      } catch (e) {
+        console.log(e);
+        // setNavigate(true);
+      }
+    })();
+  }, [checkData]);
+  const handleRemove = (id) => {
+    (async () => {
+      try {
+        const { data } = await doGet(
+          `wishlist/findAll?action=remove&favProductId=${id}`
+        );
+        console.log(data);
+        setCheckData(false);
+      } catch (e) {
+        console.log(e);
+        // setNavigate(true);
+      }
+    })();
+  };
   return (
     <>
-    <section className="hero hero-normal">
+      <section className="hero hero-normal">
         <div className="container">
           <div className="row">
             <div className="col-lg-3">
@@ -71,8 +101,8 @@ function Wishlist(props) {
       <section
         className="breadcrumb-section set-bg"
         style={{
-            backgroundImage: "url(" + "assets/img/breadcrumb.jpg" + ")",
-          }}
+          backgroundImage: "url(" + "assets/img/breadcrumb.jpg" + ")",
+        }}
       >
         <div className="container">
           <div className="row">
@@ -102,16 +132,30 @@ function Wishlist(props) {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td className="shoping__cart__item">
-                        <img src="img/cart/cart-1.jpg" alt="" />
-                        <h5>Vegetable’s Package</h5>
-                      </td>
-                      <td className="shoping__cart__price">$55.00</td>
-                      <td className="shoping__cart__item__close">
-                        <span className="icon_close" />
-                      </td>
-                    </tr>
+                    {dataWishList &&
+                      dataWishList.map((items, index) => (
+                        <tr key={index}>
+                          <td className="shoping__cart__item">
+                            <img src="img/cart/cart-1.jpg" alt="" />
+                            <h5>{items.productEntities.name}</h5>
+                          </td>
+                          <td className="shoping__cart__price">
+                            {" "}
+                            {new Intl.NumberFormat("vi-VN", {
+                              style: "currency",
+                              currency: "VND",
+                            }).format(items.productEntities.price)}
+                          </td>
+                          <td className="shoping__cart__item__close">
+                            <span
+                              className="icon_close"
+                              onClick={() =>
+                                handleRemove(items.productEntities.id)
+                              }
+                            />
+                          </td>
+                        </tr>
+                      ))}
                   </tbody>
                 </table>
               </div>
@@ -120,9 +164,9 @@ function Wishlist(props) {
           <div className="row">
             <div className="col-lg-12">
               <div className="shoping__cart__btns">
-                <a href="#" className="primary-btn cart-btn">
+                <Link to="/" className="primary-btn cart-btn">
                   CONTINUE SHOPPING
-                </a>
+                </Link>
               </div>
             </div>
           </div>

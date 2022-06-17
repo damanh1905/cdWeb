@@ -71,6 +71,17 @@ function Home() {
       }
     })();
   };
+  const handleWishList = (id) => {
+    (async () => {
+      try {
+        const { data } = await doGet(`wishlist/addWishList?iDProduct=${id}`);
+        console.log(data);
+      } catch (e) {
+        console.log(e);
+        // setNavigate(true);
+      }
+    })();
+  };
 
   return (
     <>
@@ -292,12 +303,15 @@ function Home() {
                       >
                         <ul className="featured__item__pic__hover">
                           <li>
-                            <a href="#">
-                              <i className="fa fa-heart" />
+                            <a>
+                              <i
+                                onClick={() => handleWishList(items.id)}
+                                className="fa fa-heart"
+                              />
                             </a>
                           </li>
                           <li>
-                            <a href="#">
+                            <a>
                               <i className="fa fa-retweet" />
                             </a>
                           </li>

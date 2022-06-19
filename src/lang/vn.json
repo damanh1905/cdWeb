@@ -61,6 +61,11 @@
     "top":"Áo",
     "bottoms": "Quần",
     "outerwear":"Áo khoác",
-    "footwear":"Giày"
+    "footwear":"Giày",
+    "LatestProducts":"Sản phẩm mới",
+    "TopSaleProducts":"Sản phẩm bán chạy",
+    "SaleOff":"Giảm giá",
+    "FeaturedProduct":"Sản phẩm đặc trưng",
+    "all":"Tất cả"
   }
 }

@@ -261,7 +261,7 @@ function Home() {
             <div className="row">
               <div className="col-lg-12">
                 <div className="section-title">
-                  <h2>Featured Product</h2>
+                  <h2>{t('home.FeaturedProduct')}</h2>
                 </div>
                 <div className="featured__controls">
                   <ul>
@@ -270,16 +270,17 @@ function Home() {
                       data-filter="*"
                       onClick={handleAllProduct}
                     >
-                      All
+                     {t('home.all')}
                     </li>
-                    <li data-filter=".oranges" onClick={handleAccessories}>
-                      Oranges
+                    <li data-filter=".accessories" onClick={handleAccessories}>
+                    {t('home.accessories')}
                     </li>
-                    <li data-filter=".fresh-meat" onClick={handleootwer}>
-                      Fresh Meat
+                    <li data-filter=".outerwear" onClick={handleootwer}>
+                    {t('home.outerwear')}
                     </li>
-                    <li data-filter=".vegetables">Vegetables</li>
-                    <li data-filter=".fastfood">Fastfood</li>
+                    <li data-filter=".tops"> {t('home.top')}</li>
+                    <li data-filter=".bottoms"> {t('home.bottoms')}</li>
+                    <li data-filter=".footwear"> {t('home.footwear')}</li>
                   </ul>
                 </div>
               </div>
@@ -374,76 +375,73 @@ function Home() {
             <div className="row">
               <div className="col-lg-4 col-md-6">
                 <div className="latest-product__text">
-                  <h4>Latest Products</h4>
-                  {/* <div className="latest-product__slider owl-carousel">
-              <div className="latest-prdouct__slider__item">
-                <a href="#" className="latest-product__item">
-                  <div className="latest-product__item__pic">
-                    <img src="/assets/img/latest-product/lp-1.jpg" />
-                    <p>dasdasda</p>
-                  </div>
-                  <div className="latest-product__item__text">
-                    <h6>Crab Pool Security</h6>
-                    <span>$30.00</span>
-                  </div>
-                </a>
-                <a href="#" className="latest-product__item">
-                  <div className="latest-product__item__pic">
-                    <img src="assets/img/latest-product/lp-2.jpg"  />
-                  </div>
-                  <div className="latest-product__item__text">
-                    <h6>Crab Pool Security</h6>
-                    <span>$30.00</span>
-                  </div>
-                </a>
-                <a href="#" className="latest-product__item">
-                  <div className="latest-product__item__pic">
-                    <img src="assets/img/latest-product/lp-3.jpg"  />
-                  </div>
-                  <div className="latest-product__item__text">
-                    <h6>Crab Pool Security</h6>
-                    <span>$30.00</span>
-                  </div>
-                </a>
-              </div>
-              <div className="latest-prdouct__slider__item">
-                <a href="#" className="latest-product__item">
-                  <div className="latest-product__item__pic">
-                    <img src="assets/img/latest-product/lp-1.jpg"  />
-                  </div>
-                  <div className="latest-product__item__text">
-                    <h6>Crab Pool Security</h6>
-                    <span>$30.00</span>
-                  </div>
-                </a>
-                <a href="#" className="latest-product__item">
-                  <div className="latest-product__item__pic">
-                    <img src="assets/img/latest-product/lp-2.jpg"  />
-                  </div>
-                  <div className="latest-product__item__text">
-                    <h6>Crab Pool Security</h6>
-                    <span>$30.00</span>
-                  </div>
-                </a>
-                <a href="#" className="latest-product__item">
-                  <div className="latest-product__item__pic">
-                    <img src="assets/img/latest-product/lp-3.jpg"  />
-                  </div>
-                  <div className="latest-product__item__text">
-                    <h6>Crab Pool Security</h6>
-                    <span>$30.00</span>
-                  </div>
-                </a>
-              </div>
-            </div> */}
-
-                  <div>dasdsada</div>
+                  <h4>{t('home.LatestProducts')}</h4>
+                  <OwlCarousel items={1} loop className="latest-product__slider owl-carousel">
+                    <div className="latest-prdouct__slider__item">
+                      <a href="#" className="latest-product__item">
+                        <div className="latest-product__item__pic">
+                          <img src="assets/img/latest-product/lp-1.jpg"  />
+                        </div>
+                        <div className="latest-product__item__text">
+                          <h6>Crab Pool Security</h6>
+                          <span>$30.00</span>
+                        </div>
+                      </a>
+                      <a href="#" className="latest-product__item">
+                        <div className="latest-product__item__pic">
+                          <img src="assets/img/latest-product/lp-2.jpg"  />
+                        </div>
+                        <div className="latest-product__item__text">
+                          <h6>Crab Pool Security</h6>
+                          <span>$30.00</span>
+                        </div>
+                      </a>
+                      <a href="#" className="latest-product__item">
+                        <div className="latest-product__item__pic">
+                          <img src="assets/img/latest-product/lp-3.jpg"  />
+                        </div>
+                        <div className="latest-product__item__text">
+                          <h6>Crab Pool Security</h6>
+                          <span>$30.00</span>
+                        </div>
+                      </a>
+                    </div>
+                    <div className="latest-prdouct__slider__item">
+                      <a href="#" className="latest-product__item">
+                        <div className="latest-product__item__pic">
+                          <img src="assets/img/latest-product/lp-1.jpg"  />
+                        </div>
+                        <div className="latest-product__item__text">
+                          <h6>Crab Pool Security</h6>
+                          <span>$30.00</span>
+                        </div>
+                      </a>
+                      <a href="#" className="latest-product__item">
+                        <div className="latest-product__item__pic">
+                          <img src="assets/img/latest-product/lp-2.jpg"  />
+                        </div>
+                        <div className="latest-product__item__text">
+                          <h6>Crab Pool Security</h6>
+                          <span>$30.00</span>
+                        </div>
+                      </a>
+                      <a href="#" className="latest-product__item">
+                        <div className="latest-product__item__pic">
+                          <img src="assets/img/latest-product/lp-3.jpg"  />
+                        </div>
+                        <div className="latest-product__item__text">
+                          <h6>Crab Pool Security</h6>
+                          <span>$30.00</span>
+                        </div>
+                      </a>
+                    </div>
+                  </OwlCarousel>
                 </div>
               </div>
               <div className="col-lg-4 col-md-6">
                 <div className="latest-product__text">
-                  <h4>Top Rated Products</h4>
-                  <div className="latest-product__slider owl-carousel">
+                  <h4>{t('home.TopSaleProducts')}</h4>
+                  <OwlCarousel items={1} loop className="latest-product__slider owl-carousel">
                     <div className="latest-prdouct__slider__item">
                       <a href="#" className="latest-product__item">
                         <div className="latest-product__item__pic">
@@ -502,13 +500,13 @@ function Home() {
                         </div>
                       </a>
                     </div>
-                  </div>
+                  </OwlCarousel>
                 </div>
               </div>
               <div className="col-lg-4 col-md-6">
                 <div className="latest-product__text">
-                  <h4>Review Products</h4>
-                  <div className="latest-product__slider owl-carousel">
+                  <h4>{t('home.SaleOff')}</h4>
+                  <OwlCarousel items={1} loop className="latest-product__slider owl-carousel">
                     <div className="latest-prdouct__slider__item">
                       <a href="#" className="latest-product__item">
                         <div className="latest-product__item__pic">
@@ -567,7 +565,7 @@ function Home() {
                         </div>
                       </a>
                     </div>
-                  </div>
+                  </OwlCarousel>
                 </div>
               </div>
             </div>

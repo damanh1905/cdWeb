@@ -58,10 +58,19 @@
     "contents_1":"100% prestige and quality",
     "contents_2":"Free shipping when you buy over 2 products",
     "button":"SHOP NOW",
-    "accessories": "accessories",
-    "top":"tops",
-    "bottoms": "bottoms",
-    "outerwear":"outerwear",
-    "footwear":"footwear"
+    "accessories": "Accessories",
+    "top":"Tops",
+    "bottoms": "Bottoms",
+    "outerwear":"Outerwear",
+    "footwear":"Footwear",
+    "LatestProducts":"Latest Products",
+    "TopSaleProducts":"Top Sale Products",
+    "SaleOff":"Sale Off",
+    "FeaturedProduct":"Featured Product",
+    "all":"All",B
+
+
+
+
   }
 }

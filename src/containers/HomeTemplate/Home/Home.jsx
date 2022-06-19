@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { doGet, doPost } from "../../../utils/api/api";
 import { Link } from "react-router-dom";
-
 import SearchProduct from "../../../components/Layout/Search/SearchProduct";
-
+import OwlCarousel from "react-owl-carousel";
+import "owl.carousel/dist/assets/owl.carousel.css";
+import "owl.carousel/dist/assets/owl.theme.default.css";
+import { useTranslation } from 'react-i18next';
 function Home() {
+  
   const [product, setProduct] = useState([]);
+  const { t, i18n } = useTranslation();
   const handleAddCart = (id) => {
     console.log(id);
     (async () => {
@@ -154,14 +158,15 @@ function Home() {
                   }}
                 >
                   <div className="hero__text">
-                    <span>FRUIT FRESH</span>
+                    <span>Second Hand Town</span>
                     <h2>
-                      Vegetable <br />
-                      100% Organic
+                    {t('home.title')}
+                     <br />
+                      {t('home.contents_1')}
                     </h2>
-                    {/* <p>Free Pickup and Delivery Available</p> */}
+                    <p>{t('home.contents_2')}</p>
                     <a href="#" className="primary-btn">
-                      SHOP NOW
+                    {t('home.button')}
                     </a>
                   </div>
                 </div>
@@ -173,18 +178,18 @@ function Home() {
         <section className="categories">
           <div className="container">
             <div className="row">
-              <div className="categories__slider owl-carousel">
+              <OwlCarousel items={4}  className="categories__slider owl-carousel" loop={true} autoPlay={true} >
                 <div className="col-lg-3">
                   <div
                     className="categories__item set-bg"
                     style={{
                       backgroundImage:
-                        "url(" + "assets/img/categories/cat-1.jpg" + ")",
+                        "url(" + "assets/img/categories/acessories.jpg" + ")",
                     }}
-                    data-setbg="assets/img/categories/cat-1.jpg"
+                    data-setbg="assets/img/categories/acessories.jpg"
                   >
                     <h5>
-                      <a href="#">Fresh Fruit</a>
+                      <a href="#">{t('home.accessories')}</a>
                     </h5>
                   </div>
                 </div>
@@ -193,12 +198,12 @@ function Home() {
                     className="categories__item set-bg"
                     style={{
                       backgroundImage:
-                        "url(" + "assets/img/categories/cat-2.jpg" + ")",
+                        "url(" + "assets/img/categories/outerwear.jpg" + ")",
                     }}
-                    data-setbg="assets/img/categories/cat-2.jpg"
+                    data-setbg="assets/img/categories/outerwear.jpg"
                   >
                     <h5>
-                      <a href="#">Dried Fruit</a>
+                      <a href="#">{t('home.outerwear')}</a>
                     </h5>
                   </div>
                 </div>
@@ -207,12 +212,12 @@ function Home() {
                     className="categories__item set-bg"
                     style={{
                       backgroundImage:
-                        "url(" + "assets/img/categories/cat-3.jpg" + ")",
+                        "url(" + "assets/img/categories/tops.jpg" + ")",
                     }}
-                    data-setbg="assets/img/categories/cat-3.jpg"
+                    data-setbg="assets/img/categories/tops.jpg"
                   >
                     <h5>
-                      <a href="#">Vegetables</a>
+                      <a href="#">{t('home.top')}</a>
                     </h5>
                   </div>
                 </div>
@@ -221,12 +226,12 @@ function Home() {
                     className="categories__item set-bg"
                     style={{
                       backgroundImage:
-                        "url(" + "assets/img/categories/cat-4.jpg" + ")",
+                        "url(" + "assets/img/categories/bottom.jpg" + ")",
                     }}
-                    data-setbg="assets/img/categories/cat-4.jpg"
+                    data-setbg="assets/img/categories/bottom.jpg"
                   >
                     <h5>
-                      <a href="#">drink fruits</a>
+                      <a href="#">{t('home.bottoms')}</a>
                     </h5>
                   </div>
                 </div>
@@ -235,16 +240,16 @@ function Home() {
                     className="categories__item set-bg"
                     style={{
                       backgroundImage:
-                        "url(" + "assets/img/categories/cat-5.jpg" + ")",
+                        "url(" + "assets/img/categories/footwear.jpg" + ")",
                     }}
-                    data-setbg="assets/img/categories/cat-5.jpg"
+                    data-setbg="assets/img/categories/footwear.jpg"
                   >
                     <h5>
-                      <a href="#">drink fruits</a>
+                      <a href="#">{t('home.footwear')}</a>
                     </h5>
                   </div>
                 </div>
-              </div>
+              </OwlCarousel>
             </div>
           </div>
         </section>

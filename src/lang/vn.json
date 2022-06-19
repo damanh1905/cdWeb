@@ -9,7 +9,9 @@
     "item": "Sản phẩm",
     "blog": "Bài viết",
     "contract": "Liên hệ",
-
+    "languages":"Tiếng Việt",
+    "languages_1":"Tiếng Anh",
+    "languages_2":"Tiếng Việt",
     "login": "Đăng nhập",
     "register": "Đăng ký"
   },
@@ -49,5 +51,16 @@
     "title": "Tôi đã đọc kỹ",
     "agreement": "cam kết",
     "verify": "Lấy mã"
+  },
+  "home":{
+    "title":"Quần áo",
+    "contents_1":"100% uy tín và chất lượng",
+    "contents_2":"Miễn phí vận chuyển khi mua trên 2 sản phẩm",
+    "button":"MUA NGAY",
+    "accessories": "Phụ kiện",
+    "top":"Áo",
+    "bottoms": "Quần",
+    "outerwear":"Áo khoác",
+    "footwear":"Giày"
   }
 }

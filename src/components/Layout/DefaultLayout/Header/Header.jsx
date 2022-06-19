@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { doGet } from "../../../../utils/api/api";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 
 
 function Header(props) {
@@ -54,7 +56,7 @@ function Header(props) {
               </div>
               <div className="col-lg-6 col-md-6">
                 <div className="header__top__right">
-                  <div className="header__top__right__social">
+                  {/* <div className="header__top__right__social">
                     <a href="#">
                       <i className="fa fa-facebook"></i>
                     </a>
@@ -67,17 +69,17 @@ function Header(props) {
                     <a href="#">
                       <i className="fa fa-pinterest-p"></i>
                     </a>
-                  </div>
+                  </div> */}
                   <div className="header__top__right__language">
-                    <img src="assets/img/language.png" alt="" />
-                    <div>English</div>
+                  <FontAwesomeIcon icon={faGlobe} style={{marginRight:"10px"}} />
+                    <div>{t('header.languages')}</div>
                     <span className="arrow_carrot-down"></span>
                     <ul>
                       <li>
-                        <a onClick={() => changeLanguage('en')} href="#">English</a>
+                        <a onClick={() => changeLanguage('en')} href="#">{t('header.languages_1')}</a>
                       </li>
                       <li>
-                        <a onClick={() => changeLanguage('vn')} href="#">VietNamese</a>
+                        <a onClick={() => changeLanguage('vn')} href="#"> {t('header.languages_2')}</a>
                       </li>
                     </ul>
                   </div>

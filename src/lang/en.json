@@ -7,7 +7,9 @@
     "checkout": "Checkout",
     "details": "Blog Details",
     "item": "item",
-
+    "languages":"English",
+    "languages_1":"English",
+    "languages_2":"Vietnamese",
     "blog": "Blog",
     "contract": "Contract",
 
@@ -50,5 +52,16 @@
     "title": "I have read the",
     "agreement": "agreement",
     "verify": " Get verify"
+  },
+  "home":{
+    "title":"Clothes",
+    "contents_1":"100% prestige and quality",
+    "contents_2":"Free shipping when you buy over 2 products",
+    "button":"SHOP NOW",
+    "accessories": "accessories",
+    "top":"tops",
+    "bottoms": "bottoms",
+    "outerwear":"outerwear",
+    "footwear":"footwear"
   }
 }

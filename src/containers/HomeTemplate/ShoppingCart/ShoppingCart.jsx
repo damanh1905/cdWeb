@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SearchProduct from "../../../components/Layout/Search/SearchProduct";
 import { doGet, doPost } from "../../../utils/api/api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate ,Link} from "react-router-dom";
 function ShoppingCart() {
   console.log("reden");
   const [cartItem, setCartItem] = useState([]);
@@ -315,9 +315,12 @@ function ShoppingCart() {
                     Total <span>coming</span>
                   </li>
                 </ul>
-                <a href="#" className="primary-btn">
-                  PROCEED TO CHECKOUT
-                </a>
+              
+                <Link  to={{
+                                   pathname: "/checkout",      
+                                }}className="primary-btn">
+                      PROCEED TO CHECKOUT
+                </Link>
               </div>
             </div>
           </div>

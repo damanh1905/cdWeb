@@ -1,7 +1,65 @@
 import React from "react";
 import SearchProduct from "../../../components/Layout/Search/SearchProduct";
-
+import { useLocation,useNavigate} from "react-router-dom";
+import { doGet, doPost } from "../../../utils/api/api";
+import { useEffect,useState } from "react";
 function CheckOut() {
+  const [orders, setOrders] = useState([]);
+  const [total,setTotal]=useState(0);
+  const navigate = useNavigate();
+// get ALL Order
+const handleAllOrder = async () => {
+  try {
+    const { data } = await doGet("http://localhost:8082/api/cart/listOrder");
+    console.log(data.data);
+    setOrders(data.data)
+    // tinh tong tien 
+    let total = 0;
+    for (let i = 0; i < data.data.length; i++) {
+      total += data.data[i].totalPrice;
+    }
+    setTotal(total)
+    console.log("totalne"+total)
+
+  } catch (e) {
+    console.log(e);
+  }
+};
+//
+  const location = useLocation();
+  const fromDashboard = location;
+  console.log(location)
+  useEffect(()=>{
+    (async () => {
+      try {
+        handleAllOrder();
+      } catch (e) {
+        console.log(e);
+      }
+    })();
+      
+  },[fromDashboard.key])
+
+  // handleCheckout
+  const handleCheckout = async () => {
+      var arrayIds=[];
+      for (let i = 0; i < orders.length; i++) {
+            arrayIds.push(orders[i].productEntities.id)
+      }
+      try {
+      const { data } = await doPost("http://localhost:8082/api/order/checkoutOrder",{
+        idProducts:arrayIds,
+        feeTotal:null,
+        total:total
+      });
+      console.log(data) 
+      handleAllOrder();
+      navigate("/checkout");
+      
+    } catch (e) {
+      console.log(e);
+    }
+  }
   return (
     <>
       <div>
@@ -104,7 +162,7 @@ function CheckOut() {
             </div>
             <div className="checkout__form">
               <h4>Billing Details</h4>
-              <form action="#">
+              {/* <form> */}
                 <div className="row">
                   <div className="col-lg-8 col-md-6">
                     <div className="row">
@@ -219,11 +277,25 @@ function CheckOut() {
                   <div className="col-lg-4 col-md-6">
                     <div className="checkout__order">
                       <h4>Your Order</h4>
+
                       <div className="checkout__order__products">
                         Products <span>Total</span>
                       </div>
                       <ul>
-                        <li>
+                        {
+                          orders.map((order,index)=>{
+                                return <li key={index}>
+                                             {order.productEntities.name} 
+                                             <span>
+                                             {new Intl.NumberFormat("vi-VN", {
+                                              style: "currency",
+                                            currency: "VND",
+                                             }).format(order.totalPrice)}
+                                         </span>
+                                      </li>
+                          })
+                        }
+                        {/* <li>
                           Vegetable’s Package <span>$75.99</span>
                         </li>
                         <li>
@@ -231,13 +303,16 @@ function CheckOut() {
                         </li>
                         <li>
                           Organic Bananas <span>$53.99</span>
-                        </li>
+                        </li> */}
                       </ul>
                       <div className="checkout__order__subtotal">
-                        Subtotal <span>$750.99</span>
+                        Subtotal <span>0</span>
                       </div>
                       <div className="checkout__order__total">
-                        Total <span>$750.99</span>
+                        Total <span>     {new Intl.NumberFormat("vi-VN", {
+                                              style: "currency",
+                                            currency: "VND",
+                                             }).format(total)}</span>
                       </div>
                       <div className="checkout__input__checkbox">
                         <label htmlFor="acc-or">
@@ -265,13 +340,13 @@ function CheckOut() {
                           <span className="checkmark" />
                         </label>
                       </div>
-                      <button type="submit" className="site-btn">
+                      <button className="site-btn" onClick={handleCheckout}>
                         PLACE ORDER
                       </button>
                     </div>
                   </div>
                 </div>
-              </form>
+              {/* </form> */}
             </div>
           </div>
         </section>

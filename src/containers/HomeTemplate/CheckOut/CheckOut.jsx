@@ -3,9 +3,11 @@ import SearchProduct from "../../../components/Layout/Search/SearchProduct";
 import { useLocation,useNavigate} from "react-router-dom";
 import { doGet, doPost } from "../../../utils/api/api";
 import { useEffect,useState } from "react";
+import "./checkout.scss"
 function CheckOut() {
   const [orders, setOrders] = useState([]);
   const [total,setTotal]=useState(0);
+  const [paypalLink,setPaypalLink]=useState("");
   const navigate = useNavigate();
 // get ALL Order
 const handleAllOrder = async () => {
@@ -52,7 +54,7 @@ const handleAllOrder = async () => {
         feeTotal:null,
         total:total
       });
-      console.log(data) 
+      console.log("checkout",data) 
       handleAllOrder();
       navigate("/checkout");
       
@@ -60,6 +62,27 @@ const handleAllOrder = async () => {
       console.log(e);
     }
   }
+
+  // handle OrderWith Papal
+  const handleCheckoutPaypal=async()=>{
+    var arrayIds=[];
+    for (let i = 0; i < orders.length; i++) {
+          arrayIds.push(orders[i].productEntities.id)
+    }
+        try {
+          const {data}=await doPost(`http://localhost:8082/api/payment/pay?price=${total}`,{
+            idProducts:arrayIds,
+            feeTotal:null,
+            total:total
+          })
+          setPaypalLink(data.data);
+          handleAllOrder();
+          
+        } catch (error) {
+          console.log(error)
+        }
+  }
+
   return (
     <>
       <div>
@@ -334,11 +357,8 @@ const handleAllOrder = async () => {
                         </label>
                       </div>
                       <div className="checkout__input__checkbox">
-                        <label htmlFor="paypal">
-                          Paypal
-                          <input type="checkbox" id="paypal" />
-                          <span className="checkmark" />
-                        </label>
+                               <img src="https://canhme.com/wp-content/uploads/2016/01/PayPal-logo.png" alt="" />
+                               <a href={paypalLink}  target="_blank" onClick={handleCheckoutPaypal}>Paypal</a>
                       </div>
                       <button className="site-btn" onClick={handleCheckout}>
                         PLACE ORDER

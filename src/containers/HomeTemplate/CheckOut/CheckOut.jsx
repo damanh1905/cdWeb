@@ -2,13 +2,17 @@ import React from "react";
 import SearchProduct from "../../../components/Layout/Search/SearchProduct";
 import { useLocation,useNavigate} from "react-router-dom";
 import { doGet, doPost } from "../../../utils/api/api";
-import { useEffect,useState } from "react";
+import { useEffect,useState,useRef } from "react";
 import "./checkout.scss"
+
 function CheckOut() {
   const [orders, setOrders] = useState([]);
   const [total,setTotal]=useState(0);
   const [paypalLink,setPaypalLink]=useState("");
   const navigate = useNavigate();
+
+  const theARef=useRef("");
+ 
 // get ALL Order
 const handleAllOrder = async () => {
   try {
@@ -64,7 +68,10 @@ const handleAllOrder = async () => {
   }
 
   // handle OrderWith Papal
-  const handleCheckoutPaypal=async()=>{
+  const handleCheckoutPaypal=async(e)=>{
+    if(paypalLink==""||theARef.current.href=="http://localhost:3000/checkout"||theARef.current.href=="http://localhost:3000/1"){
+      e.preventDefault();
+    }
     var arrayIds=[];
     for (let i = 0; i < orders.length; i++) {
           arrayIds.push(orders[i].productEntities.id)
@@ -76,7 +83,7 @@ const handleAllOrder = async () => {
             total:total
           })
           setPaypalLink(data.data);
-          handleAllOrder();
+          
           
         } catch (error) {
           console.log(error)
@@ -358,7 +365,12 @@ const handleAllOrder = async () => {
                       </div>
                       <div className="checkout__input__checkbox">
                                <img src="https://canhme.com/wp-content/uploads/2016/01/PayPal-logo.png" alt="" />
-                               <a href={paypalLink}  target="_blank" onClick={handleCheckoutPaypal}>Paypal</a>
+                               <a  ref={theARef} href={paypalLink}  target="_blank" onClick={(e)=>{
+                                handleCheckoutPaypal(e)
+                               }}>Paypal</a>
+                               <button href="" className="checkoutPaypal" onClick={()=>{
+                                          handleAllOrder();
+                               }}>Checkout</button>
                       </div>
                       <button className="site-btn" onClick={handleCheckout}>
                         PLACE ORDER

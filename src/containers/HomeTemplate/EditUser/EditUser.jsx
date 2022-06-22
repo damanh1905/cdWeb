@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "antd/dist/antd.css";
 import "./edit.scss";
+import Cookies from "js-cookie";
+
 import {
   Form,
   Input,
@@ -18,7 +20,7 @@ import { doGet, doPost } from "../../../utils/api/api";
 import { debounce } from "lodash";
 import Password from "antd/lib/input/Password";
 import SearchProduct from "../../../components/Layout/Search/SearchProduct";
-
+import axios from "axios";
 
 const { Option } = Select;
 const formItemLayout = {
@@ -53,16 +55,43 @@ const tailFormItemLayout = {
 };
 
 const EditUser = () => {
+
   const [disable, setDisable] = useState(true);
   const [disableverify, setDisableverify] = useState(false);
   let navigate = useNavigate();
 
   const [form] = Form.useForm();
-  const handleCheckUser = () => {
-    return doGet(
-      `auth/checkUserName?username=${form.getFieldValue("username")}`
-    );
-  };
+  form.setFieldsValue({ username: localStorage.getItem("username") })
+
+  // useEffect(() => {
+  //   async () => {
+  //     const userName = localStorage.getItem("username");
+  //     if (userName !== undefined) {
+  //       const { data } = await doGet(
+  //         `/auth/getCurrentUser?username=${userName}`
+  //       );
+  //       console.log(data)
+  //     }
+  //   }
+  // }, []);
+
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const userName = localStorage.getItem("username");
+        if (userName !== undefined) {
+          const { data } = await doGet(
+            `/auth/getCurrentUser?username=${userName}`,
+          );
+          console.log(data)
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    })()
+  }, [])
+
   const handleCheckCode = () => {
     return doPost("auth/verifyEmail", {
       verifyCodeEmail: parseInt(form.getFieldValue("captcha")),
@@ -75,13 +104,13 @@ const EditUser = () => {
         email: form.getFieldValue("email"),
       });
       console.log(data.status);
-      
+
     } else {
       console.log("user lớn hơn 6 nha");
     }
   };
 
-  console.log("render2");
+  // console.log("render2");
 
   const onFinish = async (values) => {
     const { password, phone, gender, username } = values;
@@ -97,7 +126,7 @@ const EditUser = () => {
       window.location.reload();
     }
 
-    console.log("Received values of form: ", data.status);
+    // console.log("Received values of form: ", data.status);
   };
 
   const prefixSelector = (
@@ -141,91 +170,91 @@ const EditUser = () => {
     value: website,
   }));
   return (<>
-  <section className="hero hero-normal">
-    <div className="container">
-      <div className="row">
-        <div className="col-lg-3">
-          <div className="hero__categories">
-            <div className="hero__categories__all">
-              <i className="fa fa-bars" />
-              <span>All departments</span>
-            </div>
-            <ul>
-              <li>
-                <a href="#">Fresh Meat</a>
-              </li>
-              <li>
-                <a href="#">Vegetables</a>
-              </li>
-              <li>
-                <a href="#">Fruit &amp; Nut Gifts</a>
-              </li>
-              <li>
-                <a href="#">Fresh Berries</a>
-              </li>
-              <li>
-                <a href="#">Ocean Foods</a>
-              </li>
-              <li>
-                <a href="#">Butter &amp; Eggs</a>
-              </li>
-              <li>
-                <a href="#">Fastfood</a>
-              </li>
-              <li>
-                <a href="#">Fresh Onion</a>
-              </li>
-              <li>
-                <a href="#">Papayaya &amp; Crisps</a>
-              </li>
-              <li>
-                <a href="#">Oatmeal</a>
-              </li>
-              <li>
-                <a href="#">Fresh Bananas</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div className="col-lg-9">
-          <div className="hero__search">
-            <SearchProduct />
-            <div className="hero__search__phone">
-              <div className="hero__search__phone__icon">
-                <i className="fa fa-phone" />
+    <section className="hero hero-normal">
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-3">
+            <div className="hero__categories">
+              <div className="hero__categories__all">
+                <i className="fa fa-bars" />
+                <span>All departments</span>
               </div>
-              <div className="hero__search__phone__text">
-                <h5>+65 11.188.888</h5>
-                <span>support 24/7 time</span>
+              <ul>
+                <li>
+                  <a href="#">Fresh Meat</a>
+                </li>
+                <li>
+                  <a href="#">Vegetables</a>
+                </li>
+                <li>
+                  <a href="#">Fruit &amp; Nut Gifts</a>
+                </li>
+                <li>
+                  <a href="#">Fresh Berries</a>
+                </li>
+                <li>
+                  <a href="#">Ocean Foods</a>
+                </li>
+                <li>
+                  <a href="#">Butter &amp; Eggs</a>
+                </li>
+                <li>
+                  <a href="#">Fastfood</a>
+                </li>
+                <li>
+                  <a href="#">Fresh Onion</a>
+                </li>
+                <li>
+                  <a href="#">Papayaya &amp; Crisps</a>
+                </li>
+                <li>
+                  <a href="#">Oatmeal</a>
+                </li>
+                <li>
+                  <a href="#">Fresh Bananas</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="col-lg-9">
+            <div className="hero__search">
+              <SearchProduct />
+              <div className="hero__search__phone">
+                <div className="hero__search__phone__icon">
+                  <i className="fa fa-phone" />
+                </div>
+                <div className="hero__search__phone__text">
+                  <h5>+65 11.188.888</h5>
+                  <span>support 24/7 time</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-  <section
-    className="breadcrumb-section set-bg"
-    style={{
+    </section>
+    <section
+      className="breadcrumb-section set-bg"
+      style={{
         backgroundImage: "url(" + "assets/img/breadcrumb.jpg" + ")",
       }}
-  >
-    <div className="container">
-      <div className="row">
-        <div className="col-lg-12 text-center">
-          <div className="breadcrumb__text">
-            <h2>Edit Information</h2>
-            <div className="breadcrumb__option">
-              <a href="./index.html">Home</a>
-              <span>Edit Information</span>
+    >
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-12 text-center">
+            <div className="breadcrumb__text">
+              <h2>Edit Information</h2>
+              <div className="breadcrumb__option">
+                <a href="./index.html">Home</a>
+                <span>Edit Information</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
     <div className="container-edit">
-     
+
       <div className="container-edit-form">
         <Form
           {...formItemLayout}
@@ -248,24 +277,24 @@ const EditUser = () => {
               {
                 min: 6,
               },
-              {
-                required: true,
-                message: "Please input your username!",
-              },
-              {
-                async validator(_, value) {
-                  const data = await handleCheckUser();
+              // {
+              //   required: true,
+              //   message: "Please input your username!",
+              // },
+              // {
+              //   async validator(_, value) {
+              //     const data = await handleCheckUser();
 
-                  if (data.data.status === 404 && disableverify === false) {
-                    console.log(disableverify);
-                    console.log("user is already taken!");
-                    return Promise.reject(new Error("user is already taken!"));
-                  }
-                  return Promise.resolve();
-                },
-              },
+              //     if (data.data.status === 404 && disableverify === false) {
+              //       console.log(disableverify);
+              //       console.log("user is already taken!");
+              //       return Promise.reject(new Error("user is already taken!"));
+              //     }
+              //     return Promise.resolve();
+              //   },
+              // },
             ]}
-            
+
           >
             <Input disabled />
           </Form.Item>
@@ -297,17 +326,17 @@ const EditUser = () => {
                     return Promise.resolve();
                   }
                   setDisable(true);
-                  return Promise.reject(
-                    new Error("username must be at least 6 characters")
-                  );
+                  // return Promise.reject(
+                  //   new Error("username must be at least 6 characters")
+                  // );
                 },
               }),
             ]}
           >
             <Input />
           </Form.Item>
-          
-         
+
+
           <Form.Item
             name="phone"
             label="Phone Number"
@@ -345,7 +374,7 @@ const EditUser = () => {
               <Option value="other">Other</Option>
             </Select>
           </Form.Item>
-        
+
           <Form.Item {...tailFormItemLayout}>
             <Button type="primary" htmlType="submit">
               Update
@@ -354,7 +383,7 @@ const EditUser = () => {
         </Form>
       </div>
     </div></>
-    
+
   );
 };
 

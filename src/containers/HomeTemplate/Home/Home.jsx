@@ -5,9 +5,9 @@ import SearchProduct from "../../../components/Layout/Search/SearchProduct";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
+import NavBelowHeader from "../../../components/Layout/NavBelowHeader/NavBelowHeader";
 function Home() {
-  
   const [product, setProduct] = useState([]);
   const { t, i18n } = useTranslation();
   const handleAddCart = (id) => {
@@ -97,41 +97,23 @@ function Home() {
                 <div className="hero__categories">
                   <div className="hero__categories__all">
                     <i className="fa fa-bars" />
-                    <span>All departments</span>
+                    <span>{t("navHeader.categories")}</span>
                   </div>
                   <ul>
                     <li>
-                      <a href="#">Fresh Meat</a>
+                      <a href="#">{t("navHeader.accessories")}</a>
                     </li>
                     <li>
-                      <a href="#">Vegetables</a>
+                      <a href="#">{t("navHeader.outerwear")}</a>
                     </li>
                     <li>
-                      <a href="#">Fruit &amp; Nut Gifts</a>
+                      <a href="#">{t("navHeader.tops")}</a>
                     </li>
                     <li>
-                      <a href="#">Fresh Berries</a>
+                      <a href="#">{t("navHeader.bottoms")}</a>
                     </li>
                     <li>
-                      <a href="#">Ocean Foods</a>
-                    </li>
-                    <li>
-                      <a href="#">Butter &amp; Eggs</a>
-                    </li>
-                    <li>
-                      <a href="#">Fastfood</a>
-                    </li>
-                    <li>
-                      <a href="#">Fresh Onion</a>
-                    </li>
-                    <li>
-                      <a href="#">Papayaya &amp; Crisps</a>
-                    </li>
-                    <li>
-                      <a href="#">Oatmeal</a>
-                    </li>
-                    <li>
-                      <a href="#">Fresh Bananas</a>
+                      <a href="#">{t("navHeader.footwear")}</a>
                     </li>
                   </ul>
                 </div>
@@ -144,8 +126,8 @@ function Home() {
                       <i className="fa fa-phone" />
                     </div>
                     <div className="hero__search__phone__text">
-                      <h5>+65 11.188.888</h5>
-                      <span>support 24/7 time</span>
+                      <h5>+84 395956546</h5>
+                      <span> {t("navHeader.support")}</span>
                     </div>
                   </div>
                 </div>
@@ -160,13 +142,13 @@ function Home() {
                   <div className="hero__text">
                     <span>Second Hand Town</span>
                     <h2>
-                    {t('home.title')}
-                     <br />
-                      {t('home.contents_1')}
+                      {t("home.title")}
+                      <br />
+                      {t("home.contents_1")}
                     </h2>
-                    <p>{t('home.contents_2')}</p>
+                    <p>{t("home.contents_2")}</p>
                     <a href="#" className="primary-btn">
-                    {t('home.button')}
+                      {t("home.button")}
                     </a>
                   </div>
                 </div>
@@ -178,7 +160,12 @@ function Home() {
         <section className="categories">
           <div className="container">
             <div className="row">
-              <OwlCarousel items={4}  className="categories__slider owl-carousel" loop={true} autoPlay={true} >
+              <OwlCarousel
+                items={4}
+                className="categories__slider owl-carousel"
+                loop={true}
+                autoPlay={true}
+              >
                 <div className="col-lg-3">
                   <div
                     className="categories__item set-bg"
@@ -189,7 +176,7 @@ function Home() {
                     data-setbg="assets/img/categories/acessories.jpg"
                   >
                     <h5>
-                      <a href="#">{t('home.accessories')}</a>
+                      <a href="#">{t("home.accessories")}</a>
                     </h5>
                   </div>
                 </div>
@@ -203,7 +190,7 @@ function Home() {
                     data-setbg="assets/img/categories/outerwear.jpg"
                   >
                     <h5>
-                      <a href="#">{t('home.outerwear')}</a>
+                      <a href="#">{t("home.outerwear")}</a>
                     </h5>
                   </div>
                 </div>
@@ -217,7 +204,7 @@ function Home() {
                     data-setbg="assets/img/categories/tops.jpg"
                   >
                     <h5>
-                      <a href="#">{t('home.top')}</a>
+                      <a href="#">{t("home.top")}</a>
                     </h5>
                   </div>
                 </div>
@@ -231,7 +218,7 @@ function Home() {
                     data-setbg="assets/img/categories/bottom.jpg"
                   >
                     <h5>
-                      <a href="#">{t('home.bottoms')}</a>
+                      <a href="#">{t("home.bottoms")}</a>
                     </h5>
                   </div>
                 </div>
@@ -245,7 +232,7 @@ function Home() {
                     data-setbg="assets/img/categories/footwear.jpg"
                   >
                     <h5>
-                      <a href="#">{t('home.footwear')}</a>
+                      <a href="#">{t("home.footwear")}</a>
                     </h5>
                   </div>
                 </div>
@@ -261,7 +248,7 @@ function Home() {
             <div className="row">
               <div className="col-lg-12">
                 <div className="section-title">
-                  <h2>{t('home.FeaturedProduct')}</h2>
+                  <h2>{t("home.FeaturedProduct")}</h2>
                 </div>
                 <div className="featured__controls">
                   <ul>
@@ -270,17 +257,17 @@ function Home() {
                       data-filter="*"
                       onClick={handleAllProduct}
                     >
-                     {t('home.all')}
+                      {t("home.all")}
                     </li>
                     <li data-filter=".accessories" onClick={handleAccessories}>
-                    {t('home.accessories')}
+                      {t("home.accessories")}
                     </li>
                     <li data-filter=".outerwear" onClick={handleootwer}>
-                    {t('home.outerwear')}
+                      {t("home.outerwear")}
                     </li>
-                    <li data-filter=".tops"> {t('home.top')}</li>
-                    <li data-filter=".bottoms"> {t('home.bottoms')}</li>
-                    <li data-filter=".footwear"> {t('home.footwear')}</li>
+                    <li data-filter=".tops"> {t("home.top")}</li>
+                    <li data-filter=".bottoms"> {t("home.bottoms")}</li>
+                    <li data-filter=".footwear"> {t("home.footwear")}</li>
                   </ul>
                 </div>
               </div>
@@ -375,73 +362,12 @@ function Home() {
             <div className="row">
               <div className="col-lg-4 col-md-6">
                 <div className="latest-product__text">
-                  <h4>{t('home.LatestProducts')}</h4>
-                  <OwlCarousel items={1} loop className="latest-product__slider owl-carousel">
-                    <div className="latest-prdouct__slider__item">
-                      <a href="#" className="latest-product__item">
-                        <div className="latest-product__item__pic">
-                          <img src="assets/img/latest-product/lp-1.jpg"  />
-                        </div>
-                        <div className="latest-product__item__text">
-                          <h6>Crab Pool Security</h6>
-                          <span>$30.00</span>
-                        </div>
-                      </a>
-                      <a href="#" className="latest-product__item">
-                        <div className="latest-product__item__pic">
-                          <img src="assets/img/latest-product/lp-2.jpg"  />
-                        </div>
-                        <div className="latest-product__item__text">
-                          <h6>Crab Pool Security</h6>
-                          <span>$30.00</span>
-                        </div>
-                      </a>
-                      <a href="#" className="latest-product__item">
-                        <div className="latest-product__item__pic">
-                          <img src="assets/img/latest-product/lp-3.jpg"  />
-                        </div>
-                        <div className="latest-product__item__text">
-                          <h6>Crab Pool Security</h6>
-                          <span>$30.00</span>
-                        </div>
-                      </a>
-                    </div>
-                    <div className="latest-prdouct__slider__item">
-                      <a href="#" className="latest-product__item">
-                        <div className="latest-product__item__pic">
-                          <img src="assets/img/latest-product/lp-1.jpg"  />
-                        </div>
-                        <div className="latest-product__item__text">
-                          <h6>Crab Pool Security</h6>
-                          <span>$30.00</span>
-                        </div>
-                      </a>
-                      <a href="#" className="latest-product__item">
-                        <div className="latest-product__item__pic">
-                          <img src="assets/img/latest-product/lp-2.jpg"  />
-                        </div>
-                        <div className="latest-product__item__text">
-                          <h6>Crab Pool Security</h6>
-                          <span>$30.00</span>
-                        </div>
-                      </a>
-                      <a href="#" className="latest-product__item">
-                        <div className="latest-product__item__pic">
-                          <img src="assets/img/latest-product/lp-3.jpg"  />
-                        </div>
-                        <div className="latest-product__item__text">
-                          <h6>Crab Pool Security</h6>
-                          <span>$30.00</span>
-                        </div>
-                      </a>
-                    </div>
-                  </OwlCarousel>
-                </div>
-              </div>
-              <div className="col-lg-4 col-md-6">
-                <div className="latest-product__text">
-                  <h4>{t('home.TopSaleProducts')}</h4>
-                  <OwlCarousel items={1} loop className="latest-product__slider owl-carousel">
+                  <h4>{t("home.LatestProducts")}</h4>
+                  <OwlCarousel
+                    items={1}
+                    loop
+                    className="latest-product__slider owl-carousel"
+                  >
                     <div className="latest-prdouct__slider__item">
                       <a href="#" className="latest-product__item">
                         <div className="latest-product__item__pic">
@@ -505,8 +431,81 @@ function Home() {
               </div>
               <div className="col-lg-4 col-md-6">
                 <div className="latest-product__text">
-                  <h4>{t('home.SaleOff')}</h4>
-                  <OwlCarousel items={1} loop className="latest-product__slider owl-carousel">
+                  <h4>{t("home.TopSaleProducts")}</h4>
+                  <OwlCarousel
+                    items={1}
+                    loop
+                    className="latest-product__slider owl-carousel"
+                  >
+                    <div className="latest-prdouct__slider__item">
+                      <a href="#" className="latest-product__item">
+                        <div className="latest-product__item__pic">
+                          <img src="assets/img/latest-product/lp-1.jpg" />
+                        </div>
+                        <div className="latest-product__item__text">
+                          <h6>Crab Pool Security</h6>
+                          <span>$30.00</span>
+                        </div>
+                      </a>
+                      <a href="#" className="latest-product__item">
+                        <div className="latest-product__item__pic">
+                          <img src="assets/img/latest-product/lp-2.jpg" />
+                        </div>
+                        <div className="latest-product__item__text">
+                          <h6>Crab Pool Security</h6>
+                          <span>$30.00</span>
+                        </div>
+                      </a>
+                      <a href="#" className="latest-product__item">
+                        <div className="latest-product__item__pic">
+                          <img src="assets/img/latest-product/lp-3.jpg" />
+                        </div>
+                        <div className="latest-product__item__text">
+                          <h6>Crab Pool Security</h6>
+                          <span>$30.00</span>
+                        </div>
+                      </a>
+                    </div>
+                    <div className="latest-prdouct__slider__item">
+                      <a href="#" className="latest-product__item">
+                        <div className="latest-product__item__pic">
+                          <img src="assets/img/latest-product/lp-1.jpg" />
+                        </div>
+                        <div className="latest-product__item__text">
+                          <h6>Crab Pool Security</h6>
+                          <span>$30.00</span>
+                        </div>
+                      </a>
+                      <a href="#" className="latest-product__item">
+                        <div className="latest-product__item__pic">
+                          <img src="assets/img/latest-product/lp-2.jpg" />
+                        </div>
+                        <div className="latest-product__item__text">
+                          <h6>Crab Pool Security</h6>
+                          <span>$30.00</span>
+                        </div>
+                      </a>
+                      <a href="#" className="latest-product__item">
+                        <div className="latest-product__item__pic">
+                          <img src="assets/img/latest-product/lp-3.jpg" />
+                        </div>
+                        <div className="latest-product__item__text">
+                          <h6>Crab Pool Security</h6>
+                          <span>$30.00</span>
+                        </div>
+                      </a>
+                    </div>
+                  </OwlCarousel>
+                </div>
+              </div>
+              <div className="col-lg-4 col-md-6">
+                <div className="latest-product__text">
+                  <h4>{t("home.SaleOff")}</h4>
+                  <OwlCarousel
+                    items={1}
+                    loop
+                    className="latest-product__slider owl-carousel"
+                  >
                     <div className="latest-prdouct__slider__item">
                       <a href="#" className="latest-product__item">
                         <div className="latest-product__item__pic">

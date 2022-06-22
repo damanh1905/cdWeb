@@ -9,7 +9,7 @@ import { useDebounce } from "../../../Hooks";
 import { useTranslation } from 'react-i18next';
 
 function SearchProduct() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const inputRef = useRef();
   const [searchResult, setSearchResult] = useState([]);
   const [searchValue, setSearchValue] = useState("");
@@ -73,7 +73,7 @@ function SearchProduct() {
               value={searchValue}
               onChange={handleChange}
               className={styles.valueInput}
-              placeholder="What do you need?"
+              placeholder={t('search.placehoder')}
               onFocus={() => setShowResult(true)}
             />
             {!!searchValue && !loading && (
@@ -95,7 +95,7 @@ function SearchProduct() {
               </button>
             )}
             <button onClick={handleSearch} type="submit" className="site-btn">
-              SEARCH
+            {t('search.button')}
             </button>
           </div>
         </div>

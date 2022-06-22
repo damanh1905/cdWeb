@@ -68,9 +68,19 @@
     "SaleOff":"Sale Off",
     "FeaturedProduct":"Featured Product",
     "all":"All"
-
-
-
+  },
+  "search":{
+    "button":"SEARCH",
+    "placehoder":"What do you need?"
+  },
+  "navHeader":{
+    "categories":"All categories",
+    "accessories":"Accessories",
+    "outerwear":"Outerwear",
+    "tops":"Tops",
+    "bottoms":"Bottoms",
+    "footwear":"Footwear",
+    "support":"support 24/7 everyday."
 
   }
 }

@@ -67,5 +67,19 @@
     "SaleOff":"Giảm giá",
     "FeaturedProduct":"Sản phẩm đặc trưng",
     "all":"Tất cả"
+  },
+  "search":{
+    "button":"TÌM KIẾM",
+    "placehoder":"Bạn cần tìm mặt hàng nào?"
+  },
+  "navHeader":{
+    "categories":"Các danh mục",
+    "accessories":"Phụ kiện",
+    "outerwear":"Áo khoác",
+    "tops":"Áo",
+    "bottoms":"Quần",
+    "footwear":"Giày",
+    "support":"hỗ trợ 24/7 mỗi ngày."
+
   }
 }

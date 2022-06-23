@@ -1,26 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import "antd/dist/antd.css";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./edit.scss";
-import Cookies from "js-cookie";
 
 import {
-  Form,
-  Input,
-  InputNumber,
-  Cascader,
-  Select,
-  Row,
-  Col,
-  Checkbox,
   Button,
-  AutoComplete,
+  Form,
+  Input, 
+  Select
 } from "antd";
-import { doGet, doPost } from "../../../utils/api/api";
-import { debounce } from "lodash";
-import Password from "antd/lib/input/Password";
 import SearchProduct from "../../../components/Layout/Search/SearchProduct";
-import axios from "axios";
+import { doGet, doPost } from "../../../utils/api/api";
 
 const { Option } = Select;
 const formItemLayout = {
@@ -57,11 +47,18 @@ const tailFormItemLayout = {
 const EditUser = () => {
 
   const [disable, setDisable] = useState(true);
-  const [disableverify, setDisableverify] = useState(false);
+  const [getCurrentUser, setCurrentUser] = useState([]);
+  // const [disableverify, setDisableverify] = useState(false);
   let navigate = useNavigate();
 
   const [form] = Form.useForm();
-  form.setFieldsValue({ username: localStorage.getItem("username") })
+  form.setFieldsValue({
+    username: localStorage.getItem("username"),
+    email: getCurrentUser.email,
+    phone: getCurrentUser.phone,
+    gender: getCurrentUser.gender,
+
+  })
 
   // useEffect(() => {
   //   async () => {
@@ -80,10 +77,11 @@ const EditUser = () => {
     (async () => {
       try {
         const userName = localStorage.getItem("username");
-        if (userName !== undefined) {
+        if (userName != undefined) {
           const { data } = await doGet(
             `/auth/getCurrentUser?username=${userName}`,
           );
+          setCurrentUser(data);
           console.log(data)
         }
       } catch (error) {
@@ -114,7 +112,7 @@ const EditUser = () => {
 
   const onFinish = async (values) => {
     const { password, phone, gender, username } = values;
-    const { data } = await doPost("auth/register", {
+    const { data } = await doPost("auth/editUser", {
       userName: username,
       password: password,
       phone: phone,
@@ -126,7 +124,7 @@ const EditUser = () => {
       window.location.reload();
     }
 
-    // console.log("Received values of form: ", data.status);
+    console.log("Received values of form: ", data.status);
   };
 
   const prefixSelector = (
@@ -267,6 +265,7 @@ const EditUser = () => {
           }}
           scrollToFirstError
         >
+
           <Form.Item
             name="username"
             label="username"
@@ -336,7 +335,6 @@ const EditUser = () => {
             <Input />
           </Form.Item>
 
-
           <Form.Item
             name="phone"
             label="Phone Number"
@@ -358,6 +356,7 @@ const EditUser = () => {
               }}
             />
           </Form.Item>
+
           <Form.Item
             name="gender"
             label="Gender"
@@ -380,6 +379,7 @@ const EditUser = () => {
               Update
             </Button>
           </Form.Item>
+
         </Form>
       </div>
     </div></>

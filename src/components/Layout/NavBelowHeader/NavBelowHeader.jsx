@@ -1,50 +1,37 @@
 import React from 'react'
-
+import SearchProduct from '../Search/SearchProduct'
+import { useTranslation } from 'react-i18next';
 function NavBelowHeader() {
+  const { t, i18n } = useTranslation();
   return (
-    <section className="hero hero-normal">
+<section className="hero hero-normal">
   <div className="container">
     <div className="row">
       <div className="col-lg-3">
         <div className="hero__categories">
           <div className="hero__categories__all">
             <i className="fa fa-bars" />
-            <span>All departments</span>
+            <span>{t('navHeader.categories')}</span>
           </div>
           <ul>
-            <li><a href="#">Fresh Meat</a></li>
-            <li><a href="#">Vegetables</a></li>
-            <li><a href="#">Fruit &amp; Nut Gifts</a></li>
-            <li><a href="#">Fresh Berries</a></li>
-            <li><a href="#">Ocean Foods</a></li>
-            <li><a href="#">Butter &amp; Eggs</a></li>
-            <li><a href="#">Fastfood</a></li>
-            <li><a href="#">Fresh Onion</a></li>
-            <li><a href="#">Papayaya &amp; Crisps</a></li>
-            <li><a href="#">Oatmeal</a></li>
-            <li><a href="#">Fresh Bananas</a></li>
+            <li><a href="#">{t('navHeader.accessories')}</a></li>
+            <li><a href="#">{t('navHeader.outerwear')}</a></li>
+            <li><a href="#">{t('navHeader.tops')}</a></li>
+            <li><a href="#">{t('navHeader.bottoms')}</a></li>
+            <li><a href="#">{t('navHeader.footwear')}</a></li>
           </ul>
         </div>
       </div>
       <div className="col-lg-9">
         <div className="hero__search">
-          <div className="hero__search__form">
-            <form action="#">
-              <div className="hero__search__categories">
-                All Categories
-                <span className="arrow_carrot-down" />
-              </div>
-              <input type="text" placeholder="What do yo u need?" />
-              <button type="submit" className="site-btn">SEARCH</button>
-            </form>
-          </div>
+         <SearchProduct/>
           <div className="hero__search__phone">
             <div className="hero__search__phone__icon">
               <i className="fa fa-phone" />
             </div>
             <div className="hero__search__phone__text">
-              <h5>+65 11.188.888</h5>
-              <span>support 24/7 time</span>
+              <h5>+84 395956546</h5>
+              <span> {t('navHeader.support')}</span>
             </div>
           </div>
         </div>

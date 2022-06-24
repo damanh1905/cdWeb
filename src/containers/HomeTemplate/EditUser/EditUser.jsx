@@ -6,7 +6,7 @@ import "./edit.scss";
 import {
   Button,
   Form,
-  Input, 
+  Input,
   Select
 } from "antd";
 import SearchProduct from "../../../components/Layout/Search/SearchProduct";
@@ -82,7 +82,7 @@ const EditUser = () => {
             `/auth/getCurrentUser?username=${userName}`,
           );
           setCurrentUser(data);
-          console.log(data)
+          // console.log(data)
         }
       } catch (error) {
         console.log(error);
@@ -90,41 +90,34 @@ const EditUser = () => {
     })()
   }, [])
 
-  const handleCheckCode = () => {
-    return doPost("auth/verifyEmail", {
-      verifyCodeEmail: parseInt(form.getFieldValue("captcha")),
-    });
-  };
-  const handleSubmitEmail = async () => {
-    if (form.getFieldValue("username").length > 6) {
-      const { data } = await doPost("auth/registerEmail", {
-        name: form.getFieldValue("username"),
-        email: form.getFieldValue("email"),
-      });
-      console.log(data.status);
+  // const handleCheckCode = () => {
+  //   return doPost("auth/verifyEmail", {
+  //     verifyCodeEmail: parseInt(form.getFieldValue("captcha")),
+  //   });
+  // };
+  // const handleSubmitEmail = async () => {
+  //   if (form.getFieldValue("username").length > 6) {
+  //     const { data } = await doPost("auth/registerEmail", {
+  //       name: form.getFieldValue("username"),
+  //       email: form.getFieldValue("email"),
+  //     });
+  //     console.log(data.status);
 
-    } else {
-      console.log("user lớn hơn 6 nha");
-    }
-  };
+  //   } else {
+  //     console.log("user lớn hơn 6 nha");
+  //   }
+  // };
 
   // console.log("render2");
 
   const onFinish = async (values) => {
-    const { password, phone, gender, username } = values;
-    const { data } = await doPost("auth/editUser", {
+    const { username, email, phone, gender } = values;
+    const { data } = await doPost("auth/updateUser", {
       userName: username,
-      password: password,
-      phone: phone,
-      gender: gender,
+      email,
+      phone,
+      gender,
     });
-    if (data.status === 200) {
-      navigate("/login");
-    } else {
-      window.location.reload();
-    }
-
-    console.log("Received values of form: ", data.status);
   };
 
   const prefixSelector = (

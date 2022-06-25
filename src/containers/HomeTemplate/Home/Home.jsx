@@ -134,10 +134,10 @@ function Home() {
                 <div
                   className="hero__item set-bg"
                   data-setbg="img/hero/banner.jpg"
-                  // style={{
-                  //   backgroundImage:
-                  //     "url(" + "assets/img/hero/banner.jpg" + ")",
-                  // }}
+                  style={{
+                    backgroundImage:
+                      "url(" + "assets/img/hero/banner.jpg" + ")",
+                  }}
                 >
                   <div className="hero__text">
                     <span>Second Hand Town</span>
@@ -169,10 +169,10 @@ function Home() {
                 <div className="col-lg-3">
                   <div
                     className="categories__item set-bg"
-                    // style={{
-                    //   backgroundImage:
-                    //     "url(" + "assets/img/categories/acessories.jpg" + ")",
-                    // }}
+                    style={{
+                      backgroundImage:
+                        "url(" + "assets/img/categories/acessories.jpg" + ")",
+                    }}
                     data-setbg="assets/img/categories/acessories.jpg"
                   >
                     <h5>
@@ -183,10 +183,10 @@ function Home() {
                 <div className="col-lg-3">
                   <div
                     className="categories__item set-bg"
-                    // style={{
-                    //   backgroundImage:
-                    //     "url(" + "assets/img/categories/outerwear.jpg" + ")",
-                    // }}
+                    style={{
+                      backgroundImage:
+                        "url(" + "assets/img/categories/outerwear.jpg" + ")",
+                    }}
                     data-setbg="assets/img/categories/outerwear.jpg"
                   >
                     <h5>
@@ -197,10 +197,10 @@ function Home() {
                 <div className="col-lg-3">
                   <div
                     className="categories__item set-bg"
-                    // style={{
-                    //   backgroundImage:
-                    //     "url(" + "assets/img/categories/tops.jpg" + ")",
-                    // }}
+                    style={{
+                      backgroundImage:
+                        "url(" + "assets/img/categories/tops.jpg" + ")",
+                    }}
                     data-setbg="assets/img/categories/tops.jpg"
                   >
                     <h5>
@@ -211,10 +211,10 @@ function Home() {
                 <div className="col-lg-3">
                   <div
                     className="categories__item set-bg"
-                    // style={{
-                    //   backgroundImage:
-                    //     "url(" + "assets/img/categories/bottom.jpg" + ")",
-                    // }}
+                    style={{
+                      backgroundImage:
+                        "url(" + "assets/img/categories/bottom.jpg" + ")",
+                    }}
                     data-setbg="assets/img/categories/bottom.jpg"
                   >
                     <h5>
@@ -225,10 +225,10 @@ function Home() {
                 <div className="col-lg-3">
                   <div
                     className="categories__item set-bg"
-                    // style={{
-                    //   backgroundImage:
-                    //     "url(" + "assets/img/categories/footwear.jpg" + ")",
-                    // }}
+                    style={{
+                      backgroundImage:
+                        "url(" + "assets/img/categories/footwear.jpg" + ")",
+                    }}
                     data-setbg="assets/img/categories/footwear.jpg"
                   >
                     <h5>
@@ -282,15 +282,11 @@ function Home() {
                     <div className="featured__item">
                       <div
                         className="featured__item__pic set-bg"
-                        // style={{
-                        //   backgroundImage:
-                        //     "url(" +
-                        //     `/assets/img/secondhand/accessories/${items.imageEntity[0].url}` +
-                        //     ")",
-                        // }}
                         style={{
                           backgroundImage:
-                            "url(" + "assets/img/featured/feature-1.jpg" + ")",
+                            "url(" +
+                            `/assets/img/secondhand/accessories/${items.imageEntity[index].url}` +
+                            ")",
                         }}
                         data-setbg="assets/img/featured/feature-2.jpg"
                       >

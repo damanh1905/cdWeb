@@ -131,6 +131,9 @@ function Header(props) {
                       <li>
                         <Link to={"/blogDetail"}>{t('header.details')}</Link>
                       </li>
+                      <li>
+                        <Link to={"/manageOrder"}>ManageOrder</Link>
+                      </li>
                     </ul>
                   </li>
                   <li>

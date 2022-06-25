@@ -1,73 +1,21 @@
 import React from "react";
+import NavBelowHeader from "../../../components/Layout/NavBelowHeader/NavBelowHeader";
 import SearchProduct from "../../../components/Layout/Search/SearchProduct";
-
+import "antd/dist/antd.css";
+import { Checkbox, Row, Col, Slider } from "antd";
 function ShopGrid() {
+  const onChangeCategories = (checkedValues) => {
+    console.log("checked = ", checkedValues);
+  };
+  const onChangePrice = (checkedValues) => {
+    console.log("checked = ", checkedValues);
+  };
+  const onChangeGender = (checkedValues) => {
+    console.log("checked = ", checkedValues);
+  };
   return (
     <>
-      <section className="hero hero-normal">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-3">
-              <div className="hero__categories">
-                <div className="hero__categories__all">
-                  <i className="fa fa-bars" />
-                  <span>All departments</span>
-                </div>
-                <ul>
-                  <li>
-                    <a href="#">Fresh Meat</a>
-                  </li>
-                  <li>
-                    <a href="#">Vegetables</a>
-                  </li>
-                  <li>
-                    <a href="#">Fruit &amp; Nut Gifts</a>
-                  </li>
-                  <li>
-                    <a href="#">Fresh Berries</a>
-                  </li>
-                  <li>
-                    <a href="#">Ocean Foods</a>
-                  </li>
-                  <li>
-                    <a href="#">Butter &amp; Eggs</a>
-                  </li>
-                  <li>
-                    <a href="#">Fastfood</a>
-                  </li>
-                  <li>
-                    <a href="#">Fresh Onion</a>
-                  </li>
-                  <li>
-                    <a href="#">Papayaya &amp; Crisps</a>
-                  </li>
-                  <li>
-                    <a href="#">Oatmeal</a>
-                  </li>
-                  <li>
-                    <a href="#">Fresh Bananas</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="col-lg-9">
-              <div className="hero__search">
-                <SearchProduct />
-                <div className="hero__search__phone">
-                  <div className="hero__search__phone__icon">
-                    <i className="fa fa-phone" />
-                  </div>
-                  <div className="hero__search__phone__text">
-                    <h5>+65 11.188.888</h5>
-                    <span>support 24/7 time</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      <NavBelowHeader />
       {/* Breadcrumb Section Begin */}
       <section
         className="breadcrumb-section set-bg"
@@ -98,64 +46,108 @@ function ShopGrid() {
             <div className="col-lg-3 col-md-5">
               <div className="sidebar">
                 <div className="sidebar__item">
-                  <h4>Department</h4>
-                  <ul>
-                    <li>
-                      <a href="#">Fresh Meat</a>
-                    </li>
-                    <li>
-                      <a href="#">Vegetables</a>
-                    </li>
-                    <li>
-                      <a href="#">Fruit &amp; Nut Gifts</a>
-                    </li>
-                    <li>
-                      <a href="#">Fresh Berries</a>
-                    </li>
-                    <li>
-                      <a href="#">Ocean Foods</a>
-                    </li>
-                    <li>
-                      <a href="#">Butter &amp; Eggs</a>
-                    </li>
-                    <li>
-                      <a href="#">Fastfood</a>
-                    </li>
-                    <li>
-                      <a href="#">Fresh Onion</a>
-                    </li>
-                    <li>
-                      <a href="#">Papayaya &amp; Crisps</a>
-                    </li>
-                    <li>
-                      <a href="#">Oatmeal</a>
-                    </li>
-                  </ul>
+                  <h4>Categories</h4>
+                  <Checkbox.Group
+                    style={{
+                      width: "100%",
+                    }}
+                    onChange={onChangeCategories}
+                  >
+                    <Row>
+                      <Col span={8}>
+                        <Checkbox
+                          value="accessories"
+                          style={{ fontSize: "16px" }}
+                        >
+                          Accessories
+                        </Checkbox>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col span={8}>
+                        <Checkbox
+                          value="outerwear"
+                          style={{ fontSize: "16px" }}
+                        >
+                          Outerwear
+                        </Checkbox>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col span={8}>
+                        <Checkbox value="footwear" style={{ fontSize: "16px" }}>
+                          Footwear
+                        </Checkbox>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col span={8}>
+                        <Checkbox value="tops" style={{ fontSize: "16px" }}>
+                          Tops
+                        </Checkbox>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col span={8}>
+                        <Checkbox value="bottom" style={{ fontSize: "16px" }}>
+                          Bottoms
+                        </Checkbox>
+                      </Col>
+                    </Row>
+                  </Checkbox.Group>
                 </div>
                 <div className="sidebar__item">
                   <h4>Price</h4>
                   <div className="price-range-wrap">
-                    <div
-                      className="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
-                      data-min={10}
-                      data-max={540}
-                    >
-                      <div className="ui-slider-range ui-corner-all ui-widget-header" />
-                      <span
-                        tabIndex={0}
-                        className="ui-slider-handle ui-corner-all ui-state-default"
-                      />
-                      <span
-                        tabIndex={0}
-                        className="ui-slider-handle ui-corner-all ui-state-default"
-                      />
-                    </div>
-                    <div className="range-slider">
-                      <div className="price-input">
-                        <input type="text" id="minamount" />
-                        <input type="text" id="maxamount" />
-                      </div>
-                    </div>
+                  <Checkbox.Group
+                    style={{
+                      width: "100%",
+                    }}
+                    onChange={onChangePrice}
+                  >
+                    <Row>
+                      <Col span={1000}>
+                        <Checkbox
+                          value="0-500000"
+                          style={{ fontSize: "16px" }}
+                        >
+                         0 vnd - 500.000 vnd
+                        </Checkbox>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col span={1000}>
+                        <Checkbox
+                          value="500000-1000000"
+                          style={{ fontSize: "16px" }}
+                        >
+                         500.000 vnd - 1.000.000 vnd
+                        </Checkbox>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col span={1000}>
+                        <Checkbox value="1000000-1500000" style={{ fontSize: "16px" }}>
+                        1.000.000 vnd - 1.500.000 vnd
+                        </Checkbox>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col span={1000}>
+                        <Checkbox value="1500000-2000000" style={{ fontSize: "16px" }}>
+                        1.500.000 vnd - 2.000.000 vnd
+                        </Checkbox>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col span={1000}>
+                        <Checkbox value="2000000-" style={{ fontSize: "16px" }}>
+                        Over 2.000.000 vnd
+                        </Checkbox>
+                      </Col>
+                    </Row>
+                  </Checkbox.Group>
+
                   </div>
                 </div>
                 <div className="sidebar__item sidebar__item__color--option">

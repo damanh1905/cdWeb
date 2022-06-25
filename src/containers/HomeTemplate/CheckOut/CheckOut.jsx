@@ -9,9 +9,15 @@ function CheckOut() {
   const [orders, setOrders] = useState([]);
   const [total,setTotal]=useState(0);
   const [paypalLink,setPaypalLink]=useState("");
+  const [alertPlaceOrder,setAlertPlaceOrder]=useState("");
   const navigate = useNavigate();
 
   const theARef=useRef("");
+
+  //
+  const [phoneNumber,setPhoneNumber]=useState("");
+  const [address,setAdress]=useState("");
+
  
 // get ALL Order
 const handleAllOrder = async () => {
@@ -53,14 +59,26 @@ const handleAllOrder = async () => {
             arrayIds.push(orders[i].productEntities.id)
       }
       try {
-      const { data } = await doPost("http://localhost:8082/api/order/checkoutOrder",{
+      if(total&&address&&phoneNumber){
+        const { data } = await doPost("http://localhost:8082/api/order/checkoutOrder",{
         idProducts:arrayIds,
         feeTotal:null,
-        total:total
+        total:total,
+        address:address,
+        phoneNumber:phoneNumber
       });
       console.log("checkout",data) 
       handleAllOrder();
-      navigate("/checkout");
+      navigate("/manageOrder");
+      setAdress("");
+      setPhoneNumber("")
+      setAlertPlaceOrder("Bạn đã đặt hàng thành công")
+      }
+      else if(total){
+        setAlertPlaceOrder("Bạn chưa nhập số điện thoại và địa chỉ")
+      }else{
+        setAlertPlaceOrder("Bạn chưa có đơn hàng nào")
+      }
       
     } catch (e) {
       console.log(e);
@@ -227,6 +245,10 @@ const handleAllOrder = async () => {
                         type="text"
                         placeholder="Street Address"
                         className="checkout__input__add"
+                        value={address}
+                        onChange={(e)=>{
+                              setAdress(e.target.value)
+                        }}
                       />
                       <input
                         type="text"
@@ -257,7 +279,9 @@ const handleAllOrder = async () => {
                           <p>
                             Phone<span>*</span>
                           </p>
-                          <input type="text" />
+                          <input type="text"  value={phoneNumber} onChange={(e)=>{
+                                  setPhoneNumber(e.target.value)
+                          }} />
                         </div>
                       </div>
                       <div className="col-lg-6">
@@ -375,10 +399,11 @@ const handleAllOrder = async () => {
                       <button className="site-btn" onClick={handleCheckout}>
                         PLACE ORDER
                       </button>
+                      <p style={{color:"red"}}>{alertPlaceOrder}</p>
                     </div>
                   </div>
                 </div>
-              {/* </form> */}
+               {/* </form> */}
             </div>
           </div>
         </section>

@@ -51,7 +51,7 @@ function Home() {
         const { data } = await doGet(
           "category/showCategory?nameCategory=accessories"
         );
-        // console.log(data.data);
+        console.log(data.data.productResponses);
 
         setProduct(data.data.productResponses);
       } catch (e) {
@@ -64,7 +64,7 @@ function Home() {
     (async () => {
       try {
         const { data } = await doGet(
-          "category/showCategory?nameCategory=footwer"
+          "category/showCategory?nameCategory=footwear"
         );
         console.log(data.data.productResponses);
 
@@ -275,17 +275,14 @@ function Home() {
             <div className="row featured__filter">
               {product &&
                 product.map((items, index) => (
-                  <div
-                    key={index}
-                    className="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat "
-                  >
+                  <div key={index} className="col-lg-3 col-md-4 col-sm-6 mix">
                     <div className="featured__item">
                       <div
                         className="featured__item__pic set-bg"
                         style={{
                           backgroundImage:
                             "url(" +
-                            `/assets/img/secondhand/accessories/${items.imageEntity[index].url}` +
+                            `/assets/img/secondhand/accessories/${items?.imageEntity[0]?.url}` +
                             ")",
                         }}
                         data-setbg="assets/img/featured/feature-2.jpg"
@@ -335,7 +332,7 @@ function Home() {
         </section>
         {/* Featured Section End */}
         {/* Banner Begin */}
-        <div className="banner">
+        {/* <div className="banner">
           <div className="container">
             <div className="row">
               <div className="col-lg-6 col-md-6 col-sm-6">
@@ -350,10 +347,10 @@ function Home() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         {/* Banner End */}
         {/* Latest Product Section Begin */}
-        <section className="latest-product spad">
+        {/* <section className="latest-product spad">
           <div className="container">
             <div className="row">
               <div className="col-lg-4 col-md-6">
@@ -565,10 +562,10 @@ function Home() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
         {/* Latest Product Section End */}
         {/* Blog Section Begin */}
-        <section className="from-blog spad">
+        {/* <section className="from-blog spad">
           <div className="container">
             <div className="row">
               <div className="col-lg-12">
@@ -595,10 +592,10 @@ function Home() {
                     <h5>
                       <a href="#">Cooking tips make cooking simple</a>
                     </h5>
-                    {/* <p>
+                    <p>
                       Sed quia non numquam modi tempora indunt ut labore et
                       dolore magnam aliquam quaerat{" "}
-                    </p> */}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -619,10 +616,10 @@ function Home() {
                     <h5>
                       <a href="#">6 ways to prepare breakfast for 30</a>
                     </h5>
-                    {/* <p>
+                    <p>
                       Sed quia non numquam modi tempora indunt ut labore et
                       dolore magnam aliquam quaerat{" "}
-                    </p> */}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -643,16 +640,16 @@ function Home() {
                     <h5>
                       <a href="#">Visit the clean farm in the US</a>
                     </h5>
-                    {/* <p>
+                    <p>
                       Sed quia non numquam modi tempora indunt ut labore et
                       dolore magnam aliquam quaerat{" "}
-                    </p> */}
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
         {/* Blog Section End */}
       </div>
     </>

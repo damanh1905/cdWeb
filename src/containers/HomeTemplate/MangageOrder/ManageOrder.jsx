@@ -1,6 +1,6 @@
 
 import "antd/dist/antd.css";
-import { Space, Table, Tag } from "antd";
+import { Space, Table, Tag ,Button} from "antd";
 import React, {  useEffect ,useState} from "react";
 import { doGet, doPost } from "../../../utils/api/api";
 import {Link} from "react-router-dom";
@@ -8,6 +8,7 @@ import {Link} from "react-router-dom";
 
 function ManageOrder() {
   const [orders, setOrders] = useState([]);
+  const [change,setChange]=useState(false);
   // callAPI
   const columns = [
     {
@@ -57,10 +58,23 @@ function ManageOrder() {
       render: (_, record) => (
         <Space size="middle">
           <a style={{color:"green"}}>Đang giao</a>
+        
         </Space>
         
       )
-    }
+    },
+    {
+      title: "Hủy đơn hàng",
+      key: "huydh",
+      dataIndex: "huydh",
+      render: (_, { madh }) => (
+        <>
+            <Button onClick={()=>{
+              handleOrderCancle(madh);
+            }}>Hủy</Button>
+        </>
+      )
+    },
   ];
   const data=orders.map((item,index)=>{
         return {
@@ -75,6 +89,18 @@ function ManageOrder() {
           }).format(item.totalPriceOrder)}`]
         }
   })
+  const handleOrderCancle=(id)=>{
+    // console.log(id)
+    (async () => {
+      try {
+        const { data } = await doPost(`order/deleteOrder/${id}`);
+        console.log(data);
+        setChange(!change)
+      } catch (e) {
+        console.log(e);   
+      }
+    })();
+  }
 useEffect(() => {
   (async () => {
     try {
@@ -85,12 +111,13 @@ useEffect(() => {
    
     }
   })();
-}, []);
+}, [change]);
   return (
     <>
         <h3>Danh sách đơn hàng  </h3>
         <Table columns={columns} dataSource={data} />
         <Link to="/">Back</Link>
+     
     </>
   );
 }

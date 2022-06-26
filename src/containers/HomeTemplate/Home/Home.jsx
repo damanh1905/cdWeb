@@ -275,7 +275,7 @@ function Home() {
             <div className="row featured__filter">
               {product &&
                 product.map((items, index) => (
-                  <div key={index} className="col-lg-3 col-md-4 col-sm-6 mix">
+                  <div key={index} className="col-lg-3 col-md-4 col-sm-6">
                     <div className="featured__item">
                       <div
                         className="featured__item__pic set-bg"
@@ -332,7 +332,7 @@ function Home() {
         </section>
         {/* Featured Section End */}
         {/* Banner Begin */}
-        {/* <div className="banner">
+        <div className="banner">
           <div className="container">
             <div className="row">
               <div className="col-lg-6 col-md-6 col-sm-6">
@@ -347,10 +347,10 @@ function Home() {
               </div>
             </div>
           </div>
-        </div> */}
+        </div>
         {/* Banner End */}
         {/* Latest Product Section Begin */}
-        {/* <section className="latest-product spad">
+        <section className="latest-product spad">
           <div className="container">
             <div className="row">
               <div className="col-lg-4 col-md-6">
@@ -562,10 +562,10 @@ function Home() {
               </div>
             </div>
           </div>
-        </section> */}
+        </section>
         {/* Latest Product Section End */}
         {/* Blog Section Begin */}
-        {/* <section className="from-blog spad">
+        <section className="from-blog spad">
           <div className="container">
             <div className="row">
               <div className="col-lg-12">
@@ -649,7 +649,7 @@ function Home() {
               </div>
             </div>
           </div>
-        </section> */}
+        </section>
         {/* Blog Section End */}
       </div>
     </>

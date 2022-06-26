@@ -3,9 +3,11 @@ import PropTypes from "prop-types";
 import SearchProduct from "../../../components/Layout/Search/SearchProduct";
 import { Link } from "react-router-dom";
 import { doGet } from "../../../utils/api/api";
+import { useNavigate } from "react-router-dom";
 function Wishlist(props) {
   const [dataWishList, setDataWishList] = useState([]);
   const [checkData, setCheckData] = useState(true);
+  const navigate = useNavigate();
   useEffect(() => {
     (async () => {
       try {
@@ -15,7 +17,8 @@ function Wishlist(props) {
         setCheckData(true);
       } catch (e) {
         console.log(e);
-        // setNavigate(true);
+        console.log("ahihi");
+        navigate("/login");
       }
     })();
   }, [checkData]);

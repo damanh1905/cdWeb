@@ -279,12 +279,21 @@ function Home() {
                     <div className="featured__item">
                       <div
                         className="featured__item__pic set-bg"
+<<<<<<< HEAD
                         style={{
                           backgroundImage:
                             "url(" +
                             `/assets/img/secondhand/accessories/${items?.imageEntity[0]?.url}` +
                             ")",
                         }}
+=======
+                        // style={{
+                        //   backgroundImage:
+                        //     "url(" +
+                        //     `/assets/img/secondhand/accessories/${items.imageEntity[index].url}` +
+                        //     ")",
+                        // }}
+>>>>>>> 2708d4aa00c2497c77da19ba595a11ed7b7bb0a1
                         data-setbg="assets/img/featured/feature-2.jpg"
                       >
                         <ul className="featured__item__pic__hover">

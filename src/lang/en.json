@@ -29,6 +29,7 @@
   "product": "Product",
 
   "login": {
+    "cancel":"Back",
     "welcom": "Welcome to",
     "remember": "Remember me",
     "passwd": "Forgot password",

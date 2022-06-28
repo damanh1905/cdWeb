@@ -239,45 +239,46 @@ function ShopGrid() {
                   </div>
                 </div>
                 <div className="sidebar__item sidebar__item__color--option">
-                  <h4>Colors</h4>
-                  <div className="sidebar__item__color sidebar__item__color--white">
-                    <label htmlFor="white">
-                      White
-                      <input type="radio" id="white" />
-                    </label>
-                  </div>
-                  <div className="sidebar__item__color sidebar__item__color--gray">
-                    <label htmlFor="gray">
-                      Gray
-                      <input type="radio" id="gray" />
-                    </label>
-                  </div>
-                  <div className="sidebar__item__color sidebar__item__color--red">
-                    <label htmlFor="red">
-                      Red
-                      <input type="radio" id="red" />
-                    </label>
-                  </div>
-                  <div className="sidebar__item__color sidebar__item__color--black">
-                    <label htmlFor="black">
-                      Black
-                      <input type="radio" id="black" />
-                    </label>
-                  </div>
-                  <div className="sidebar__item__color sidebar__item__color--blue">
-                    <label htmlFor="blue">
-                      Blue
-                      <input type="radio" id="blue" />
-                    </label>
-                  </div>
-                  <div className="sidebar__item__color sidebar__item__color--green">
-                    <label htmlFor="green">
-                      Green
-                      <input type="radio" id="green" />
-                    </label>
-                  </div>
+                  <h4>Gender</h4>
+                  <Checkbox.Group
+                      style={{
+                        width: "100%",
+                      }}
+                      onChange={onChangeGender}
+                    >
+                      <Row>
+                        <Col span={1000}>
+                          <Checkbox
+                            value="male"
+                            style={{ fontSize: "16px" }}
+                          >
+                            Male
+                          </Checkbox>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col span={1000}>
+                          <Checkbox
+                            value="female"
+                            style={{ fontSize: "16px" }}
+                          >
+                           Female
+                          </Checkbox>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col span={1000}>
+                          <Checkbox
+                            value="unisex"
+                            style={{ fontSize: "16px" }}
+                          >
+                           Unisex
+                          </Checkbox>
+                        </Col>
+                      </Row>
+                    </Checkbox.Group>
                 </div>
-                <div className="sidebar__item">
+                {/* <div className="sidebar__item">
                   <h4>Popular Size</h4>
                   <div className="sidebar__item__size">
                     <label htmlFor="large">
@@ -303,7 +304,7 @@ function ShopGrid() {
                       <input type="radio" id="tiny" />
                     </label>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="col-lg-9 col-md-7">

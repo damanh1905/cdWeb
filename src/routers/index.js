@@ -15,6 +15,7 @@ import EditUser from "../containers/HomeTemplate/EditUser";
 import Sell from "../containers/HomeTemplate/Sell";
 import ForgotPassword from "../containers/HomeTemplate/ForgotPassword";
 import ManageOrder from "../containers/HomeTemplate/MangageOrder";
+import ManageSell from "../containers/HomeTemplate/ManageSell/ManageSell";
 const publicRouterUser = [
   { path: "/", component: Home },
   { path: "/blogDetail", component: BlogDetail },
@@ -33,6 +34,7 @@ const publicRouterUser = [
   { path: "/register", component: Register, layout: null },
   { path: "/login", component: Login, layout: null },
   { path: "/manageOrder", component: ManageOrder },
+  { path: "/manageSell", component: ManageSell },
   { path: "/forgotpassword", component: ForgotPassword, layout: null },
 ];
 export { publicRouterUser };

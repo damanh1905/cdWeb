@@ -60,7 +60,50 @@ function Home() {
       }
     })();
   };
-  const handleootwer = () => {
+  const handleouterwear = () => {
+    (async () => {
+      try {
+        const { data } = await doGet(
+          "category/showCategory?nameCategory=outerwear"
+        );
+        console.log(data.data.productResponses);
+
+        setProduct(data.data.productResponses);
+      } catch (e) {
+        console.log(e);
+        // setNavigate(true);
+      }
+    })();
+  };
+  const handletops = () => {
+    (async () => {
+      try {
+        const { data } = await doGet("category/showCategory?nameCategory=tops");
+        console.log(data.data.productResponses);
+
+        setProduct(data.data.productResponses);
+      } catch (e) {
+        console.log(e);
+        // setNavigate(true);
+      }
+    })();
+  };
+  const handlebottoms = () => {
+    (async () => {
+      try {
+        const { data } = await doGet(
+          "category/showCategory?nameCategory=bottoms"
+        );
+        console.log(data.data.productResponses);
+
+        setProduct(data.data.productResponses);
+      } catch (e) {
+        console.log(e);
+        // setNavigate(true);
+      }
+    })();
+  };
+  const handlefootwear = () => {
     (async () => {
       try {
         const { data } = await doGet(
@@ -262,12 +305,21 @@ function Home() {
                     <li data-filter=".accessories" onClick={handleAccessories}>
                       {t("home.accessories")}
                     </li>
-                    <li data-filter=".outerwear" onClick={handleootwer}>
+                    <li data-filter=".outerwear" onClick={handleouterwear}>
                       {t("home.outerwear")}
                     </li>
-                    <li data-filter=".tops"> {t("home.top")}</li>
-                    <li data-filter=".bottoms"> {t("home.bottoms")}</li>
-                    <li data-filter=".footwear"> {t("home.footwear")}</li>
+                    <li data-filter=".tops" onClick={handletops}>
+                  
+                      {t("home.top")}
+                    </li>
+                    <li data-filter=".bottoms" onClick={handlebottoms}>
+                     
+                      {t("home.bottoms")}
+                    </li>
+                    <li data-filter=".footwear" onClick={handlefootwear}>
+                   
+                      {t("home.footwear")}
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -565,7 +617,7 @@ function Home() {
         </section>
         {/* Latest Product Section End */}
         {/* Blog Section Begin */}
-        <section className="from-blog spad">
+        {/* <section className="from-blog spad">
           <div className="container">
             <div className="row">
               <div className="col-lg-12">
@@ -649,7 +701,7 @@ function Home() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
         {/* Blog Section End */}
       </div>
     </>

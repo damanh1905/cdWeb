@@ -28,6 +28,7 @@
   "product": "Sản phẩm",
 
   "login": {
+    "cancel":"Trở lại",
     "welcom": "Chào mừng bạn",
     "remember": "Nhớ mật khẩu",
     "passwd": "Quên mật khẩu",

@@ -4,6 +4,7 @@ import SearchProduct from "../../../components/Layout/Search/SearchProduct";
 import { Link } from "react-router-dom";
 import { doGet } from "../../../utils/api/api";
 import { useNavigate } from "react-router-dom";
+import NavBelowHeader from "../../../components/Layout/NavBelowHeader/NavBelowHeader";
 function Wishlist(props) {
   const [dataWishList, setDataWishList] = useState([]);
   const [checkData, setCheckData] = useState(true);
@@ -38,69 +39,8 @@ function Wishlist(props) {
   };
   return (
     <>
-      <section className="hero hero-normal">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-3">
-              <div className="hero__categories">
-                <div className="hero__categories__all">
-                  <i className="fa fa-bars" />
-                  <span>All departments</span>
-                </div>
-                <ul>
-                  <li>
-                    <a href="#">Fresh Meat</a>
-                  </li>
-                  <li>
-                    <a href="#">Vegetables</a>
-                  </li>
-                  <li>
-                    <a href="#">Fruit &amp; Nut Gifts</a>
-                  </li>
-                  <li>
-                    <a href="#">Fresh Berries</a>
-                  </li>
-                  <li>
-                    <a href="#">Ocean Foods</a>
-                  </li>
-                  <li>
-                    <a href="#">Butter &amp; Eggs</a>
-                  </li>
-                  <li>
-                    <a href="#">Fastfood</a>
-                  </li>
-                  <li>
-                    <a href="#">Fresh Onion</a>
-                  </li>
-                  <li>
-                    <a href="#">Papayaya &amp; Crisps</a>
-                  </li>
-                  <li>
-                    <a href="#">Oatmeal</a>
-                  </li>
-                  <li>
-                    <a href="#">Fresh Bananas</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="col-lg-9">
-              <div className="hero__search">
-                <SearchProduct />
-                <div className="hero__search__phone">
-                  <div className="hero__search__phone__icon">
-                    <i className="fa fa-phone" />
-                  </div>
-                  <div className="hero__search__phone__text">
-                    <h5>+65 11.188.888</h5>
-                    <span>support 24/7 time</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+    <NavBelowHeader></NavBelowHeader>
+    
       <section
         className="breadcrumb-section set-bg"
         style={{
@@ -139,7 +79,12 @@ function Wishlist(props) {
                       dataWishList.map((items, index) => (
                         <tr key={index}>
                           <td className="shoping__cart__item">
-                            <img src="img/cart/cart-1.jpg" alt="" />
+                            <img  style={{
+                          backgroundImage:
+                            "url(" +
+                            `/assets/img/secondhand/accessories/${items.productEntities.url}` +
+                            ")",
+                        }}/>
                             <h5>{items.productEntities.name}</h5>
                           </td>
                           <td className="shoping__cart__price">

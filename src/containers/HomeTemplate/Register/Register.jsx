@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "antd/dist/antd.css";
 import "./register.scss";
 import {
@@ -337,6 +337,12 @@ const Register = () => {
           <Form.Item {...tailFormItemLayout}>
             <Button type="primary" htmlType="submit">
               {t('header.register')}
+            </Button>
+            <Button
+              type="default"
+              style={{marginLeft:'10px'}}
+            >
+               <Link to={"/login"}>{t('login.cancel')}</Link>
             </Button>
           </Form.Item>
         </Form>

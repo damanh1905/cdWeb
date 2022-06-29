@@ -12,9 +12,12 @@
     "languages_2":"Vietnamese",
     "blog": "Blog",
     "contract": "Contract",
-
+  
     "login": "Login",
-    "register": "Register"
+    "register": "Register",
+    "editUser": "Edit User",
+    "history": "History",
+    "logout": "Logout"
   },
 
   "footer": {

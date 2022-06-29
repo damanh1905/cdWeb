@@ -13,7 +13,10 @@
     "languages_1":"Tiếng Anh",
     "languages_2":"Tiếng Việt",
     "login": "Đăng nhập",
-    "register": "Đăng ký"
+    "register": "Đăng ký",
+    "editUser": "Cập nhật thông tin",
+    "history": "Lịch sử đơn hàng",
+    "logout": "Đăng xuất"
   },
 
   "footer": {

@@ -227,7 +227,7 @@ function FormLogin({ checkLogin, setCheckLogin }) {
     }
     if (e.key === '3') {
       setVisible(false);
-      // onClick={handleLogout}
+      handleLogout()
     }
   };
 
@@ -240,15 +240,15 @@ function FormLogin({ checkLogin, setCheckLogin }) {
       onClick={handleMenuClick}
       items={[
         {
-          label: 'Cập nhật thông tin',
+          label: t('header.editUser'),
           key: '1',
         },
         {
-          label: 'Lịch sử đơn hàng',
+          label: t('header.history'),
           key: '2',
         },
         {
-          label: 'Đăng xuất',
+          label: t('header.logout'),
           key: '3',
         },
       ]}

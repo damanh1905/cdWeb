@@ -51,7 +51,7 @@ function Home() {
         const { data } = await doGet(
           "category/showCategory?nameCategory=accessories"
         );
-        // console.log(data.data);
+        console.log(data.data.productResponses);
 
         setProduct(data.data.productResponses);
       } catch (e) {
@@ -60,11 +60,54 @@ function Home() {
       }
     })();
   };
-  const handleootwer = () => {
+  const handleouterwear = () => {
     (async () => {
       try {
         const { data } = await doGet(
-          "category/showCategory?nameCategory=footwer"
+          "category/showCategory?nameCategory=outerwear"
+        );
+        console.log(data.data.productResponses);
+
+        setProduct(data.data.productResponses);
+      } catch (e) {
+        console.log(e);
+        // setNavigate(true);
+      }
+    })();
+  };
+  const handletops = () => {
+    (async () => {
+      try {
+        const { data } = await doGet("category/showCategory?nameCategory=tops");
+        console.log(data.data.productResponses);
+
+        setProduct(data.data.productResponses);
+      } catch (e) {
+        console.log(e);
+        // setNavigate(true);
+      }
+    })();
+  };
+  const handlebottoms = () => {
+    (async () => {
+      try {
+        const { data } = await doGet(
+          "category/showCategory?nameCategory=bottoms"
+        );
+        console.log(data.data.productResponses);
+
+        setProduct(data.data.productResponses);
+      } catch (e) {
+        console.log(e);
+        // setNavigate(true);
+      }
+    })();
+  };
+  const handlefootwear = () => {
+    (async () => {
+      try {
+        const { data } = await doGet(
+          "category/showCategory?nameCategory=footwear"
         );
         console.log(data.data.productResponses);
 
@@ -134,10 +177,10 @@ function Home() {
                 <div
                   className="hero__item set-bg"
                   data-setbg="img/hero/banner.jpg"
-                  // style={{
-                  //   backgroundImage:
-                  //     "url(" + "assets/img/hero/banner.jpg" + ")",
-                  // }}
+                  style={{
+                    backgroundImage:
+                      "url(" + "assets/img/hero/banner.jpg" + ")",
+                  }}
                 >
                   <div className="hero__text">
                     <span>Second Hand Town</span>
@@ -169,10 +212,10 @@ function Home() {
                 <div className="col-lg-3">
                   <div
                     className="categories__item set-bg"
-                    // style={{
-                    //   backgroundImage:
-                    //     "url(" + "assets/img/categories/acessories.jpg" + ")",
-                    // }}
+                    style={{
+                      backgroundImage:
+                        "url(" + "assets/img/categories/acessories.jpg" + ")",
+                    }}
                     data-setbg="assets/img/categories/acessories.jpg"
                   >
                     <h5>
@@ -183,10 +226,10 @@ function Home() {
                 <div className="col-lg-3">
                   <div
                     className="categories__item set-bg"
-                    // style={{
-                    //   backgroundImage:
-                    //     "url(" + "assets/img/categories/outerwear.jpg" + ")",
-                    // }}
+                    style={{
+                      backgroundImage:
+                        "url(" + "assets/img/categories/outerwear.jpg" + ")",
+                    }}
                     data-setbg="assets/img/categories/outerwear.jpg"
                   >
                     <h5>
@@ -197,10 +240,10 @@ function Home() {
                 <div className="col-lg-3">
                   <div
                     className="categories__item set-bg"
-                    // style={{
-                    //   backgroundImage:
-                    //     "url(" + "assets/img/categories/tops.jpg" + ")",
-                    // }}
+                    style={{
+                      backgroundImage:
+                        "url(" + "assets/img/categories/tops.jpg" + ")",
+                    }}
                     data-setbg="assets/img/categories/tops.jpg"
                   >
                     <h5>
@@ -211,10 +254,10 @@ function Home() {
                 <div className="col-lg-3">
                   <div
                     className="categories__item set-bg"
-                    // style={{
-                    //   backgroundImage:
-                    //     "url(" + "assets/img/categories/bottom.jpg" + ")",
-                    // }}
+                    style={{
+                      backgroundImage:
+                        "url(" + "assets/img/categories/bottom.jpg" + ")",
+                    }}
                     data-setbg="assets/img/categories/bottom.jpg"
                   >
                     <h5>
@@ -225,10 +268,10 @@ function Home() {
                 <div className="col-lg-3">
                   <div
                     className="categories__item set-bg"
-                    // style={{
-                    //   backgroundImage:
-                    //     "url(" + "assets/img/categories/footwear.jpg" + ")",
-                    // }}
+                    style={{
+                      backgroundImage:
+                        "url(" + "assets/img/categories/footwear.jpg" + ")",
+                    }}
                     data-setbg="assets/img/categories/footwear.jpg"
                   >
                     <h5>
@@ -262,12 +305,21 @@ function Home() {
                     <li data-filter=".accessories" onClick={handleAccessories}>
                       {t("home.accessories")}
                     </li>
-                    <li data-filter=".outerwear" onClick={handleootwer}>
+                    <li data-filter=".outerwear" onClick={handleouterwear}>
                       {t("home.outerwear")}
                     </li>
-                    <li data-filter=".tops"> {t("home.top")}</li>
-                    <li data-filter=".bottoms"> {t("home.bottoms")}</li>
-                    <li data-filter=".footwear"> {t("home.footwear")}</li>
+                    <li data-filter=".tops" onClick={handletops}>
+                  
+                      {t("home.top")}
+                    </li>
+                    <li data-filter=".bottoms" onClick={handlebottoms}>
+                     
+                      {t("home.bottoms")}
+                    </li>
+                    <li data-filter=".footwear" onClick={handlefootwear}>
+                   
+                      {t("home.footwear")}
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -275,22 +327,15 @@ function Home() {
             <div className="row featured__filter">
               {product &&
                 product.map((items, index) => (
-                  <div
-                    key={index}
-                    className="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat "
-                  >
+                  <div key={index} className="col-lg-3 col-md-4 col-sm-6">
                     <div className="featured__item">
                       <div
                         className="featured__item__pic set-bg"
-                        // style={{
-                        //   backgroundImage:
-                        //     "url(" +
-                        //     `/assets/img/secondhand/accessories/${items.imageEntity[0].url}` +
-                        //     ")",
-                        // }}
                         style={{
                           backgroundImage:
-                            "url(" + "assets/img/featured/feature-1.jpg" + ")",
+                            "url(" +
+                            `/assets/img/secondhand/accessories/${items?.imageEntity[0]?.url}` +
+                            ")",
                         }}
                         data-setbg="assets/img/featured/feature-2.jpg"
                       >
@@ -572,7 +617,7 @@ function Home() {
         </section>
         {/* Latest Product Section End */}
         {/* Blog Section Begin */}
-        <section className="from-blog spad">
+        {/* <section className="from-blog spad">
           <div className="container">
             <div className="row">
               <div className="col-lg-12">
@@ -599,10 +644,10 @@ function Home() {
                     <h5>
                       <a href="#">Cooking tips make cooking simple</a>
                     </h5>
-                    {/* <p>
+                    <p>
                       Sed quia non numquam modi tempora indunt ut labore et
                       dolore magnam aliquam quaerat{" "}
-                    </p> */}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -623,10 +668,10 @@ function Home() {
                     <h5>
                       <a href="#">6 ways to prepare breakfast for 30</a>
                     </h5>
-                    {/* <p>
+                    <p>
                       Sed quia non numquam modi tempora indunt ut labore et
                       dolore magnam aliquam quaerat{" "}
-                    </p> */}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -647,16 +692,16 @@ function Home() {
                     <h5>
                       <a href="#">Visit the clean farm in the US</a>
                     </h5>
-                    {/* <p>
+                    <p>
                       Sed quia non numquam modi tempora indunt ut labore et
                       dolore magnam aliquam quaerat{" "}
-                    </p> */}
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
         {/* Blog Section End */}
       </div>
     </>

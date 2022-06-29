@@ -20,7 +20,9 @@ import Password from "antd/lib/input/Password";
 import SearchProduct from "../../../components/Layout/Search/SearchProduct";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
+import NavBelowHeader from "../../../components/Layout/NavBelowHeader/NavBelowHeader";
 const { Option } = Select;
+
 const normFile = (e) => {
   console.log("Upload event:", e);
 
@@ -72,157 +74,48 @@ const tailFormItemLayout = {
 };
 
 const Sell = () => {
-  const [disable, setDisable] = useState(true);
-  const [disableverify, setDisableverify] = useState(false);
-  let navigate = useNavigate();
-
-  const [form] = Form.useForm();
-  const handleCheckUser = () => {
-    return doGet(
-      `auth/checkUserName?username=${form.getFieldValue("username")}`
-    );
-  };
-  const handleCheckCode = () => {
-    return doPost("auth/verifyEmail", {
-      verifyCodeEmail: parseInt(form.getFieldValue("captcha")),
-    });
-  };
-  const handleSubmitEmail = async () => {
-    if (form.getFieldValue("username").length > 6) {
-      const { data } = await doPost("auth/registerEmail", {
-        name: form.getFieldValue("username"),
-        email: form.getFieldValue("email"),
-      });
-      console.log(data.status);
-    } else {
-      console.log("user lớn hơn 6 nha");
-    }
-  };
-
-  console.log("render2");
-
+  const [base64,setBase64]=useState([]);
+  const [soFile,setSoFile]=useState(0);
+  const navigate = useNavigate();
   const onFinish = async (values) => {
-    const { password, phone, gender, username } = values;
-    const { data } = await doPost("auth/register", {
-      userName: username,
-      password: password,
-      phone: phone,
-      gender: gender,
+    const {email,name,price,size,brand,description,note,upload } = values;
+    const { data } = await doPost("sell/postSell", {
+      email,
+      name,
+      price,
+      size,
+      brand,
+      description,
+      note,
+      upload:base64
+      
     });
-    if (data.status === 200) {
-      navigate("/login");
-    } else {
-      window.location.reload();
-    }
-
-    console.log("Received values of form: ", data.status);
+    navigate("/manageSell");
   };
+  const handleBase64=()=>{
+    var file = document.querySelector(
+      'input[type=file]')['files'];
 
-  const prefixSelector = (
-    <Form.Item name="prefix" noStyle>
-      <Select
-        style={{
-          width: 70,
-        }}
-      >
-        <Option value="86">+86</Option>
-        <Option value="87">+87</Option>
-      </Select>
-    </Form.Item>
-  );
-  const suffixSelector = (
-    <Form.Item name="suffix" noStyle>
-      <Select
-        style={{
-          width: 70,
-        }}
-      >
-        <Option value="USD">$</Option>
-        <Option value="CNY">¥</Option>
-      </Select>
-    </Form.Item>
-  );
-  const [autoCompleteResult, setAutoCompleteResult] = useState([]);
-
-  const onWebsiteChange = (value) => {
-    if (!value) {
-      setAutoCompleteResult([]);
-    } else {
-      setAutoCompleteResult(
-        [".com", ".org", ".net"].map((domain) => `${value}${domain}`)
-      );
+  for(var i=0;i<file.length;i++){
+    var reader = new FileReader();
+    console.log("next");
+      
+    reader.onload = function () {
+       var  base64String = reader.result.replace("data:", "")
+            .replace(/^.+,/, "");
+            setBase64([...base64,base64String]);
+            setSoFile(soFile+1)
+  
+        
     }
-  };
-
-  const websiteOptions = autoCompleteResult.map((website) => ({
-    label: website,
-    value: website,
-  }));
+    reader.readAsDataURL(file[i]);
+  }
+  }
+  console.log(base64)
+ 
   return (
     <>
-      <section className="hero hero-normal">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-3">
-              <div className="hero__categories">
-                <div className="hero__categories__all">
-                  <i className="fa fa-bars" />
-                  <span>All departments</span>
-                </div>
-                <ul>
-                  <li>
-                    <a href="#">Fresh Meat</a>
-                  </li>
-                  <li>
-                    <a href="#">Vegetables</a>
-                  </li>
-                  <li>
-                    <a href="#">Fruit &amp; Nut Gifts</a>
-                  </li>
-                  <li>
-                    <a href="#">Fresh Berries</a>
-                  </li>
-                  <li>
-                    <a href="#">Ocean Foods</a>
-                  </li>
-                  <li>
-                    <a href="#">Butter &amp; Eggs</a>
-                  </li>
-                  <li>
-                    <a href="#">Fastfood</a>
-                  </li>
-                  <li>
-                    <a href="#">Fresh Onion</a>
-                  </li>
-                  <li>
-                    <a href="#">Papayaya &amp; Crisps</a>
-                  </li>
-                  <li>
-                    <a href="#">Oatmeal</a>
-                  </li>
-                  <li>
-                    <a href="#">Fresh Bananas</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="col-lg-9">
-              <div className="hero__search">
-                <SearchProduct />
-                <div className="hero__search__phone">
-                  <div className="hero__search__phone__icon">
-                    <i className="fa fa-phone" />
-                  </div>
-                  <div className="hero__search__phone__text">
-                    <h5>+65 11.188.888</h5>
-                    <span>support 24/7 time</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <NavBelowHeader/>
       <section
         className="breadcrumb-section set-bg"
         style={{
@@ -252,7 +145,7 @@ const Sell = () => {
             validateMessages={validateMessages}
           >
             <Form.Item
-              name={["user", "email"]}
+              name="email"
               label="Email Seller"
               rules={[
                 {
@@ -264,7 +157,7 @@ const Sell = () => {
               <Input />
             </Form.Item>
             <Form.Item
-              name={["user", "name"]}
+              name="name"
               label="Name"
               rules={[
                 {
@@ -276,7 +169,7 @@ const Sell = () => {
             </Form.Item>
 
             <Form.Item
-              name={["user", "price"]}
+              name="price"
               label="Price"
               rules={[
                 {
@@ -290,7 +183,7 @@ const Sell = () => {
               <InputNumber />
             </Form.Item>
             <Form.Item
-              name="Size"
+              name="size"
               label="Size"
               rules={[
                 {
@@ -305,25 +198,37 @@ const Sell = () => {
                 <Radio.Button value="l">Size L</Radio.Button>
               </Radio.Group>
             </Form.Item>
-            <Form.Item name={["user", "brand"]} label="Brand">
+            <Form.Item name="brand" label="Brand">
               <Input />
             </Form.Item>
-            <Form.Item name={["user", "description"]} label="Description">
+            <Form.Item name="description" label="Description">
               <Input.TextArea />
             </Form.Item>
-            <Form.Item name={["user", "note"]} label="Note">
+            <Form.Item name="note" label="Note">
               <Input.TextArea />
             </Form.Item>
             <Form.Item
               name="upload"
               label="Upload"
-              valuePropName="fileList"
-              getValueFromEvent={normFile}
+              // valuePropName="fileList"
+              // getValueFromEvent={normFile}
               
             >
-              <Upload name="logo" action="/upload.do" listType="picture">
+                   <input type="file" className="" multiple id="fileId" onChange={()=>{
+                          handleBase64();
+                   }}/>
+                   <p>{soFile+" số files "}</p>
+                   {
+                    soFile>0? <Button onClick={()=>{
+                          document.getElementById("fileId").value="";
+                          setSoFile(0)
+                          setBase64([])
+                    }}>Hủy</Button>:""
+                   }
+                  
+              {/* <Upload name="logo" action="/upload.do" listType="picture">
                 <Button > <FontAwesomeIcon icon={faUpload} style={{marginRight:"10px"}}/> Click to upload</Button>
-              </Upload>
+              </Upload> */}
             </Form.Item>
             <Form.Item
               name="agreement"
@@ -343,7 +248,7 @@ const Sell = () => {
               </Checkbox>
             </Form.Item>
             <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-              <Button type="primary" htmlType="submit">
+              <Button type="primary"  htmlType="submit">
                 Submit
               </Button>
             </Form.Item>

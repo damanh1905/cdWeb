@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SearchProduct from "../../../components/Layout/Search/SearchProduct";
 import { doGet, doPost } from "../../../utils/api/api";
-import { useNavigate ,Link} from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 function ShoppingCart() {
   console.log("reden");
   const [cartItem, setCartItem] = useState([]);
@@ -44,18 +44,18 @@ function ShoppingCart() {
     (async () => {
       try {
         const { data } = await doGet("cart/listCart");
-        console.log(data.data);
+        // console.log(data.data);
         setCartItem(data.data);
         setChechChange(true);
-        console.log("listcart", checkChage);
+        // console.log("listcart", checkChage);
         let total = 0;
         for (let i = 0; i < data.data.length; i++) {
           total += data.data[i].totalPrice;
         }
         setTotalPrice(total);
-        console.log("ahihi", total);
       } catch (e) {
         console.log(e);
+
         navigate("/login");
       }
     })();
@@ -315,11 +315,14 @@ function ShoppingCart() {
                     Total <span>coming</span>
                   </li>
                 </ul>
-              
-                <Link  to={{
-                                   pathname: "/checkout",      
-                                }}className="primary-btn">
-                      PROCEED TO CHECKOUT
+
+                <Link
+                  to={{
+                    pathname: "/checkout",
+                  }}
+                  className="primary-btn"
+                >
+                  PROCEED TO CHECKOUT
                 </Link>
               </div>
             </div>

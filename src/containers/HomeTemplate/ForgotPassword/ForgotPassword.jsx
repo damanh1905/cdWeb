@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 import "antd/dist/antd.css";
 import "./forgot.scss";
 import {
@@ -17,6 +18,7 @@ import {
 import { doGet, doPost } from "../../../utils/api/api";
 import { debounce } from "lodash";
 import Password from "antd/lib/input/Password";
+
 
 const { Option } = Select;
 const formItemLayout = {
@@ -97,7 +99,7 @@ const ForgotPassword = () => {
 
     console.log("Received values of form: ", data.status);
   };
-
+  const { t } = useTranslation();
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
       <Select
@@ -275,6 +277,12 @@ const ForgotPassword = () => {
           <Form.Item {...tailFormItemLayout}>
             <Button type="primary" htmlType="submit">
               Submit
+            </Button>
+            <Button
+              type="default"
+              style={{marginLeft:'10px'}}
+            >
+               <Link to={"/login"}>{t('login.cancel')}</Link>
             </Button>
           </Form.Item>
         </Form>

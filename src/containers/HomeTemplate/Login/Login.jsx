@@ -120,10 +120,7 @@ const Login = () => {
             <Form.Item name="remember" valuePropName="checked" noStyle>
               <Checkbox>{t('login.remember')}</Checkbox>
             </Form.Item>
-
-            <a className="login-form-forgot" href="/forgotpassword">
-            {t('login.passwd')}
-            </a>
+            <Link to={"/forgotpassword"}>{t('login.passwd')}</Link>
           </Form.Item>
 
           <Form.Item>
@@ -131,11 +128,15 @@ const Login = () => {
               type="primary"
               htmlType="submit"
               className="login-form-button"
+              style={{marginRight:'5px'}}
             >
               {t('login.login')}
             </Button>
             {t('login.or')} <Link to={"/register"}>{t('login.register')}</Link>
+            
+          
           </Form.Item>
+         
         </Form>
         <div className="container-right-login">
           <div className="container-button">
@@ -162,6 +163,13 @@ const Login = () => {
               onFailure={responseGoogle}
               cookiePolicy={"single_host_origin"}
             />
+             <Button
+              type="default"
+             
+              style={{marginTop:'125px'}}
+            >
+               <Link to={"/"}>{t('login.cancel')}</Link>
+            </Button>
           </div>
         </div>
       </div>

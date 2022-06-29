@@ -120,7 +120,7 @@ function Header(props) {
                     <Link to={"/shopGrid"}>{t('header.shop')}</Link>
                   </li>
                   <li>
-                    <a href="#">{t('header.page')}</a>
+                  <a href="#">{t('header.page')}</a>
                     <ul className="header__menu__dropdown">
                       <li>
                         <Link to={"/shoppingCart"}>{t('header.cart')}</Link>
@@ -130,6 +130,9 @@ function Header(props) {
                       </li>
                       <li>
                         <Link to={"/blogDetail"}>{t('header.details')}</Link>
+                      </li>
+                      <li>
+                        <Link to={"/manageOrder"}>ManageOrder</Link>
                       </li>
                     </ul>
                   </li>

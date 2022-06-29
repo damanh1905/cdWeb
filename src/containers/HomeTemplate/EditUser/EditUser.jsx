@@ -7,6 +7,7 @@ import {
   Button,
   Form,
   Input,
+  InputNumber,
   Select
 } from "antd";
 import SearchProduct from "../../../components/Layout/Search/SearchProduct";
@@ -48,16 +49,25 @@ const EditUser = () => {
 
   const [disable, setDisable] = useState(true);
   const [getCurrentUser, setCurrentUser] = useState([]);
+  const [getUsername, setUsername] = useState();
+  const [getMail, setMail] = useState();
+  const [getPhone, setPhone] = useState();
+  const [getGender, setGender] = useState();
   // const [disableverify, setDisableverify] = useState(false);
   let navigate = useNavigate();
 
   const [form] = Form.useForm();
+
   form.setFieldsValue({
     username: localStorage.getItem("username"),
     email: getCurrentUser.email,
     phone: getCurrentUser.phone,
     gender: getCurrentUser.gender,
 
+    // username: getUsername,
+    // email: getMail,
+    // phone: getPhone,
+    // gender: getGender,
   })
 
   // useEffect(() => {
@@ -82,6 +92,10 @@ const EditUser = () => {
             `/auth/getCurrentUser?username=${userName}`,
           );
           setCurrentUser(data);
+          // setUsername(localStorage.getItem("username"));
+          // setMail(data.email);
+          // setPhone(data.phone);
+          // setGender(data.gender);
           // console.log(data)
         }
       } catch (error) {
@@ -342,7 +356,7 @@ const EditUser = () => {
               },
             ]}
           >
-            <Input
+            <InputNumber
               addonBefore={prefixSelector}
               style={{
                 width: "100%",

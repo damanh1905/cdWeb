@@ -112,8 +112,8 @@ function ShopDetail() {
               <div className="breadcrumb__text">
                 <h2>Vegetable’s Package</h2>
                 <div className="breadcrumb__option">
-                  <a href="./index.html">Home</a>
-                  <a href="./index.html">Vegetables</a>
+                  <a href="./">Home</a>
+                  <a href="./">Vegetables</a>
                   <span>Vegetable’s Package</span>
                 </div>
               </div>

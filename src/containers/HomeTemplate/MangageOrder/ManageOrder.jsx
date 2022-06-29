@@ -126,7 +126,7 @@ useEffect(() => {
               <div className="breadcrumb__text">
                 <h2>Order History</h2>
                 <div className="breadcrumb__option">
-                  <a href="./index.html">Home</a>
+                  <a href="./">Home</a>
                   <span>Order History</span>
                 </div>
               </div>

@@ -250,7 +250,7 @@ const EditUser = () => {
             <div className="breadcrumb__text">
               <h2>Edit Information</h2>
               <div className="breadcrumb__option">
-                <a href="./index.html">Home</a>
+                <a href="./">Home</a>
                 <span>Edit Information</span>
               </div>
             </div>

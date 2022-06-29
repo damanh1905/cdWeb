@@ -12,7 +12,7 @@ function Footer() {
           <div className="col-lg-3 col-md-6 col-sm-6">
             <div className="footer__about">
               <div className="footer__about__logo">
-                <a href="./index.html"><img src="assets/img/logo.png" /></a>
+                <a href="./"><img src="assets/img/logo.png" /></a>
               </div>
               <ul>
                 <li>{t('footer.address')}: 60-49 Road 11378 New York</li>

@@ -7,6 +7,9 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGlobe } from "@fortawesome/free-solid-svg-icons";
+import { DownOutlined } from '@ant-design/icons';
+import { Dropdown, Menu, Space } from 'antd';
+import { createBrowserHistory } from "history";
 
 
 function Header(props) {
@@ -39,7 +42,7 @@ function Header(props) {
           <div className="container">
             <div className="row">
               <div className="col-lg-6 col-md-6">
-                <div className="header__top__left">
+                {/* <div className="header__top__left">
                   <ul>
                     <li style={{ display: "flex" }}>
                       <i className="fa fa-user" aria-hidden="true"></i>
@@ -50,9 +53,8 @@ function Header(props) {
                         )}
                       </p>
                     </li>
-                    {/* <li>Free Shipping for all Order of $99</li> */}
                   </ul>
-                </div>
+                </div> */}
               </div>
               <div className="col-lg-6 col-md-6">
                 <div className="header__top__right">
@@ -71,7 +73,7 @@ function Header(props) {
                     </a>
                   </div> */}
                   <div className="header__top__right__language">
-                  <FontAwesomeIcon icon={faGlobe} style={{marginRight:"10px"}} />
+                    <FontAwesomeIcon icon={faGlobe} style={{ marginRight: "10px" }} />
                     <div>{t('header.languages')}</div>
                     <span className="arrow_carrot-down"></span>
                     <ul>
@@ -105,7 +107,7 @@ function Header(props) {
           <div className="row">
             <div className="col-lg-3">
               <div className="header__logo">
-                <a href="./index.html">
+                <a href="./">
                   <img src="assets/img/logo.png" alt="" />
                 </a>
               </div>
@@ -120,7 +122,7 @@ function Header(props) {
                     <Link to={"/shopGrid"}>{t('header.shop')}</Link>
                   </li>
                   <li>
-                  <a href="#">{t('header.page')}</a>
+                    <a href="#">{t('header.page')}</a>
                     <ul className="header__menu__dropdown">
                       <li>
                         <Link to={"/shoppingCart"}>{t('header.cart')}</Link>
@@ -148,7 +150,7 @@ function Header(props) {
             <div className="col-lg-3">
               <div className="header__cart">
                 <ul>
-                <li>
+                  <li>
                     <Link to="/sell">
                       <i className="fa fa-dollar"></i>
                       {/* <span>1</span> */}
@@ -185,6 +187,21 @@ function Header(props) {
 function FormLogin({ checkLogin, setCheckLogin }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [userName, setUserName] = useState();
+  const [visible, setVisible] = useState(false);
+
+
+  useEffect(() => {
+    const token = Cookies.get("token");
+    if (token !== undefined) {
+      const userName = localStorage.getItem("username");
+      if (userName !== undefined) {
+        setUserName(userName);
+        setCheckLogin(false);
+      }
+    }
+  }, []);
+
   const handleLogout = () => {
     const userName = localStorage.getItem("username");
     (async () => {
@@ -197,6 +214,46 @@ function FormLogin({ checkLogin, setCheckLogin }) {
       navigate("/");
     })();
   };
+
+
+  const handleMenuClick = (e) => {
+    if (e.key === '1') {
+      setVisible(false);
+      navigate('/edituser', {replace: true});
+    }
+    if (e.key === '2') {
+      setVisible(false);
+      navigate('/', {replace: true});
+    }
+    if (e.key === '3') {
+      setVisible(false);
+      // onClick={handleLogout}
+    }
+  };
+
+  const handleVisibleChange = (flag) => {
+    setVisible(flag);
+  };
+
+  const menu = (
+    <Menu
+      onClick={handleMenuClick}
+      items={[
+        {
+          label: 'Cập nhật thông tin',
+          key: '1',
+        },
+        {
+          label: 'Lịch sử đơn hàng',
+          key: '2',
+        },
+        {
+          label: 'Đăng xuất',
+          key: '3',
+        },
+      ]}
+    />
+  );
 
   if (checkLogin === true) {
     console.log(checkLogin);
@@ -215,12 +272,21 @@ function FormLogin({ checkLogin, setCheckLogin }) {
   } else {
     console.log(checkLogin);
     return (
-      <div
-        style={{ cursor: "pointer" }}
-        className="header__top__right__auth"
-        onClick={handleLogout}
-      >
-        logout
+      <div className="header__top__right__language">
+        <Dropdown overlay={menu} onVisibleChange={handleVisibleChange} visible={visible}>
+          <a onClick={(e) => e.preventDefault()}>
+            <Space>
+              <i className="fa fa-user" aria-hidden="true"></i>
+              <p>
+                {" "}
+                {userName && checkLogin === false && (
+                  <p> {userName} </p>
+                )}
+              </p>
+              <DownOutlined />
+            </Space>
+          </a>
+        </Dropdown>
       </div>
     );
   }

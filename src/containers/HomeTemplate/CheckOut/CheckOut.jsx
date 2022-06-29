@@ -188,7 +188,7 @@ const handleAllOrder = async () => {
                 <div className="breadcrumb__text">
                   <h2>Checkout</h2>
                   <div className="breadcrumb__option">
-                    <a href="./index.html">Home</a>
+                    <a href="./">Home</a>
                     <span>Checkout</span>
                   </div>
                 </div>

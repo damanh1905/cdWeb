@@ -116,7 +116,7 @@ function ShopGrid() {
               <div className="breadcrumb__text">
                 <h2>Organi Shop</h2>
                 <div className="breadcrumb__option">
-                  <a href="./index.html">Home</a>
+                  <a href="./">Home</a>
                   <span>Shop</span>
                 </div>
               </div>

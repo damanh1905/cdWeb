@@ -82,7 +82,7 @@ function BlogDetail() {
                 <div className="breadcrumb__text">
                   <h2>Blog</h2>
                   <div className="breadcrumb__option">
-                    <a href="./index.html">Home</a>
+                    <a href="./">Home</a>
                     <span>Blog</span>
                   </div>
                 </div>

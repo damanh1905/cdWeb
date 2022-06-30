@@ -7,9 +7,15 @@ import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import { useTranslation } from "react-i18next";
 import NavBelowHeader from "../../../components/Layout/NavBelowHeader/NavBelowHeader";
+import { Pagination } from 'antd';
 function Home() {
   const [product, setProduct] = useState([]);
+  const [pageIndex,setPageIndex]=useState(0);
+  const [current,setCurrent]=useState(1);
+  const [currentCategory,setCurrentCategory]=useState(0);
   const { t, i18n } = useTranslation();
+  console.log(pageIndex)
+  console.log(currentCategory)
   const handleAddCart = (id) => {
     console.log(id);
     (async () => {
@@ -26,10 +32,13 @@ function Home() {
   };
   const handleAllProduct = async () => {
     try {
-      const { data } = await doGet("product/ShowAndsearch?searchValue=all");
+      const { data } = await doGet(`product/ShowAndsearch?searchValue=all&pageIndex=${pageIndex}`);
       // console.log(data.data.products);
 
       setProduct(data.data.products);
+      setCurrentCategory(0)
+      
+
     } catch (e) {
       console.log(e);
       // setNavigate(true);
@@ -38,13 +47,15 @@ function Home() {
   useEffect(() => {
     (async () => {
       try {
+      if(currentCategory==0){
         handleAllProduct();
+      }
       } catch (e) {
         console.log(e);
         // setNavigate(true);
       }
     })();
-  }, []);
+  }, [pageIndex]);
   const handleAccessories = () => {
     (async () => {
       try {
@@ -54,6 +65,10 @@ function Home() {
         console.log(data.data.productResponses);
 
         setProduct(data.data.productResponses);
+        setCurrentCategory(1)
+        setCurrent(1)
+        setPageIndex(0)
+      
       } catch (e) {
         console.log(e);
         // setNavigate(true);
@@ -69,6 +84,9 @@ function Home() {
         console.log(data.data.productResponses);
 
         setProduct(data.data.productResponses);
+        setCurrentCategory(1)
+        setCurrent(1)
+        setPageIndex(0)
       } catch (e) {
         console.log(e);
         // setNavigate(true);
@@ -82,6 +100,9 @@ function Home() {
         console.log(data.data.productResponses);
 
         setProduct(data.data.productResponses);
+        setCurrentCategory(1)
+        setCurrent(1)
+        setPageIndex(0)
       } catch (e) {
         console.log(e);
         // setNavigate(true);
@@ -97,6 +118,9 @@ function Home() {
         console.log(data.data.productResponses);
 
         setProduct(data.data.productResponses);
+        setCurrentCategory(1)
+        setCurrent(1)
+        setPageIndex(0)
       } catch (e) {
         console.log(e);
         // setNavigate(true);
@@ -112,6 +136,9 @@ function Home() {
         console.log(data.data.productResponses);
 
         setProduct(data.data.productResponses);
+        setCurrentCategory(1)
+        setCurrent(1)
+        setPageIndex(0)
       } catch (e) {
         console.log(e);
         // setNavigate(true);
@@ -199,7 +226,7 @@ function Home() {
             </div>
           </div>
         </section>
-
+      
         <section className="categories">
           <div className="container">
             <div className="row">
@@ -283,7 +310,7 @@ function Home() {
             </div>
           </div>
         </section>
-
+ 
         {/* Featured Section End */}
         {/* Featured Section Begin */}
         <section className="featured spad">
@@ -382,6 +409,12 @@ function Home() {
             </div>
           </div>
         </section>
+        <Pagination style={{textAlign:"center",position:"relative",bottom:"35px"}} current={current} defaultCurrent={1} onChange={(e)=>{
+         if(currentCategory==0){
+          setPageIndex(e-1)
+          setCurrent(e)
+         }
+        }} total={80} />
         {/* Featured Section End */}
         {/* Banner Begin */}
         <div className="banner">

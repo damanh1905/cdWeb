@@ -15,7 +15,7 @@ function SearchProduct() {
   const [searchValue, setSearchValue] = useState("");
   const [showResult, setShowResult] = useState(true);
   const [loading, setLoading] = useState(false);
-
+console.log(searchResult)
   const useBounce = useDebounce(searchValue, 700);
   useEffect(() => {
     if (!searchValue) {
@@ -85,13 +85,13 @@ function SearchProduct() {
                 }}
                 className={styles.clear}
               >
-                <i class="fa-solid fa-circle-xmark"></i>
+                <i className="fa-solid fa-circle-xmark"></i>
               </button>
             )}
 
             {loading && (
               <button className={styles.loading}>
-                <i class="fa-solid fa-spinner"></i>
+                <i className="fa-solid fa-spinner"></i>
               </button>
             )}
             <button onClick={handleSearch} type="submit" className="site-btn">

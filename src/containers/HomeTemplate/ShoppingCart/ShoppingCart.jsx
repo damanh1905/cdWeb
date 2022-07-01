@@ -3,11 +3,11 @@ import SearchProduct from "../../../components/Layout/Search/SearchProduct";
 import { doGet, doPost } from "../../../utils/api/api";
 import { useNavigate, Link } from "react-router-dom";
 function ShoppingCart() {
-  console.log("reden");
   const [cartItem, setCartItem] = useState([]);
   const [totalPrice, setTotalPrice] = useState();
   const [checkChage, setChechChange] = useState(true);
   const navigate = useNavigate();
+  console.log(cartItem)
   const handleChangeQuatity = (e, id) => {
     e.preventDefault();
     console.log(e.target.value);
@@ -172,7 +172,7 @@ function ShoppingCart() {
                       cartItem.map((items, key) => (
                         <tr key={key}>
                           <td className="shoping__cart__item">
-                            <img src="assets/img/cart/cart-1.jpg" alt="true" />
+                            <img width={"50px"} height={"50px"} src={`/assets/img/secondhand/accessories/${items?.productEntities?.imageEntity?.[0].url}`} alt="true" />
                             <h5>{items.productEntities.name}</h5>
                           </td>
                           <td className="shoping__cart__price">

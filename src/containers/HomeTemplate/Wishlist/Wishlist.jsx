@@ -9,6 +9,7 @@ function Wishlist(props) {
   const [dataWishList, setDataWishList] = useState([]);
   const [checkData, setCheckData] = useState(true);
   const navigate = useNavigate();
+  console.log("dataWishlish"+dataWishList)
   useEffect(() => {
     (async () => {
       try {
@@ -77,13 +78,18 @@ function Wishlist(props) {
                   <tbody>
                     {dataWishList &&
                       dataWishList.map((items, index) => (
+                          
                         <tr key={index}>
+                          {console.log("vc"+items?.productEntities?.imageEntity?.[0]?.url)}
                           <td className="shoping__cart__item">
                             <img  style={{
                           backgroundImage:
                             "url(" +
-                            `/assets/img/secondhand/accessories/${items.productEntities.url}` +
+                            `/assets/img/secondhand/accessories/${items?.productEntities?.imageEntity?.[0]?.url}` +
                             ")",
+                            width:"50px",
+                            height:"50px",
+                            backgroundSize:"cover"
                         }}/>
                             <h5>{items.productEntities.name}</h5>
                           </td>

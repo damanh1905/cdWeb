@@ -131,7 +131,7 @@ function ShopDetail() {
                 <div className="product__details__pic__item">
                   <Image
                     className="product__details__pic__item--large"
-                    src="/assets/img/blog/blog-1.jpg"
+                    src= {`/assets/img/secondhand/accessories/${product?.imageEntity?.[0].url}`}
                   />
                 </div>
                 {/* <div className={styles.wrapper}></div> */}
@@ -171,11 +171,7 @@ function ShopDetail() {
                     }).format(product.price)}
                   </div>
                   <p>
-                    Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.
-                    Vestibulum ac diam sit amet quam vehicula elementum sed sit
-                    amet dui. Sed porttitor lectus nibh. Vestibulum ac diam sit
-                    amet quam vehicula elementum sed sit amet dui. Proin eget
-                    tortor risus.
+                   {product?.descriptions}
                   </p>
                   <div className="product__details__quantity">
                     <div className="quantity">

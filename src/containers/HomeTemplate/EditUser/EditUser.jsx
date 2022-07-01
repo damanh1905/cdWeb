@@ -64,24 +64,7 @@ const EditUser = () => {
     phone: getCurrentUser.phone,
     gender: getCurrentUser.gender,
 
-    // username: getUsername,
-    // email: getMail,
-    // phone: getPhone,
-    // gender: getGender,
   })
-
-  // useEffect(() => {
-  //   async () => {
-  //     const userName = localStorage.getItem("username");
-  //     if (userName !== undefined) {
-  //       const { data } = await doGet(
-  //         `/auth/getCurrentUser?username=${userName}`
-  //       );
-  //       console.log(data)
-  //     }
-  //   }
-  // }, []);
-
 
   useEffect(() => {
     (async () => {
@@ -92,37 +75,12 @@ const EditUser = () => {
             `/auth/getCurrentUser?username=${userName}`,
           );
           setCurrentUser(data);
-          // setUsername(localStorage.getItem("username"));
-          // setMail(data.email);
-          // setPhone(data.phone);
-          // setGender(data.gender);
-          // console.log(data)
         }
       } catch (error) {
         console.log(error);
       }
     })()
   }, [])
-
-  // const handleCheckCode = () => {
-  //   return doPost("auth/verifyEmail", {
-  //     verifyCodeEmail: parseInt(form.getFieldValue("captcha")),
-  //   });
-  // };
-  // const handleSubmitEmail = async () => {
-  //   if (form.getFieldValue("username").length > 6) {
-  //     const { data } = await doPost("auth/registerEmail", {
-  //       name: form.getFieldValue("username"),
-  //       email: form.getFieldValue("email"),
-  //     });
-  //     console.log(data.status);
-
-  //   } else {
-  //     console.log("user lớn hơn 6 nha");
-  //   }
-  // };
-
-  // console.log("render2");
 
   const onFinish = async (values) => {
     const { username, email, phone, gender } = values;

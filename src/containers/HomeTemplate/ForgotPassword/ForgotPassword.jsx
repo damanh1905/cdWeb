@@ -53,52 +53,38 @@ const tailFormItemLayout = {
 };
 
 const ForgotPassword = () => {
+
   const [disable, setDisable] = useState(true);
   const [disableverify, setDisableverify] = useState(false);
   let navigate = useNavigate();
-
   const [form] = Form.useForm();
-  const handleCheckUser = () => {
-    return doGet(
-      `auth/checkUserName?username=${form.getFieldValue("username")}`
-    );
-  };
+
   const handleCheckCode = () => {
-    return doPost("auth/verifyEmail", {
+    return doPost("auth/verifyEmailForgotPassword", {
       verifyCodeEmail: parseInt(form.getFieldValue("captcha")),
     });
   };
-  const handleSubmitEmail = async () => {
-    if (form.getFieldValue("username").length > 6) {
-      const { data } = await doPost("auth/registerEmail", {
-        name: form.getFieldValue("username"),
-        email: form.getFieldValue("email"),
-      });
-      console.log(data.status);
-      
-    } else {
-      console.log("user lớn hơn 6 nha");
-    }
-  };
 
-  console.log("render2");
+  const handleCheckEmail = async () => {
+    return doGet(
+      `auth/refreshVerifyCodeForgotPassword?email=${form.getFieldValue("email")}`
+    ).catch(err => alert("Emai not exist!!!"));
+  };
 
   const onFinish = async (values) => {
-    const { password, phone, gender, username } = values;
-    const { data } = await doPost("auth/register", {
-      userName: username,
-      password: password,
-      phone: phone,
-      gender: gender,
+    const { email, captcha, password, confirm } = values;
+    console.log(values);
+    const { data } = await doPost("auth/resetPassword", {
+      email: email,
+      confirm: confirm,
     });
-    if (data.status === 200) {
-      navigate("/login");
-    } else {
-      window.location.reload();
-    }
-
-    console.log("Received values of form: ", data.status);
+    // if (data.status === 200) {
+    //   navigate("/login");
+    // } else {
+    //   window.location.reload();
+    // }
   };
+
   const { t } = useTranslation();
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
@@ -140,6 +126,7 @@ const ForgotPassword = () => {
     label: website,
     value: website,
   }));
+
   return (
     <div className="container-forgot">
       <h2>Forgot Password</h2>
@@ -155,7 +142,6 @@ const ForgotPassword = () => {
           }}
           scrollToFirstError
         >
-        
 
           <Form.Item
             name="email"
@@ -170,25 +156,6 @@ const ForgotPassword = () => {
                 message: "Please input your E-mail!",
               },
 
-              ({ getFieldValue }) => ({
-                validator(_, value) {
-                  var mailformat =
-                    /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-                  if (
-                    form.getFieldValue("username") !== undefined &&
-                    getFieldValue("username").length > 6 &&
-                    value.match(mailformat)
-                  ) {
-                    setDisable(false);
-                    // console.log(typeof getFieldValue("username").length);
-                    return Promise.resolve();
-                  }
-                  setDisable(true);
-                  return Promise.reject(
-                    new Error("username must be at least 6 characters")
-                  );
-                },
-              }),
             ]}
           >
             <Input />
@@ -207,7 +174,7 @@ const ForgotPassword = () => {
                     {
                       async validator(_, value) {
                         const data = await handleCheckCode();
-                        console.log("data: ", data);
+                        // console.log("data: ", data);
                         if (
                           data.data.status === 404 &&
                           disableverify === false
@@ -218,7 +185,7 @@ const ForgotPassword = () => {
                         }
                         setDisableverify(true);
                         setDisable(true);
-                        console.log("user is already taken!");
+                        // console.log("user is already taken!");
                         return Promise.resolve();
                       },
                     },
@@ -228,7 +195,7 @@ const ForgotPassword = () => {
                 </Form.Item>
               </Col>
               <Col span={7}>
-                <Button onClick={handleSubmitEmail} disabled={disable}>
+                <Button onClick={handleCheckEmail}>
                   Get verify
                 </Button>
               </Col>
@@ -252,37 +219,36 @@ const ForgotPassword = () => {
             <Input.Password />
           </Form.Item>
           <Form.Item
-        name="confirm"
-        label="Confirm Pass"
-        dependencies={['password']}
-        hasFeedback
-        rules={[
-          {
-            required: true,
-            message: 'Please confirm your password!',
-          },
-          ({ getFieldValue }) => ({
-            validator(_, value) {
-              if (!value || getFieldValue('password') === value) {
-                return Promise.resolve();
-              }
-
-              return Promise.reject(new Error('The two passwords that you entered do not match!'));
-            },
-          }),
-        ]}
-      >
-        <Input.Password />
-      </Form.Item>
+            name="confirm"
+            label="Confirm Pass"
+            dependencies={['password']}
+            hasFeedback
+            rules={[
+              {
+                required: true,
+                message: 'Please confirm your password!',
+              },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value || getFieldValue('password') === value) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                },
+              }),
+            ]}
+          >
+            <Input.Password />
+          </Form.Item>
           <Form.Item {...tailFormItemLayout}>
             <Button type="primary" htmlType="submit">
               Submit
             </Button>
             <Button
               type="default"
-              style={{marginLeft:'10px'}}
+              style={{ marginLeft: '10px' }}
             >
-               <Link to={"/login"}>{t('login.cancel')}</Link>
+              <Link to={"/login"}>{t('login.cancel')}</Link>
             </Button>
           </Form.Item>
         </Form>

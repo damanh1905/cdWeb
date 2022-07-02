@@ -11,7 +11,9 @@ function ShopGrid() {
   const [catregory, setCategory] = useState([]);
   const [change, setChange] = useState(true);
   const [nameFilter, setNameFilter] = useState([]);
-
+  const [genders, setGenders] = useState([]);
+  const [orders,setOrders]=useState([]);
+  console.log(nameFilter,orders)
   useEffect(() => {
     setChange(true);
     console.log(catregory);
@@ -20,7 +22,7 @@ function ShopGrid() {
       (async () => {
         try {
           const { data } = await doGet(
-            `http://localhost:8082/api/product/productFilter?${nameFilter[0]}&category=${catregory}&${nameFilter[1]}&priceRanges=${priceProduct}`
+            `http://localhost:8082/api/product/productFilter?${nameFilter[0]}&category=${catregory}&${nameFilter[1]}&priceRanges=${priceProduct}&${nameFilter[2]}&genderId=${genders}&${nameFilter[3]}&ordersProduct=${orders}`
           );
           setProduct(data.data.products);
           setTotalProduct(data.data.totalitems);
@@ -98,7 +100,33 @@ function ShopGrid() {
   };
   const onChangeGender = (checkedValues) => {
     console.log("checked = ", checkedValues);
+    //
+    setChange(false);
+    if (checkedValues.length > 0) {
+      setGenders(checkedValues);
+      nameFilter[2] = "gendersId=";
+      setNameFilter(nameFilter);
+    } else {
+      nameFilter[2] = "";
+      setNameFilter(nameFilter);
+    }
   };
+  const handleSortByOptions=(optionsValue)=>{
+    setChange(false)
+           nameFilter[3] = "order=";
+          if(optionsValue==0){
+              setOrders(["name","asc"])
+          }else if(optionsValue==1){
+            setOrders(["name","desc"])
+          }else if(optionsValue==2){
+            setOrders(["price","desc"])
+          }else if(optionsValue==3){
+            setOrders(["price","asc"])
+          }else{
+            nameFilter[3]=""
+          }
+          setNameFilter(nameFilter)
+  }
   return (
     <>
       <NavBelowHeader />
@@ -249,7 +277,7 @@ function ShopGrid() {
                       <Row>
                         <Col span={1000}>
                           <Checkbox
-                            value="male"
+                            value="1"
                             style={{ fontSize: "16px" }}
                           >
                             Male
@@ -259,7 +287,7 @@ function ShopGrid() {
                       <Row>
                         <Col span={1000}>
                           <Checkbox
-                            value="female"
+                            value="2"
                             style={{ fontSize: "16px" }}
                           >
                            Female
@@ -269,7 +297,7 @@ function ShopGrid() {
                       <Row>
                         <Col span={1000}>
                           <Checkbox
-                            value="unisex"
+                            value="3"
                             style={{ fontSize: "16px" }}
                           >
                            Unisex
@@ -313,11 +341,13 @@ function ShopGrid() {
                   <div className="col-lg-4 col-md-5">
                     <div className="filter__sort">
                       <span>Sort By</span>
-                      <select>
+                      <select onChange={(e)=>{
+                            handleSortByOptions(e.target.value)
+                      }}>
                         <option value={0}>Name A->Z</option>
-                        <option value={0}>Name Z->A</option>
-                        <option value={0}>Price High->Low</option>
-                        <option value={0}>Price Low->High</option>
+                        <option value={1}>Name Z->A</option>
+                        <option value={2}>Price High->Low</option>
+                        <option value={3}>Price Low->High</option>
                       </select>
                     </div>
                   </div>

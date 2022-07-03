@@ -26,6 +26,7 @@ const publicRouterUser = [
   { path: "/:id", component: ShopDetail },
   { path: "/shopDetail", component: ShopDetail },
   { path: "/shopGrid", component: ShopGrid },
+  { path: "/shopGrid/:id", component: ShopGrid },
   { path: "/shoppingCart", component: ShoppingCart },
   { path: "/wishlist", component: Wishlist },
   { path: "/edituser", component: EditUser },

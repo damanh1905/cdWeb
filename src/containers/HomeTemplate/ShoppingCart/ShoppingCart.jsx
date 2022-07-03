@@ -7,7 +7,7 @@ function ShoppingCart() {
   const [totalPrice, setTotalPrice] = useState();
   const [checkChage, setChechChange] = useState(true);
   const navigate = useNavigate();
-  console.log(cartItem)
+  console.log(cartItem);
   const handleChangeQuatity = (e, id) => {
     e.preventDefault();
     console.log(e.target.value);
@@ -54,8 +54,9 @@ function ShoppingCart() {
         }
         setTotalPrice(total);
       } catch (e) {
-        console.log(e);
+        console.log("aaaaa", e);
 
+        console.log("status", e.status);
         navigate("/login");
       }
     })();
@@ -172,7 +173,12 @@ function ShoppingCart() {
                       cartItem.map((items, key) => (
                         <tr key={key}>
                           <td className="shoping__cart__item">
-                            <img width={"50px"} height={"50px"} src={`/assets/img/secondhand/accessories/${items?.productEntities?.imageEntity?.[0].url}`} alt="true" />
+                            <img
+                              width={"50px"}
+                              height={"50px"}
+                              src={`/assets/img/secondhand/accessories/${items?.productEntities?.imageEntity?.[0].url}`}
+                              alt="true"
+                            />
                             <h5>{items.productEntities.name}</h5>
                           </td>
                           <td className="shoping__cart__price">

@@ -4,13 +4,12 @@ import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 import { doGet } from "../../../../utils/api/api";
 import { useNavigate } from "react-router-dom";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGlobe } from "@fortawesome/free-solid-svg-icons";
-import { DownOutlined } from '@ant-design/icons';
-import { Dropdown, Menu, Space } from 'antd';
+import { DownOutlined } from "@ant-design/icons";
+import { Dropdown, Menu, Space } from "antd";
 import { createBrowserHistory } from "history";
-
 
 function Header(props) {
   const { t, i18n } = useTranslation();
@@ -19,19 +18,19 @@ function Header(props) {
     i18n.changeLanguage(lng);
     console.log(lng);
     localStorage.setItem("lang", lng);
-  }
+  };
 
   const [userName, setUserName] = useState();
   const [checkLogin, setCheckLogin] = useState(true);
+  console.log(checkLogin);
   useEffect(() => {
-    const token = Cookies.get("token");
-
-    if (token !== undefined) {
-      const userName = localStorage.getItem("username");
-      if (userName !== undefined) {
-        setUserName(userName);
-        setCheckLogin(false);
-      }
+    const userName = localStorage.getItem("username");
+    console.log(userName);
+    if (userName !== null) {
+      setUserName(userName);
+      console.log(checkLogin);
+      setCheckLogin(false);
+      console.log(checkLogin);
     }
   }, []);
 
@@ -73,15 +72,23 @@ function Header(props) {
                     </a>
                   </div> */}
                   <div className="header__top__right__language">
-                    <FontAwesomeIcon icon={faGlobe} style={{ marginRight: "10px" }} />
-                    <div>{t('header.languages')}</div>
+                    <FontAwesomeIcon
+                      icon={faGlobe}
+                      style={{ marginRight: "10px" }}
+                    />
+                    <div>{t("header.languages")}</div>
                     <span className="arrow_carrot-down"></span>
                     <ul>
                       <li>
-                        <a onClick={() => changeLanguage('en')} href="#">{t('header.languages_1')}</a>
+                        <a onClick={() => changeLanguage("en")} href="#">
+                          {t("header.languages_1")}
+                        </a>
                       </li>
                       <li>
-                        <a onClick={() => changeLanguage('vn')} href="#"> {t('header.languages_2')}</a>
+                        <a onClick={() => changeLanguage("vn")} href="#">
+                          {" "}
+                          {t("header.languages_2")}
+                        </a>
                       </li>
                     </ul>
                   </div>
@@ -107,31 +114,31 @@ function Header(props) {
           <div className="row">
             <div className="col-lg-3">
               <div className="header__logo">
-                <a href="./">
+                <Link to="/">
                   <img src="assets/img/logo.png" alt="" />
-                </a>
+                </Link>
               </div>
             </div>
             <div className="col-lg-6">
               <nav className="header__menu">
                 <ul>
                   <li className="active">
-                    <Link to={"/"}>{t('header.home')}</Link>
+                    <Link to={"/"}>{t("header.home")}</Link>
                   </li>
                   <li>
-                    <Link to={"/shopGrid"}>{t('header.shop')}</Link>
+                    <Link to={"/shopGrid"}>{t("header.shop")}</Link>
                   </li>
                   <li>
-                    <a href="#">{t('header.page')}</a>
+                    <a href="#">{t("header.page")}</a>
                     <ul className="header__menu__dropdown">
                       <li>
-                        <Link to={"/shoppingCart"}>{t('header.cart')}</Link>
+                        <Link to={"/shoppingCart"}>{t("header.cart")}</Link>
                       </li>
                       <li>
-                        <Link to={"/checkout"}>{t('header.checkout')}</Link>
+                        <Link to={"/checkout"}>{t("header.checkout")}</Link>
                       </li>
                       <li>
-                        <Link to={"/blogDetail"}>{t('header.details')}</Link>
+                        <Link to={"/blogDetail"}>{t("header.details")}</Link>
                       </li>
                       <li>
                         <Link to={"/manageOrder"}>ManageOrder</Link>
@@ -139,10 +146,10 @@ function Header(props) {
                     </ul>
                   </li>
                   <li>
-                    <Link to={"/blog"}>{t('header.blog')}</Link>
+                    <Link to={"/blog"}>{t("header.blog")}</Link>
                   </li>
                   <li>
-                    <Link to={"/contact"}>{t('header.contract')}</Link>
+                    <Link to={"/contact"}>{t("header.contract")}</Link>
                   </li>
                 </ul>
               </nav>
@@ -170,7 +177,7 @@ function Header(props) {
                   </li>
                 </ul>
                 <div className="header__cart__price">
-                  {t('header.item')}: <span>$150.00</span>
+                  {t("header.item")}: <span>$150.00</span>
                 </div>
               </div>
             </div>
@@ -190,15 +197,13 @@ function FormLogin({ checkLogin, setCheckLogin }) {
   const [userName, setUserName] = useState();
   const [visible, setVisible] = useState(false);
 
-
   useEffect(() => {
-    const token = Cookies.get("token");
-    if (token !== undefined) {
-      const userName = localStorage.getItem("username");
-      if (userName !== undefined) {
-        setUserName(userName);
-        setCheckLogin(false);
-      }
+    const userName = localStorage.getItem("username");
+    if (userName !== null) {
+      setUserName(userName);
+      console.log(checkLogin);
+      setCheckLogin(false);
+      console.log(checkLogin);
     }
   }, []);
 
@@ -207,27 +212,24 @@ function FormLogin({ checkLogin, setCheckLogin }) {
     (async () => {
       const data = await doGet(`auth/logout?userName=${userName}`);
       console.log(data);
-      Cookies.remove("token", { path: "" });
-      Cookies.remove("refreshToken", { path: "" });
       localStorage.removeItem("username");
       setCheckLogin(true);
       navigate("/");
     })();
   };
 
-
   const handleMenuClick = (e) => {
-    if (e.key === '1') {
+    if (e.key === "1") {
       setVisible(false);
-      navigate('/edituser', {replace: true});
+      navigate("/edituser", { replace: true });
     }
-    if (e.key === '2') {
+    if (e.key === "2") {
       setVisible(false);
-      navigate('/', {replace: true});
+      navigate("/", { replace: true });
     }
-    if (e.key === '3') {
+    if (e.key === "3") {
       setVisible(false);
-      handleLogout()
+      handleLogout();
     }
   };
 
@@ -240,16 +242,16 @@ function FormLogin({ checkLogin, setCheckLogin }) {
       onClick={handleMenuClick}
       items={[
         {
-          label: t('header.editUser'),
-          key: '1',
+          label: t("header.editUser"),
+          key: "1",
         },
         {
-          label: t('header.history'),
-          key: '2',
+          label: t("header.history"),
+          key: "2",
         },
         {
-          label: t('header.logout'),
-          key: '3',
+          label: t("header.logout"),
+          key: "3",
         },
       ]}
     />
@@ -260,11 +262,11 @@ function FormLogin({ checkLogin, setCheckLogin }) {
     return (
       <>
         <div className="header__top__right__auth">
-          <Link to={"/login"}>{t('header.login')}</Link>
+          <Link to={"/login"}>{t("header.login")}</Link>
         </div>
         <div className="header__top__right__auth">
           <Link to={"/register"} style={{ marginLeft: "18px" }}>
-            {t('header.register')}
+            {t("header.register")}
           </Link>
         </div>
       </>
@@ -273,19 +275,16 @@ function FormLogin({ checkLogin, setCheckLogin }) {
     console.log(checkLogin);
     return (
       <div className="header__top__right__language">
-        <Dropdown overlay={menu} onVisibleChange={handleVisibleChange} visible={visible}>
-          <a onClick={(e) => e.preventDefault()}>
-            <Space>
-              <i className="fa fa-user" aria-hidden="true"></i>
-              <p>
-                {" "}
-                {userName && checkLogin === false && (
-                  <p> {userName} </p>
-                )}
-              </p>
-              <DownOutlined />
-            </Space>
-          </a>
+        <Dropdown
+          overlay={menu}
+          onVisibleChange={handleVisibleChange}
+          visible={visible}
+        >
+          <Space>
+            <i className="fa fa-user" aria-hidden="true"></i>
+            <p> {userName && checkLogin === false && <p> {userName} </p>}</p>
+            <DownOutlined />
+          </Space>
         </Dropdown>
       </div>
     );

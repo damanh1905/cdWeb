@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import instance from "../../../utils/api/Axios";
 import { GoogleLogin } from "react-google-login";
 import FacebookLogin from "react-facebook-login";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 // const responseFacebook = (response) => {
 //   console.log(response);
@@ -49,17 +49,23 @@ const Login = () => {
   const onFinish = async ({ username, password }) => {
     try {
       const { data } = await doPost("auth/login", { username, password });
-      console.log(data["username"]);
+      // console.log(data["username"]);
       localStorage.setItem("username", data["username"]);
-      Cookies.set("token", data["token"], { expires: 1, path: "/" });
-      Cookies.set("refreshToken", data["refreshToken"], {
-        expires: 7,
-        path: "/",
-      });
+      // Cookies.set("token", data["token"], { expires: 1, path: "/" });
+      // Cookies.set("refreshToken", data["refreshToken"], {
+      //   expires: 7,
+      //   path: "/",
+      // });
       // console.log( Cookies.get('token'));
-      instance.defaults.headers.common["Authorization"] = `Bearer ${Cookies.get(
-        "token"
-      )}`;
+      // instance.defaults.headers.common["Authorization"] = `Bearer ${Cookies.get(
+      //   "token"
+      // )}`;
+      // navigate("/");
+      // console.log(data["token"]);
+      instance.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${data["token"]}`;
+
       navigate("/");
     } catch (error) {
       console.log(error);
@@ -74,7 +80,9 @@ const Login = () => {
 
   return (
     <div className="container-form">
-      <h2>{t('login.welcom')} <b>Second Hand Town</b></h2>
+      <h2>
+        {t("login.welcom")} <b>Second Hand Town</b>
+      </h2>
       <div className="container-login">
         <Form
           name="normal_login"
@@ -118,9 +126,9 @@ const Login = () => {
           </Form.Item>
           <Form.Item>
             <Form.Item name="remember" valuePropName="checked" noStyle>
-              <Checkbox>{t('login.remember')}</Checkbox>
+              <Checkbox>{t("login.remember")}</Checkbox>
             </Form.Item>
-            <Link to={"/forgotpassword"}>{t('login.passwd')}</Link>
+            <Link to={"/forgotpassword"}>{t("login.passwd")}</Link>
           </Form.Item>
 
           <Form.Item>
@@ -128,15 +136,12 @@ const Login = () => {
               type="primary"
               htmlType="submit"
               className="login-form-button"
-              style={{marginRight:'5px'}}
+              style={{ marginRight: "5px" }}
             >
-              {t('login.login')}
+              {t("login.login")}
             </Button>
-            {t('login.or')} <Link to={"/register"}>{t('login.register')}</Link>
-            
-          
+            {t("login.or")} <Link to={"/register"}>{t("login.register")}</Link>
           </Form.Item>
-         
         </Form>
         <div className="container-right-login">
           <div className="container-button">
@@ -163,17 +168,13 @@ const Login = () => {
               onFailure={responseGoogle}
               cookiePolicy={"single_host_origin"}
             />
-             <Button
-              type="default"
-             
-              style={{marginTop:'125px'}}
-            >
-               <Link to={"/"}>{t('login.cancel')}</Link>
+            <Button type="default" style={{ marginTop: "125px" }}>
+              <Link to={"/"}>{t("login.cancel")}</Link>
             </Button>
           </div>
         </div>
       </div>
-      {err && <h5> {t('login.err')}</h5>}
+      {err && <h5> {t("login.err")}</h5>}
     </div>
   );
 };

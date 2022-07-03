@@ -4,6 +4,7 @@ import SearchProduct from "../../../components/Layout/Search/SearchProduct";
 import "antd/dist/antd.css";
 import { Checkbox, Row, Col, Slider } from "antd";
 import { doGet } from "../../../utils/api/api";
+import { useParams } from "react-router-dom";
 function ShopGrid() {
   const [products, setProduct] = useState([]);
   const [totalProduct, setTotalProduct] = useState(0);
@@ -11,7 +12,35 @@ function ShopGrid() {
   const [catregory, setCategory] = useState([]);
   const [change, setChange] = useState(true);
   const [nameFilter, setNameFilter] = useState([]);
-
+  const [genders, setGenders] = useState([]);
+  const [orders, setOrders] = useState([]);
+  // console.log(nameFilter,orders)
+  console.log(catregory);
+  const { id } = useParams();
+  useEffect(() => {
+    if (id == 1) {
+      nameFilter[0] = "categoryId=";
+      setNameFilter(nameFilter);
+      setCategory(["1"]);
+      // setChange(false)
+    } else if (id == 2) {
+      nameFilter[0] = "categoryId=";
+      setNameFilter(nameFilter);
+      setCategory(["2"]);
+    } else if (id == 3) {
+      nameFilter[0] = "categoryId=";
+      setNameFilter(nameFilter);
+      setCategory(["3"]);
+    } else if (id == 4) {
+      nameFilter[0] = "categoryId=";
+      setNameFilter(nameFilter);
+      setCategory(["4"]);
+    } else if (id == 5) {
+      nameFilter[0] = "categoryId=";
+      setNameFilter(nameFilter);
+      setCategory(["5"]);
+    }
+  }, []);
   useEffect(() => {
     setChange(true);
     console.log(catregory);
@@ -20,7 +49,7 @@ function ShopGrid() {
       (async () => {
         try {
           const { data } = await doGet(
-            `http://localhost:8082/api/product/productFilter?${nameFilter[0]}&category=${catregory}&${nameFilter[1]}&priceRanges=${priceProduct}`
+            `http://localhost:8082/api/product/productFilter?${nameFilter[0]}&category=${catregory}&${nameFilter[1]}&priceRanges=${priceProduct}&${nameFilter[2]}&genderId=${genders}&${nameFilter[3]}&ordersProduct=${orders}`
           );
           setProduct(data.data.products);
           setTotalProduct(data.data.totalitems);
@@ -41,17 +70,19 @@ function ShopGrid() {
         }
       })();
     }
-  }, [change]);
+  }, [change, catregory]);
 
   const onChangeCategories = (checkedValues) => {
     setChange(false);
+    console.log(checkedValues);
     if (checkedValues.length > 0) {
       setCategory(checkedValues);
       nameFilter[0] = "categoryId=";
       setNameFilter(nameFilter);
     } else {
-      nameFilter[0] = "";
+      nameFilter[0] = "categoryId=";
       setNameFilter(nameFilter);
+      setCategory(checkedValues);
     }
 
     // (async () => {
@@ -98,6 +129,32 @@ function ShopGrid() {
   };
   const onChangeGender = (checkedValues) => {
     console.log("checked = ", checkedValues);
+    //
+    setChange(false);
+    if (checkedValues.length > 0) {
+      setGenders(checkedValues);
+      nameFilter[2] = "gendersId=";
+      setNameFilter(nameFilter);
+    } else {
+      nameFilter[2] = "";
+      setNameFilter(nameFilter);
+    }
+  };
+  const handleSortByOptions = (optionsValue) => {
+    setChange(false);
+    nameFilter[3] = "order=";
+    if (optionsValue == 0) {
+      setOrders(["name", "asc"]);
+    } else if (optionsValue == 1) {
+      setOrders(["name", "desc"]);
+    } else if (optionsValue == 2) {
+      setOrders(["price", "desc"]);
+    } else if (optionsValue == 3) {
+      setOrders(["price", "asc"]);
+    } else {
+      nameFilter[3] = "";
+    }
+    setNameFilter(nameFilter);
   };
   return (
     <>
@@ -107,6 +164,7 @@ function ShopGrid() {
         className="breadcrumb-section set-bg"
         style={{
           backgroundImage: "url(" + "assets/img/breadcrumb.jpg" + ")",
+          backgroundColor: "#3b6f9d",
         }}
         data-setbg="assets/img/breadcrumb.jpg"
       >
@@ -138,6 +196,7 @@ function ShopGrid() {
                       width: "100%",
                     }}
                     onChange={onChangeCategories}
+                    value={catregory}
                   >
                     <Row>
                       <Col span={8}>
@@ -241,42 +300,33 @@ function ShopGrid() {
                 <div className="sidebar__item sidebar__item__color--option">
                   <h4>Gender</h4>
                   <Checkbox.Group
-                      style={{
-                        width: "100%",
-                      }}
-                      onChange={onChangeGender}
-                    >
-                      <Row>
-                        <Col span={1000}>
-                          <Checkbox
-                            value="male"
-                            style={{ fontSize: "16px" }}
-                          >
-                            Male
-                          </Checkbox>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col span={1000}>
-                          <Checkbox
-                            value="female"
-                            style={{ fontSize: "16px" }}
-                          >
-                           Female
-                          </Checkbox>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col span={1000}>
-                          <Checkbox
-                            value="unisex"
-                            style={{ fontSize: "16px" }}
-                          >
-                           Unisex
-                          </Checkbox>
-                        </Col>
-                      </Row>
-                    </Checkbox.Group>
+                    style={{
+                      width: "100%",
+                    }}
+                    onChange={onChangeGender}
+                  >
+                    <Row>
+                      <Col span={1000}>
+                        <Checkbox value="1" style={{ fontSize: "16px" }}>
+                          Male
+                        </Checkbox>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col span={1000}>
+                        <Checkbox value="2" style={{ fontSize: "16px" }}>
+                          Female
+                        </Checkbox>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col span={1000}>
+                        <Checkbox value="3" style={{ fontSize: "16px" }}>
+                          Unisex
+                        </Checkbox>
+                      </Col>
+                    </Row>
+                  </Checkbox.Group>
                 </div>
                 {/* <div className="sidebar__item">
                   <h4>Popular Size</h4>
@@ -313,11 +363,15 @@ function ShopGrid() {
                   <div className="col-lg-4 col-md-5">
                     <div className="filter__sort">
                       <span>Sort By</span>
-                      <select>
+                      <select
+                        onChange={(e) => {
+                          handleSortByOptions(e.target.value);
+                        }}
+                      >
                         <option value={0}>Name A->Z</option>
-                        <option value={0}>Name Z->A</option>
-                        <option value={0}>Price High->Low</option>
-                        <option value={0}>Price Low->High</option>
+                        <option value={1}>Name Z->A</option>
+                        <option value={2}>Price High->Low</option>
+                        <option value={3}>Price Low->High</option>
                       </select>
                     </div>
                   </div>

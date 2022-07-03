@@ -107,9 +107,9 @@ function Header(props) {
           <div className="row">
             <div className="col-lg-3">
               <div className="header__logo">
-                <a href="./">
+                <Link to="/">
                   <img src="assets/img/logo.png" alt="" />
-                </a>
+                </Link>
               </div>
             </div>
             <div className="col-lg-6">

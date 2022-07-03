@@ -171,20 +171,21 @@ function Home() {
                   </div>
                   <ul>
                     <li>
-                      <a href="#">{t("navHeader.accessories")}</a>
+                      <Link  to="/shopGrid/1">{t("navHeader.accessories")}</Link>
                     </li>
                     <li>
-                      <a href="#">{t("navHeader.outerwear")}</a>
+                      <Link  to="/shopGrid/2">{t("navHeader.outerwear")}</Link>
                     </li>
                     <li>
-                      <a href="#">{t("navHeader.tops")}</a>
+                      <Link to="/shopGrid/3">{t("navHeader.footwear")}</Link>
                     </li>
                     <li>
-                      <a href="#">{t("navHeader.bottoms")}</a>
+                      <Link  to="/shopGrid/4">{t("navHeader.tops")}</Link>
                     </li>
                     <li>
-                      <a href="#">{t("navHeader.footwear")}</a>
+                      <Link to="/shopGrid/5">{t("navHeader.bottoms")}</Link>
                     </li>
+                   
                   </ul>
                 </div>
               </div>

@@ -8,14 +8,16 @@ import "owl.carousel/dist/assets/owl.theme.default.css";
 import { useTranslation } from "react-i18next";
 import NavBelowHeader from "../../../components/Layout/NavBelowHeader/NavBelowHeader";
 import { Pagination } from 'antd';
+
 function Home() {
   const [product, setProduct] = useState([]);
-  const [pageIndex,setPageIndex]=useState(0);
-  const [current,setCurrent]=useState(1);
-  const [currentCategory,setCurrentCategory]=useState(0);
+  const [pageIndex, setPageIndex] = useState(0);
+  const [current, setCurrent] = useState(1);
+  const [currentCategory, setCurrentCategory] = useState(0);
   const { t, i18n } = useTranslation();
   console.log(pageIndex)
   console.log(currentCategory)
+
   const handleAddCart = (id) => {
     console.log(id);
     (async () => {
@@ -30,6 +32,7 @@ function Home() {
       }
     })();
   };
+
   const handleAllProduct = async () => {
     try {
       const { data } = await doGet(`product/ShowAndsearch?searchValue=all&pageIndex=${pageIndex}`);
@@ -37,19 +40,33 @@ function Home() {
 
       setProduct(data.data.products);
       setCurrentCategory(0)
-      
+
 
     } catch (e) {
       console.log(e);
       // setNavigate(true);
     }
   };
+
+  const handleRandomProduct = async () => {
+    try {
+      const { data } = await doGet(`product/randomProduct?numberProduct=${9}`);
+      // console.log(data.data.products);
+      setProduct(data.data.products);
+      setCurrentCategory(0)
+    } catch (e) {
+      console.log(e);
+      // setNavigate(true);
+    }
+  };
+
+
   useEffect(() => {
     (async () => {
       try {
-      if(currentCategory==0){
-        handleAllProduct();
-      }
+        if (currentCategory == 0) {
+          handleAllProduct();
+        }
       } catch (e) {
         console.log(e);
         // setNavigate(true);
@@ -68,7 +85,7 @@ function Home() {
         setCurrentCategory(1)
         setCurrent(1)
         setPageIndex(0)
-      
+
       } catch (e) {
         console.log(e);
         // setNavigate(true);
@@ -226,7 +243,7 @@ function Home() {
             </div>
           </div>
         </section>
-      
+
         <section className="categories">
           <div className="container">
             <div className="row">
@@ -310,7 +327,7 @@ function Home() {
             </div>
           </div>
         </section>
- 
+
         {/* Featured Section End */}
         {/* Featured Section Begin */}
         <section className="featured spad">
@@ -336,15 +353,15 @@ function Home() {
                       {t("home.outerwear")}
                     </li>
                     <li data-filter=".tops" onClick={handletops}>
-                  
+
                       {t("home.top")}
                     </li>
                     <li data-filter=".bottoms" onClick={handlebottoms}>
-                     
+
                       {t("home.bottoms")}
                     </li>
                     <li data-filter=".footwear" onClick={handlefootwear}>
-                   
+
                       {t("home.footwear")}
                     </li>
                   </ul>
@@ -409,11 +426,11 @@ function Home() {
             </div>
           </div>
         </section>
-        <Pagination style={{textAlign:"center",position:"relative",bottom:"35px"}} current={current} defaultCurrent={1} onChange={(e)=>{
-         if(currentCategory==0){
-          setPageIndex(e-1)
-          setCurrent(e)
-         }
+        <Pagination style={{ textAlign: "center", position: "relative", bottom: "35px" }} current={current} defaultCurrent={1} onChange={(e) => {
+          if (currentCategory == 0) {
+            setPageIndex(e - 1)
+            setCurrent(e)
+          }
         }} total={80} />
         {/* Featured Section End */}
         {/* Banner Begin */}

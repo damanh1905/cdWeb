@@ -15,8 +15,13 @@ function Home() {
   const [current, setCurrent] = useState(1);
   const [currentCategory, setCurrentCategory] = useState(0);
   const { t, i18n } = useTranslation();
-  console.log(pageIndex)
-  console.log(currentCategory)
+  // console.log(pageIndex)
+  // console.log(currentCategory)
+
+  // const [randomProduct, setRandomProduct] = useState([]);
+  const [productSilder1, setProductSilder1] = useState([]);
+  const [productSilder2, setProductSilder2] = useState([]);
+  const [productsilder3, setProductSilder3] = useState([]);
 
   const handleAddCart = (id) => {
     console.log(id);
@@ -26,7 +31,7 @@ function Home() {
           productId: id,
           quantity: 1,
         });
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.log(error);
       }
@@ -37,11 +42,8 @@ function Home() {
     try {
       const { data } = await doGet(`product/ShowAndsearch?searchValue=all&pageIndex=${pageIndex}`);
       // console.log(data.data.products);
-
       setProduct(data.data.products);
       setCurrentCategory(0)
-
-
     } catch (e) {
       console.log(e);
       // setNavigate(true);
@@ -50,13 +52,16 @@ function Home() {
 
   const handleRandomProduct = async () => {
     try {
-      const { data } = await doGet(`product/randomProduct?numberProduct=${9}`);
-      // console.log(data.data.products);
-      setProduct(data.data.products);
-      setCurrentCategory(0)
+      const { data } = await doGet(`product/randomProduct?numberProduct=9`);
+      // console.log(data.data);
+      // console.log(data.data.slice(0, 3));
+      // console.log(data.data.slice(3, 6));
+      // console.log(data.data.slice(6, 9));
+      setProductSilder1(data.data.slice(0, 3));
+      setProductSilder2(data.data.slice(3, 6));
+      setProductSilder3(data.data.slice(6, 9));
     } catch (e) {
       console.log(e);
-      // setNavigate(true);
     }
   };
 
@@ -65,6 +70,7 @@ function Home() {
     (async () => {
       try {
         if (currentCategory == 0) {
+          handleRandomProduct();
           handleAllProduct();
         }
       } catch (e) {
@@ -73,19 +79,18 @@ function Home() {
       }
     })();
   }, [pageIndex]);
+
   const handleAccessories = () => {
     (async () => {
       try {
         const { data } = await doGet(
           "category/showCategory?nameCategory=accessories"
         );
-        console.log(data.data.productResponses);
-
+        // console.log(data.data.productResponses);
         setProduct(data.data.productResponses);
         setCurrentCategory(1)
         setCurrent(1)
         setPageIndex(0)
-
       } catch (e) {
         console.log(e);
         // setNavigate(true);
@@ -98,7 +103,7 @@ function Home() {
         const { data } = await doGet(
           "category/showCategory?nameCategory=outerwear"
         );
-        console.log(data.data.productResponses);
+        // console.log(data.data.productResponses);
 
         setProduct(data.data.productResponses);
         setCurrentCategory(1)
@@ -110,12 +115,12 @@ function Home() {
       }
     })();
   };
+
   const handletops = () => {
     (async () => {
       try {
         const { data } = await doGet("category/showCategory?nameCategory=tops");
-        console.log(data.data.productResponses);
-
+        // console.log(data.data.productResponses);
         setProduct(data.data.productResponses);
         setCurrentCategory(1)
         setCurrent(1)
@@ -126,14 +131,14 @@ function Home() {
       }
     })();
   };
+
   const handlebottoms = () => {
     (async () => {
       try {
         const { data } = await doGet(
           "category/showCategory?nameCategory=bottoms"
         );
-        console.log(data.data.productResponses);
-
+        // console.log(data.data.productResponses);
         setProduct(data.data.productResponses);
         setCurrentCategory(1)
         setCurrent(1)
@@ -144,14 +149,14 @@ function Home() {
       }
     })();
   };
+
   const handlefootwear = () => {
     (async () => {
       try {
         const { data } = await doGet(
           "category/showCategory?nameCategory=footwear"
         );
-        console.log(data.data.productResponses);
-
+        // console.log(data.data.productResponses);
         setProduct(data.data.productResponses);
         setCurrentCategory(1)
         setCurrent(1)
@@ -166,7 +171,7 @@ function Home() {
     (async () => {
       try {
         const { data } = await doGet(`wishlist/addWishList?iDProduct=${id}`);
-        console.log(data);
+        // console.log(data);
       } catch (e) {
         console.log(e);
         // setNavigate(true);
@@ -188,21 +193,21 @@ function Home() {
                   </div>
                   <ul>
                     <li>
-                      <Link  to="/shopGrid/1">{t("navHeader.accessories")}</Link>
+                      <Link to="/shopGrid/1">{t("navHeader.accessories")}</Link>
                     </li>
                     <li>
-                      <Link  to="/shopGrid/2">{t("navHeader.outerwear")}</Link>
+                      <Link to="/shopGrid/2">{t("navHeader.outerwear")}</Link>
                     </li>
                     <li>
                       <Link to="/shopGrid/3">{t("navHeader.footwear")}</Link>
                     </li>
                     <li>
-                      <Link  to="/shopGrid/4">{t("navHeader.tops")}</Link>
+                      <Link to="/shopGrid/4">{t("navHeader.tops")}</Link>
                     </li>
                     <li>
                       <Link to="/shopGrid/5">{t("navHeader.bottoms")}</Link>
                     </li>
-                   
+
                   </ul>
                 </div>
               </div>
@@ -465,62 +470,32 @@ function Home() {
                     className="latest-product__slider owl-carousel"
                   >
                     <div className="latest-prdouct__slider__item">
-                      <a href="#" className="latest-product__item">
-                        <div className="latest-product__item__pic">
-                          <img src="assets/img/latest-product/lp-1.jpg" />
-                        </div>
-                        <div className="latest-product__item__text">
-                          <h6>Crab Pool Security</h6>
-                          <span>$30.00</span>
-                        </div>
-                      </a>
-                      <a href="#" className="latest-product__item">
-                        <div className="latest-product__item__pic">
-                          <img src="assets/img/latest-product/lp-2.jpg" />
-                        </div>
-                        <div className="latest-product__item__text">
-                          <h6>Crab Pool Security</h6>
-                          <span>$30.00</span>
-                        </div>
-                      </a>
-                      <a href="#" className="latest-product__item">
-                        <div className="latest-product__item__pic">
-                          <img src="assets/img/latest-product/lp-3.jpg" />
-                        </div>
-                        <div className="latest-product__item__text">
-                          <h6>Crab Pool Security</h6>
-                          <span>$30.00</span>
-                        </div>
-                      </a>
+                      {productSilder1 &&
+                        productSilder1.map((items, index) => (
+                          <a href="#" className="latest-product__item">
+                            <div className="latest-product__item__pic">
+                              <img src="assets/img/latest-product/lp-1.jpg" />
+                            </div>
+                            <div className="latest-product__item__text">
+                              <h6> {items.name}</h6>
+                              <span> {items.price}  ₫</span>
+                            </div>
+                          </a>
+                        ))}
                     </div>
                     <div className="latest-prdouct__slider__item">
-                      <a href="#" className="latest-product__item">
-                        <div className="latest-product__item__pic">
-                          <img src="assets/img/latest-product/lp-1.jpg" />
-                        </div>
-                        <div className="latest-product__item__text">
-                          <h6>Crab Pool Security</h6>
-                          <span>$30.00</span>
-                        </div>
-                      </a>
-                      <a href="#" className="latest-product__item">
-                        <div className="latest-product__item__pic">
-                          <img src="assets/img/latest-product/lp-2.jpg" />
-                        </div>
-                        <div className="latest-product__item__text">
-                          <h6>Crab Pool Security</h6>
-                          <span>$30.00</span>
-                        </div>
-                      </a>
-                      <a href="#" className="latest-product__item">
-                        <div className="latest-product__item__pic">
-                          <img src="assets/img/latest-product/lp-3.jpg" />
-                        </div>
-                        <div className="latest-product__item__text">
-                          <h6>Crab Pool Security</h6>
-                          <span>$30.00</span>
-                        </div>
-                      </a>
+                      {productSilder1 &&
+                        productSilder1.map((items, index) => (
+                          <a href="#" className="latest-product__item">
+                            <div className="latest-product__item__pic">
+                              <img src="assets/img/latest-product/lp-1.jpg" />
+                            </div>
+                            <div className="latest-product__item__text">
+                              <h6> {items.name}</h6>
+                              <span> {items.price}  ₫</span>
+                            </div>
+                          </a>
+                        ))}
                     </div>
                   </OwlCarousel>
                 </div>
@@ -534,63 +509,34 @@ function Home() {
                     className="latest-product__slider owl-carousel"
                   >
                     <div className="latest-prdouct__slider__item">
-                      <a href="#" className="latest-product__item">
-                        <div className="latest-product__item__pic">
-                          <img src="assets/img/latest-product/lp-1.jpg" />
-                        </div>
-                        <div className="latest-product__item__text">
-                          <h6>Crab Pool Security</h6>
-                          <span>$30.00</span>
-                        </div>
-                      </a>
-                      <a href="#" className="latest-product__item">
-                        <div className="latest-product__item__pic">
-                          <img src="assets/img/latest-product/lp-2.jpg" />
-                        </div>
-                        <div className="latest-product__item__text">
-                          <h6>Crab Pool Security</h6>
-                          <span>$30.00</span>
-                        </div>
-                      </a>
-                      <a href="#" className="latest-product__item">
-                        <div className="latest-product__item__pic">
-                          <img src="assets/img/latest-product/lp-3.jpg" />
-                        </div>
-                        <div className="latest-product__item__text">
-                          <h6>Crab Pool Security</h6>
-                          <span>$30.00</span>
-                        </div>
-                      </a>
+                      {productSilder2 &&
+                        productSilder2.map((items, index) => (
+                          <a href="#" className="latest-product__item">
+                            <div className="latest-product__item__pic">
+                              <img src="assets/img/latest-product/lp-2.jpg" />
+                            </div>
+                            <div className="latest-product__item__text">
+                              <h6> {items.name}</h6>
+                              <span> {items.price}  ₫</span>
+                            </div>
+                          </a>
+                        ))}
                     </div>
                     <div className="latest-prdouct__slider__item">
-                      <a href="#" className="latest-product__item">
-                        <div className="latest-product__item__pic">
-                          <img src="assets/img/latest-product/lp-1.jpg" />
-                        </div>
-                        <div className="latest-product__item__text">
-                          <h6>Crab Pool Security</h6>
-                          <span>$30.00</span>
-                        </div>
-                      </a>
-                      <a href="#" className="latest-product__item">
-                        <div className="latest-product__item__pic">
-                          <img src="assets/img/latest-product/lp-2.jpg" />
-                        </div>
-                        <div className="latest-product__item__text">
-                          <h6>Crab Pool Security</h6>
-                          <span>$30.00</span>
-                        </div>
-                      </a>
-                      <a href="#" className="latest-product__item">
-                        <div className="latest-product__item__pic">
-                          <img src="assets/img/latest-product/lp-3.jpg" />
-                        </div>
-                        <div className="latest-product__item__text">
-                          <h6>Crab Pool Security</h6>
-                          <span>$30.00</span>
-                        </div>
-                      </a>
+                      {productSilder2 &&
+                        productSilder2.map((items, index) => (
+                          <a href="#" className="latest-product__item">
+                            <div className="latest-product__item__pic">
+                              <img src="assets/img/latest-product/lp-2.jpg" />
+                            </div>
+                            <div className="latest-product__item__text">
+                              <h6> {items.name}</h6>
+                              <span> {items.price}  ₫</span>
+                            </div>
+                          </a>
+                        ))}
                     </div>
+
                   </OwlCarousel>
                 </div>
               </div>
@@ -603,69 +549,41 @@ function Home() {
                     className="latest-product__slider owl-carousel"
                   >
                     <div className="latest-prdouct__slider__item">
-                      <a href="#" className="latest-product__item">
-                        <div className="latest-product__item__pic">
-                          <img src="assets/img/latest-product/lp-1.jpg" />
-                        </div>
-                        <div className="latest-product__item__text">
-                          <h6>Crab Pool Security</h6>
-                          <span>$30.00</span>
-                        </div>
-                      </a>
-                      <a href="#" className="latest-product__item">
-                        <div className="latest-product__item__pic">
-                          <img src="assets/img/latest-product/lp-2.jpg" />
-                        </div>
-                        <div className="latest-product__item__text">
-                          <h6>Crab Pool Security</h6>
-                          <span>$30.00</span>
-                        </div>
-                      </a>
-                      <a href="#" className="latest-product__item">
-                        <div className="latest-product__item__pic">
-                          <img src="assets/img/latest-product/lp-3.jpg" />
-                        </div>
-                        <div className="latest-product__item__text">
-                          <h6>Crab Pool Security</h6>
-                          <span>$30.00</span>
-                        </div>
-                      </a>
+                      {productsilder3 &&
+                        productsilder3.map((items, index) => (
+                          <a href="#" className="latest-product__item">
+                            <div className="latest-product__item__pic">
+                              <img src="assets/img/latest-product/lp-3.jpg" />
+                            </div>
+                            <div className="latest-product__item__text">
+                              <h6> {items.name}</h6>
+                              <span> {items.price}  ₫</span>
+                            </div>
+                          </a>
+                        ))}
                     </div>
                     <div className="latest-prdouct__slider__item">
-                      <a href="#" className="latest-product__item">
-                        <div className="latest-product__item__pic">
-                          <img src="assets/img/latest-product/lp-1.jpg" />
-                        </div>
-                        <div className="latest-product__item__text">
-                          <h6>Crab Pool Security</h6>
-                          <span>$30.00</span>
-                        </div>
-                      </a>
-                      <a href="#" className="latest-product__item">
-                        <div className="latest-product__item__pic">
-                          <img src="assets/img/latest-product/lp-2.jpg" />
-                        </div>
-                        <div className="latest-product__item__text">
-                          <h6>Crab Pool Security</h6>
-                          <span>$30.00</span>
-                        </div>
-                      </a>
-                      <a href="#" className="latest-product__item">
-                        <div className="latest-product__item__pic">
-                          <img src="assets/img/latest-product/lp-3.jpg" />
-                        </div>
-                        <div className="latest-product__item__text">
-                          <h6>Crab Pool Security</h6>
-                          <span>$30.00</span>
-                        </div>
-                      </a>
+                      {productsilder3 &&
+                        productsilder3.map((items, index) => (
+                          <a href="#" className="latest-product__item">
+                            <div className="latest-product__item__pic">
+                              <img src="assets/img/latest-product/lp-3.jpg" />
+                            </div>
+                            <div className="latest-product__item__text">
+                              <h6> {items.name}</h6>
+                              <span> {items.price}  ₫</span>
+                            </div>
+                          </a>
+                        ))}
                     </div>
+
                   </OwlCarousel>
                 </div>
               </div>
             </div>
           </div>
         </section>
+
         {/* Latest Product Section End */}
         {/* Blog Section Begin */}
         {/* <section className="from-blog spad">

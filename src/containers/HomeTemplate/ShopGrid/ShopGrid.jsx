@@ -3,9 +3,12 @@ import NavBelowHeader from "../../../components/Layout/NavBelowHeader/NavBelowHe
 import SearchProduct from "../../../components/Layout/Search/SearchProduct";
 import "antd/dist/antd.css";
 import { Checkbox, Row, Col, Slider } from "antd";
-import { doGet } from "../../../utils/api/api";
+import { doGet ,doPost} from "../../../utils/api/api";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 function ShopGrid() {
+
   const [products, setProduct] = useState([]);
   const [totalProduct, setTotalProduct] = useState(0);
   const [priceProduct, setPriceProduct] = useState([]);
@@ -17,6 +20,31 @@ function ShopGrid() {
   // console.log(nameFilter,orders)
   console.log(catregory);
   const { id } = useParams();
+  const handleAddCart = (id) => {
+    console.log(id);
+    (async () => {
+      try {
+        const data = await doPost(`cart/addUpdateRemove?action=add`, {
+          productId: id,
+          quantity: 1,
+        });
+        // console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  };
+  const handleWishList = (id) => {
+    (async () => {
+      try {
+        const { data } = await doGet(`wishlist/addWishList?iDProduct=${id}`);
+        // console.log(data);
+      } catch (e) {
+        console.log(e);
+        // setNavigate(true);
+      }
+    })();
+  };
   useEffect(() => {
     if (id == 1) {
       nameFilter[0] = "categoryId=";
@@ -408,9 +436,12 @@ function ShopGrid() {
                         >
                           <ul className="product__item__pic__hover">
                             <li>
-                              <a href="#">
-                                <i className="fa fa-heart" />
-                              </a>
+                            <a>
+                              <i
+                                onClick={() => handleWishList(items.id)}
+                                className="fa fa-heart"
+                              />
+                            </a>
                             </li>
                             <li>
                               <a href="#">
@@ -418,15 +449,20 @@ function ShopGrid() {
                               </a>
                             </li>
                             <li>
-                              <a href="#">
-                                <i className="fa fa-shopping-cart" />
-                              </a>
+                            <a>
+                              <i
+                                onClick={() => handleAddCart(items.id)}
+                                className="fa fa-shopping-cart"
+                              />
+                            </a>
                             </li>
                           </ul>
                         </div>
                         <div className="product__item__text">
                           <h6>
-                            <a href="#">{items.name}</a>
+                          <Link to={{ pathname: `/${items.id}` }}>
+                            {items.name}
+                          </Link>
                           </h6>
                           <h5>
                             {new Intl.NumberFormat("vi-VN", {

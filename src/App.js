@@ -43,7 +43,7 @@ function App() {
             );
           })}
           </Routes>
-          { scrollTop&&<button style={{position:"fixed",bottom:20,right:20,padding:7,paddingLeft:14,cursor:'pointer',backgroundColor:'#1890ff',color:'white',border:"none"}} onClick={goToTop}><i class="fa-solid fa-arrow-up-long"></i></button>}
+          { scrollTop&&<button style={{position:"fixed",bottom:20,right:20,padding:7,paddingLeft:14,cursor:'pointer',backgroundColor:'#1890ff',color:'white',border:"none"}} onClick={goToTop}><i className="fa-solid fa-arrow-up-long"></i></button>}
     </Router>
  
   );

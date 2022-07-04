@@ -472,9 +472,9 @@ function Home() {
                     <div className="latest-prdouct__slider__item">
                       {productSilder1 &&
                         productSilder1.map((items, index) => (
-                          <a href="#" className="latest-product__item">
+                          <a key={index} href="#" className="latest-product__item">
                             <div className="latest-product__item__pic">
-                              <img src="assets/img/latest-product/lp-1.jpg" />
+                            <img src={`/assets/img/secondhand/accessories/${items?.imageEntity[0]?.url}`} style={{width:"80px",height:"100px"}}/>
                             </div>
                             <div className="latest-product__item__text">
                               <h6> {items.name}</h6>
@@ -486,9 +486,9 @@ function Home() {
                     <div className="latest-prdouct__slider__item">
                       {productSilder1 &&
                         productSilder1.map((items, index) => (
-                          <a href="#" className="latest-product__item">
+                          <a href="#" key={index} className="latest-product__item">
                             <div className="latest-product__item__pic">
-                              <img src="assets/img/latest-product/lp-1.jpg" />
+                            <img src={`/assets/img/secondhand/accessories/${items?.imageEntity[0]?.url}`} style={{width:"80px",height:"100px"}}/>
                             </div>
                             <div className="latest-product__item__text">
                               <h6> {items.name}</h6>
@@ -511,9 +511,9 @@ function Home() {
                     <div className="latest-prdouct__slider__item">
                       {productSilder2 &&
                         productSilder2.map((items, index) => (
-                          <a href="#" className="latest-product__item">
+                          <a href="#" key={index} className="latest-product__item">
                             <div className="latest-product__item__pic">
-                              <img src="assets/img/latest-product/lp-2.jpg" />
+                            <img src={`/assets/img/secondhand/accessories/${items?.imageEntity[0]?.url}`} style={{width:"80px",height:"100px"}}/>
                             </div>
                             <div className="latest-product__item__text">
                               <h6> {items.name}</h6>
@@ -525,9 +525,9 @@ function Home() {
                     <div className="latest-prdouct__slider__item">
                       {productSilder2 &&
                         productSilder2.map((items, index) => (
-                          <a href="#" className="latest-product__item">
+                          <a href="#" key={index} className="latest-product__item">
                             <div className="latest-product__item__pic">
-                              <img src="assets/img/latest-product/lp-2.jpg" />
+                            <img src={`/assets/img/secondhand/accessories/${items?.imageEntity[0]?.url}`} style={{width:"80px",height:"100px"}}/>
                             </div>
                             <div className="latest-product__item__text">
                               <h6> {items.name}</h6>
@@ -551,9 +551,9 @@ function Home() {
                     <div className="latest-prdouct__slider__item">
                       {productsilder3 &&
                         productsilder3.map((items, index) => (
-                          <a href="#" className="latest-product__item">
+                          <a href="#" key={index} className="latest-product__item">
                             <div className="latest-product__item__pic">
-                              <img src="assets/img/latest-product/lp-3.jpg" />
+                            <img src={`/assets/img/secondhand/accessories/${items?.imageEntity[0]?.url}`} style={{width:"80px",height:"100px"}}/>
                             </div>
                             <div className="latest-product__item__text">
                               <h6> {items.name}</h6>
@@ -565,9 +565,9 @@ function Home() {
                     <div className="latest-prdouct__slider__item">
                       {productsilder3 &&
                         productsilder3.map((items, index) => (
-                          <a href="#" className="latest-product__item">
+                          <a href="#" key={index} className="latest-product__item">
                             <div className="latest-product__item__pic">
-                              <img src="assets/img/latest-product/lp-3.jpg" />
+                            <img src={`/assets/img/secondhand/accessories/${items?.imageEntity[0]?.url}`} style={{width:"80px",height:"100px"}}/>
                             </div>
                             <div className="latest-product__item__text">
                               <h6> {items.name}</h6>

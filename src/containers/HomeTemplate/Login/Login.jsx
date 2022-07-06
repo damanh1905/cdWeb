@@ -49,37 +49,48 @@ const Login = () => {
   const onFinish = async ({ username, password }) => {
     try {
       const { data } = await doPost("auth/login", { username, password });
+      localStorage.setItem("username", data["username"]);
+          Cookies.set("token", data["token"], { expires: 1, path: "/" });
+          Cookies.set("refreshToken", data["refreshToken"], {
+            expires: 7,
+            path: "/",
+          });
+          // console.log( Cookies.get('token'));
+          instance.defaults.headers.common[
+            "Authorization"
+          ] = `Bearer ${Cookies.get("token")}`;
+          navigate("/")
       // console.log(data["username"]);
-      console.log(data.roles);
-      for (let i = 0; i < data.roles.length; i++) {
-        const element = data.roles[i];
-        if (element === "ROLE_USER") {
-          localStorage.setItem("username", data["username"]);
-          Cookies.set("token", data["token"], { expires: 1, path: "/" });
-          Cookies.set("refreshToken", data["refreshToken"], {
-            expires: 7,
-            path: "/",
-          });
-          // console.log( Cookies.get('token'));
-          instance.defaults.headers.common[
-            "Authorization"
-          ] = `Bearer ${Cookies.get("token")}`;
-          // navigate("/");
-          navigate("http://localhost:3001");
-        } else {
-          localStorage.setItem("username", data["username"]);
-          Cookies.set("token", data["token"], { expires: 1, path: "/" });
-          Cookies.set("refreshToken", data["refreshToken"], {
-            expires: 7,
-            path: "/",
-          });
-          // console.log( Cookies.get('token'));
-          instance.defaults.headers.common[
-            "Authorization"
-          ] = `Bearer ${Cookies.get("token")}`;
-          navigate("/http://localhost:3001");
-        }
-      }
+      // console.log(data.roles);
+      // for (let i = 0; i < data.roles.length; i++) {
+      //   const element = data.roles[i];
+      //   if (element === "ROLE_USER") {
+      //     localStorage.setItem("username", data["username"]);
+      //     Cookies.set("token", data["token"], { expires: 1, path: "/" });
+      //     Cookies.set("refreshToken", data["refreshToken"], {
+      //       expires: 7,
+      //       path: "/",
+      //     });
+      //     // console.log( Cookies.get('token'));
+      //     instance.defaults.headers.common[
+      //       "Authorization"
+      //     ] = `Bearer ${Cookies.get("token")}`;
+      //     // navigate("/");
+      //     navigate("http://localhost:3001");
+      //   } else {
+      //     localStorage.setItem("username", data["username"]);
+      //     Cookies.set("token", data["token"], { expires: 1, path: "/" });
+      //     Cookies.set("refreshToken", data["refreshToken"], {
+      //       expires: 7,
+      //       path: "/",
+      //     });
+      //     // console.log( Cookies.get('token'));
+      //     instance.defaults.headers.common[
+      //       "Authorization"
+      //     ] = `Bearer ${Cookies.get("token")}`;
+      //     navigate("/http://localhost:3001");
+      //   }
+      // }
     } catch (error) {
       console.log(error);
       setErr(true);

@@ -19,7 +19,7 @@ export const defaultValue = {
 
 function Order() {
   //*-- đổi field m ở đây
-  const [columm, setColumm] = useState(["id", "E-mail", "Tên", "Địa chỉ", "Giới tính", "Số đơn hàng", "Số tiền", "Quản lý"]);
+  const [columm, setColumm] = useState(["id đơn hàng", "User mua", "Địa chỉ giao", "Số điện thoại", "Tiền Ship", "Tổng giá", "Tình trạng", "Ngày Đặt","Quản lý" ]);
   const [rawData, setRawData] = useState();
   const [orderList, setOrderList] = useState([]);
   const [isReload, setIsReload] = useState(false);
@@ -30,43 +30,45 @@ function Order() {
   useEffect(() => {
     const initData = async () => {
       //*-- gắn api m zô đây, để chỗ page để lấy số page theo api m
-      const response = await get(`/admin/user/user-list?page=${page}&limit=${limit}`);
+      const response = await get(`/admin/order/getAllListOrderUser?pageIndex=${page}`);
       console.log("response", response);
-      if (response.status === 200) {
-        setRawData(response.data)
+      if (response?.data) {
+        console.log("api trả về", response.data);
+        setRawData(response?.data)
         //*-- coi form m cái mảng order ở đâu thì chấm tới đó
-        setOrderList(response.data.data.userDTOList);
+        setOrderList(response?.data?.list);
       }
     }
     
     initData();
   }, [isReload])
 
-  console.log("rawData:", rawData && Array(rawData.data.totalPage).fill(0).forEach((x, page) => page));
+  // console.log("rawData:", rawData && Array(rawData.data.totalPage).fill(0).forEach((x, page) => page));
 
   const [popup, setPopup] = useState({
     isOpen: false,
     data: undefined,
   });
-  
+
   const { register, handleSubmit, watch, formState: { errors }, reset } = useForm();
 
-  // const handleEdit = (user) => {
-  //   console.log(user);
-  //   reset(user);
-  //   setPopup({
-  //     isOpen: !popup.isOpen,
-  //     data: user,
-  //   })
-  // }
+  const handleEdit = (order) => {
+    console.log(order);
+    reset(order);
+    setPopup({
+      isOpen: !popup.isOpen,
+      data: order,
+    })
+  }
 
-  // const handleDelete = async (user) => {
-  //   //call api here
-  //   const response = await del(`/admin/user/user-list?id=${user.id}`);
-  //   if (response.status === 200) {
-  //     setIsReload(!isReload);
-  //   }
-  // }
+  const handleDelete = async (order) => {
+    console.log("order delte",order);
+    const response = await get(`/admin/order/delete/${order?.id}`);
+    console.log("xóa đơn hàng ra là ",response);
+    if (response?.data) {
+      setIsReload(!isReload);
+    }
+  }
 
   const onSubmit = data => console.log(data);
 
@@ -78,7 +80,7 @@ function Order() {
         <div className="page-header">
           <div className="row align-items-center mb-3">
             <div className="col-sm mb-2 mb-sm-0">
-              <h1 className="page-header-title">Khách hàng <span className="badge badge-soft-dark ml-2">97,524</span></h1>
+              <h1 className="page-header-title">Đơn hàng  <span className="badge badge-soft-dark ml-2">125</span></h1>
               <div className="mt-2">
                 {/* <a class="text-body mr-3" href="javascript:;" data-toggle="modal" data-target="#importCustomersModal">
                 <i class="tio-publish mr-1"></i> Import customers
@@ -164,7 +166,7 @@ function Order() {
                         <i className="tio-search" />
                       </div>
                     </div>
-                    <input id="datatableSearch" type="search" className="form-control" placeholder="Tìm khách hàng" aria-label="Search customer" />
+                    <input id="datatableSearch" type="search" className="form-control" placeholder="Tìm đơn hàng.." aria-label="Search customer" />
                   </div>
                   {/* End Search */}
                 </form>
@@ -360,7 +362,7 @@ function Order() {
                 </tr>
               </thead>
               <tbody>
-                {orderList.map((order, index) =>
+                {orderList && orderList.map((order, index) =>
                   <tr>
                     <td className="table-column-pr-0" key={`user-${index}`}>
                       <div className="custom-control custom-checkbox">
@@ -371,30 +373,31 @@ function Order() {
                     {/* <td className="table-column-pl-0">
                       <div className="d-flex align-items-center">
                         <div className="ml-3">
-                          <span className="h5 text-hover-primary">{user.id}</span>
+                          <span className="h5 text-hover-primary">{order?.id}</span>
                         </div>
                       </div>
                     </td> */}
                     {/* //*-- chỗ này gắn từng field của order m vào */}
-                    <td>{order.id}</td>
-                    <td>{order.email}</td>
-                    <td>{order.name}</td>
-                    <td>{order.address}</td>
-                    <td>{order.gender}</td>
-                    <td>{order.amountOrder}</td>
-                    <td>{order.amountSpent}</td>
+                    <td>{order?.id}</td>
+                    <td>{order?.userid}</td>
+                    <td>{order?.address}</td>
+                    <td>{order?.phone_number}</td>
+                    <td>{order?.shipfee}</td>
+                    <td>{order?.total_price_order}</td>
+                    <td>{order?.status}</td>
+                    <td>{order?.datecreated}</td>
                     {/* //*-- này là trạng thái */}
-                    <td>
+                    {/* <td>
                       <span className={classNames("legend-indicator", { "bg-success": order.status })} />{order.status ? "Active" : "Inactive"}
-                    </td>
-
-                    {/* <div className="btn-group" role="group">
+                    </td> */}
+                    <td>
+                    <div className="btn-group" role="group">
                       <a className="btn btn-sm btn-white" onClick={() => handleDelete(order)}>
                         <i className="tio-edit" /> Xóa
                       </a>
-                    </div> */}
-                    {/* <div className="btn-group" role="group">
-                      <a className="btn btn-sm btn-white" onClick={() => handleEdit(user)}>
+                    </div>
+                    <div className="btn-group" role="group">
+                      <a className="btn btn-sm btn-white" onClick={() => handleEdit(order)}>
                         <i className="tio-edit" /> Sửa
                       </a>
                       <div className="hs-unfold btn-group">
@@ -404,12 +407,13 @@ function Order() {
                              &quot;smartPositionOffEl&quot;: &quot;#datatable&quot;
                            }" />
                         <div id="productsEditDropdown1" className="hs-unfold-content dropdown-unfold dropdown-menu dropdown-menu-right mt-1">
-                          <a className="dropdown-item" onClick={() => handleDelete(user)}>
+                          <a className="dropdown-item" onClick={() => handleDelete(order)}>
                             <i className="tio-delete-outlined dropdown-item-icon" /> Xóa
                           </a>
                         </div>
                       </div>
-                    </div> */}
+                    </div>
+                    </td>
                   </tr>
                 )}
 
@@ -423,9 +427,9 @@ function Order() {
             <div className="row justify-content-center justify-content-sm-between align-items-sm-center">
               <div className="col-sm mb-2 mb-sm-0">
                 <div className="d-flex justify-content-center justify-content-sm-start align-items-center">
-                  <span className="mr-2">Hiển thị</span>
+                  <span className="mr-2">Hiển thị 12 Record  đơn hàng</span>
                   {/* Select */}
-                  <select data-hs-select2-options="{
+                  {/* <select data-hs-select2-options="{
                             &quot;minimumResultsForSearch&quot;: &quot;Infinity&quot;,
                             &quot;customClass&quot;: &quot;custom-select custom-select-sm custom-select-borderless&quot;,
                             &quot;dropdownAutoWidth&quot;: true,
@@ -437,18 +441,20 @@ function Order() {
                     <option value={10} >10</option>
                     <option value={15} selected>15</option>
                     <option value={20}>20</option>
-                  </select>
+                  </select> */}
                   {/* End Select */}
-                  <span className="text-secondary mr-2"> khách hàng trong tổng</span>
+                  <span className="text-secondary mr-2"></span>
                   {/* Pagination Quantity */}
                   <span id="datatableWithPaginationInfoTotalQty" />
                   <div style={{ display: "flex", gap: "2px", cursor: "pointer", color: "blue" }}>
                     {/* //*-- chỗ này m coi tổng trang m bỏ zô, nếu api m hk có thì cmt nó lại */}
-                    {rawData && Array(rawData.data.totalPage).fill(0).map((x, page) => 
+                    {rawData && Array(rawData?.totalPage).fill(0).map((x, page) => 
                       <div onClick={() => {
                         setPage(page + 1);
                         setIsReload(!isReload);
                       }}>
+                        {console.log("Page là bn",page)}
+                        {console.log("raw data",rawData)}
                         {page + 1}
                       </div>
                     )}
@@ -475,23 +481,27 @@ function Order() {
         {popup.isOpen && 
           <form onSubmit={handleSubmit(onSubmit)} className="form-container">
             <div className="form__item-container">
-              <label htmlFor="name">Name</label>
+              <label htmlFor="name">Id đơn hàng</label>
               <input defaultValue="test" {...register("name")} />
             </div>
 
             <div className="form__item-container">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">User mua</label>
               <input defaultValue="test" {...register("email")} />
             </div>
 
             <div className="form__item-container">
-              <label htmlFor="phone">SĐT</label>
+              <label htmlFor="phone">Địa chỉ giao</label>
               <input defaultValue="test" {...register("phoneNumber")} />
             </div>
 
             <div className="form__item-container">
-              <label htmlFor="address">Địa chỉ</label>
+              <label htmlFor="address">Số điện thoại</label>
               <input defaultValue="test" {...register("address")} />
+            </div>
+            <div className="form__item-container">
+              <label htmlFor="status">Tình trạng</label>
+              <input defaultValue="test" {...register("status")} />
             </div>
           </form>
         }

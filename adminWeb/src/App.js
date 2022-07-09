@@ -9,6 +9,7 @@ import 'antd/dist/antd.css';
 
 import {
   BrowserRouter as Router,
+  Link,
   Routes,
   Route,
   HashRouter,
@@ -37,7 +38,7 @@ function App() {
         <div className="navbar-nav-wrap">
           <div className="navbar-brand-wrapper">
             {/* Logo */}
-            <a className="navbar-brand" href="index.html" aria-label="Front">
+            <a className="navbar-brand" to='/' href='#'>
               <img className="navbar-brand-logo" src="assets\svg\logos\logo.svg" alt="Logo" />
               <img className="navbar-brand-logo-mini" src="assets\svg\logos\logo-short.svg" alt="Logo" />
             </a>

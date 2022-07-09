@@ -1,12 +1,29 @@
 import React, { useState } from "react";
 import "./Homepage.scss";
-
+import "antd/dist/antd.css";
 function Homepage() {
-
   const [chartData, setChartData] = useState({
-    label: ["test","2AM","3AM","4AM","5AM","6AM","7AM","8AM","9AM","10AM","11AM"],
-    prevData: [200, 300, 290, 350, 150, 350, 300, 100, 125, 220, 200, 300, 290, 350, 150, 350, 300, 100, 125, 220, 225],
-    nowData: [150, 230, 382, 204, 169, 290, 300, 100, 300, 225, 120, 150, 230, 382, 204, 169, 290, 300, 100, 300, 140],
+    label: [
+      "test",
+      "2AM",
+      "3AM",
+      "4AM",
+      "5AM",
+      "6AM",
+      "7AM",
+      "8AM",
+      "9AM",
+      "10AM",
+      "11AM",
+    ],
+    prevData: [
+      200, 300, 290, 350, 150, 350, 300, 100, 125, 220, 200, 300, 290, 350, 150,
+      350, 300, 100, 125, 220, 225,
+    ],
+    nowData: [
+      150, 230, 382, 204, 169, 290, 300, 100, 300, 225, 120, 150, 230, 382, 204,
+      169, 290, 300, 100, 300, 140,
+    ],
     stepSize: 50,
     colorInActive: "#377dff",
     colorActive: "#17ed0c",
@@ -30,7 +47,10 @@ function Homepage() {
           <div className="row align-items-center">
             <div className="col-sm mb-2 mb-sm-0">
               <h1 className="page-header-title">Chào bạn.</h1>
-              <p className="page-header-text">Đây là những gì đang xảy ra với trang thương mại điện tử của bạn.</p>
+              <p className="page-header-text">
+                Đây là những gì đang xảy ra với trang thương mại điện tử của
+                bạn.
+              </p>
             </div>
           </div>
         </div>
@@ -129,12 +149,22 @@ function Homepage() {
           <div className="card-header">
             <div className="row align-items-center flex-grow-1">
               <div className="col-sm mb-2 mb-sm-0">
-                <h4 className="card-header-title">Doanh thu <i className="tio-help-outlined text-body ml-1" data-toggle="tooltip" data-placement="top" title="Doanh thu thuần theo thời gian(tổng doanh thu trừ chiết khấu và lợi nhuận) cộng với thuế và phí vận chuyển. Được biểu diễn theo thời gian." />
+                <h4 className="card-header-title">
+                  Doanh thu{" "}
+                  <i
+                    className="tio-help-outlined text-body ml-1"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Doanh thu thuần theo thời gian(tổng doanh thu trừ chiết khấu và lợi nhuận) cộng với thuế và phí vận chuyển. Được biểu diễn theo thời gian."
+                  />
                 </h4>
               </div>
               <div className="col-sm-auto">
                 {/* Daterangepicker */}
-                <button id="js-daterangepicker-predefined" className="btn btn-sm btn-white dropdown-toggle mb-2 mb-sm-0">
+                <button
+                  id="js-daterangepicker-predefined"
+                  className="btn btn-sm btn-white dropdown-toggle mb-2 mb-sm-0"
+                >
                   <i className="tio-date-range" />
                   <span className="js-daterangepicker-predefined-preview ml-1" />
                 </button>
@@ -150,7 +180,10 @@ function Homepage() {
               <div className="col-md-9 mb-5 mb-md-0">
                 {/* Bar Chart */}
                 <div className="chartjs-custom mb-4">
-                  <canvas className="js-chart" style={{ height: '18rem' }} data-hs-chartjs-options={`{
+                  <canvas
+                    className="js-chart"
+                    style={{ height: "18rem" }}
+                    data-hs-chartjs-options={`{
                     "type": "bar",
                     "data": {
                       "labels": ${JSON.stringify(chartData.label)},
@@ -209,16 +242,25 @@ function Homepage() {
                         "intersect": true
                       }
                     }
-                  }`} />
+                  }`}
+                  />
                 </div>
                 {/* End Bar Chart */}
                 {/* Legend Indicators */}
                 <div className="row justify-content-center">
                   <div className="col-auto">
-                    <span className="legend-indicator" style={{ backgroundColor: chartData.colorActive }} /> Doanh thu
+                    <span
+                      className="legend-indicator"
+                      style={{ backgroundColor: chartData.colorActive }}
+                    />{" "}
+                    Doanh thu
                   </div>
                   <div className="col-auto">
-                    <span className="legend-indicator bg-primary" style={{ backgroundColor: chartData.colorInActive }} /> Đơn hàng
+                    <span
+                      className="legend-indicator bg-primary"
+                      style={{ backgroundColor: chartData.colorInActive }}
+                    />{" "}
+                    Đơn hàng
                   </div>
                 </div>
                 {/* End Legend Indicators */}
@@ -227,9 +269,14 @@ function Homepage() {
                 <div className="row">
                   <div className="col-sm-6 col-md-12">
                     {/* Stats */}
-                    <div className="d-flex justify-content-center flex-column" style={{ minHeight: '10.5rem' }}>
+                    <div
+                      className="d-flex justify-content-center flex-column"
+                      style={{ minHeight: "10.5rem" }}
+                    >
                       <h6 className="card-subtitle">Doanh thu</h6>
-                      <span className="d-block display-4 text-dark mb-1 mr-3">$97,458.20</span>
+                      <span className="d-block display-4 text-dark mb-1 mr-3">
+                        $97,458.20
+                      </span>
                       <span className="d-block text-success">
                         <i className="tio-trending-up mr-1" /> $2,401.02 (3.7%)
                       </span>
@@ -244,9 +291,14 @@ function Homepage() {
                   </div>
                   <div className="col-sm-6 col-md-12">
                     {/* Stats */}
-                    <div className="d-flex justify-content-center flex-column" style={{ minHeight: '10.5rem' }}>
+                    <div
+                      className="d-flex justify-content-center flex-column"
+                      style={{ minHeight: "10.5rem" }}
+                    >
                       <h6 className="card-subtitle">Đơn hàng</h6>
-                      <span className="d-block display-4 text-dark mb-1 mr-3">67,893</span>
+                      <span className="d-block display-4 text-dark mb-1 mr-3">
+                        67,893
+                      </span>
                       <span className="d-block text-danger">
                         <i className="tio-trending-down mr-1" /> +3,301 (1.2%)
                       </span>
@@ -266,11 +318,18 @@ function Homepage() {
         <div className="row">
           <div className="col-lg-4 mb-3 mb-lg-5">
             {/* Card */}
-            <a className="card card-hover-shadow mb-4" href="./ecommerce-add-product.html">
+            <a
+              className="card card-hover-shadow mb-4"
+              href="./ecommerce-add-product.html"
+            >
               <div className="card-body">
                 {/* Row */}
                 <div className="media align-items-center">
-                  <img className="avatar avatar-xl mr-4" src="assets\svg\illustrations\create.svg" alt="Image Description" />
+                  <img
+                    className="avatar avatar-xl mr-4"
+                    src="assets\svg\illustrations\create.svg"
+                    alt="Image Description"
+                  />
                   <div className="media-body">
                     <h3 className="text-hover-primary mb-1">Sản phẩm</h3>
                     <span className="text-body">Tạo một sản phẩm mới</span>
@@ -284,13 +343,24 @@ function Homepage() {
             </a>
             {/* End Card */}
             {/* Card */}
-            <a className="card card-hover-shadow mb-4" href="./sale-request-management.html">
+            <a
+              className="card card-hover-shadow mb-4"
+              href="./sale-request-management.html"
+            >
               <div className="card-body">
                 <div className="media align-items-center">
-                  <img className="avatar avatar-xl mr-4" src="assets\svg\illustrations\choice.svg" alt="Image Description" />
+                  <img
+                    className="avatar avatar-xl mr-4"
+                    src="assets\svg\illustrations\choice.svg"
+                    alt="Image Description"
+                  />
                   <div className="media-body">
-                    <h3 className="text-hover-primary mb-1">Yêu cầu bán hàng</h3>
-                    <span className="text-body">Duyệt các yêu cầu từ khách hàng.</span>
+                    <h3 className="text-hover-primary mb-1">
+                      Yêu cầu bán hàng
+                    </h3>
+                    <span className="text-body">
+                      Duyệt các yêu cầu từ khách hàng.
+                    </span>
                   </div>
                   <div className="ml-2 text-right">
                     <i className="tio-chevron-right tio-lg text-body text-hover-primary" />
@@ -304,7 +374,11 @@ function Homepage() {
             <a className="card card-hover-shadow" href="#">
               <div className="card-body">
                 <div className="media align-items-center">
-                  <img className="avatar avatar-xl mr-4" src="assets\svg\illustrations\presenting.svg" alt="Image Description" />
+                  <img
+                    className="avatar avatar-xl mr-4"
+                    src="assets\svg\illustrations\presenting.svg"
+                    alt="Image Description"
+                  />
                   <div className="media-body">
                     <h3 className="text-hover-primary mb-1">Giảm giá</h3>
                     <span className="text-body">Tạo một giảm giá mới</span>
@@ -324,7 +398,12 @@ function Homepage() {
               {/* Header */}
               <div className="card-header">
                 <h4 className="card-header-title">Thương hiệu bán chạy nhất</h4>
-                <a className="btn btn-sm btn-ghost-secondary" href="product-management.html">Xem tất cả</a>
+                <a
+                  className="btn btn-sm btn-ghost-secondary"
+                  href="product-management.html"
+                >
+                  Xem tất cả
+                </a>
               </div>
               {/* End Header */}
               {/* Body */}
@@ -345,8 +424,15 @@ function Homepage() {
                       <tr>
                         <td>
                           {/* Media */}
-                          <a className="media align-items-center" href="./ecommerce-product-details.html">
-                            <img className="avatar mr-3" src="assets\img\400x400\img4.jpg" alt="Image Description" />
+                          <a
+                            className="media align-items-center"
+                            href="./ecommerce-product-details.html"
+                          >
+                            <img
+                              className="avatar mr-3"
+                              src="assets\img\400x400\img4.jpg"
+                              alt="Image Description"
+                            />
                             <div className="media-body">
                               <h5 className="text-hover-primary mb-0">Nike</h5>
                             </div>
@@ -363,10 +449,19 @@ function Homepage() {
                       <tr>
                         <td>
                           {/* Media */}
-                          <a className="media align-items-center" href="./ecommerce-product-details.html">
-                            <img className="avatar mr-3" src="assets\img\400x400\img26.jpg" alt="Image Description" />
+                          <a
+                            className="media align-items-center"
+                            href="./ecommerce-product-details.html"
+                          >
+                            <img
+                              className="avatar mr-3"
+                              src="assets\img\400x400\img26.jpg"
+                              alt="Image Description"
+                            />
                             <div className="media-body">
-                              <h5 className="text-hover-primary mb-0">Adidas</h5>
+                              <h5 className="text-hover-primary mb-0">
+                                Adidas
+                              </h5>
                             </div>
                           </a>
                           {/* End Media */}
@@ -381,8 +476,15 @@ function Homepage() {
                       <tr>
                         <td>
                           {/* Media */}
-                          <a className="media align-items-center" href="./ecommerce-product-details.html">
-                            <img className="avatar mr-3" src="assets\img\400x400\img25.jpg" alt="Image Description" />
+                          <a
+                            className="media align-items-center"
+                            href="./ecommerce-product-details.html"
+                          >
+                            <img
+                              className="avatar mr-3"
+                              src="assets\img\400x400\img25.jpg"
+                              alt="Image Description"
+                            />
                             <div className="media-body">
                               <h5 className="text-hover-primary mb-0">Puma</h5>
                             </div>
@@ -399,10 +501,19 @@ function Homepage() {
                       <tr>
                         <td>
                           {/* Media */}
-                          <a className="media align-items-center" href="./ecommerce-product-details.html">
-                            <img className="avatar mr-3" src="assets\img\400x400\img6.jpg" alt="Image Description" />
+                          <a
+                            className="media align-items-center"
+                            href="./ecommerce-product-details.html"
+                          >
+                            <img
+                              className="avatar mr-3"
+                              src="assets\img\400x400\img6.jpg"
+                              alt="Image Description"
+                            />
                             <div className="media-body">
-                              <h5 className="text-hover-primary mb-0">Supreme</h5>
+                              <h5 className="text-hover-primary mb-0">
+                                Supreme
+                              </h5>
                             </div>
                           </a>
                           {/* End Media */}
@@ -417,10 +528,19 @@ function Homepage() {
                       <tr>
                         <td>
                           {/* Media */}
-                          <a className="media align-items-center" href="./ecommerce-product-details.html">
-                            <img className="avatar mr-3" src="assets\img\400x400\img3.jpg" alt="Image Description" />
+                          <a
+                            className="media align-items-center"
+                            href="./ecommerce-product-details.html"
+                          >
+                            <img
+                              className="avatar mr-3"
+                              src="assets\img\400x400\img3.jpg"
+                              alt="Image Description"
+                            />
                             <div className="media-body">
-                              <h5 className="text-hover-primary mb-0">Louis vuitton</h5>
+                              <h5 className="text-hover-primary mb-0">
+                                Louis vuitton
+                              </h5>
                             </div>
                           </a>
                           {/* End Media */}
@@ -435,8 +555,15 @@ function Homepage() {
                       <tr>
                         <td>
                           {/* Media */}
-                          <a className="media align-items-center" href="./ecommerce-product-details.html">
-                            <img className="avatar mr-3" src="assets\img\400x400\img5.jpg" alt="Image Description" />
+                          <a
+                            className="media align-items-center"
+                            href="./ecommerce-product-details.html"
+                          >
+                            <img
+                              className="avatar mr-3"
+                              src="assets\img\400x400\img5.jpg"
+                              alt="Image Description"
+                            />
                             <div className="media-body">
                               <h5 className="text-hover-primary mb-0">Gucci</h5>
                             </div>
@@ -468,17 +595,51 @@ function Homepage() {
             <div className="card h-100">
               {/* Header */}
               <div className="card-header">
-                <h4 className="card-header-title">Tổng doanh thu <i className="tio-help-outlined text-body ml-1" data-toggle="tooltip" data-placement="top" title="Doanh thu thuần theo danh mục hàng hóa(tổng doanh thu trừ chiết khấu và lợi nhuận) cộng với thuế và phí vận chuyển. Được biểu diễn theo loại danh mụch hàng hóa." />
+                <h4 className="card-header-title">
+                  Tổng doanh thu{" "}
+                  <i
+                    className="tio-help-outlined text-body ml-1"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Doanh thu thuần theo danh mục hàng hóa(tổng doanh thu trừ chiết khấu và lợi nhuận) cộng với thuế và phí vận chuyển. Được biểu diễn theo loại danh mụch hàng hóa."
+                  />
                 </h4>
                 {/* Daterangepicker */}
                 <div className="d-flex justify-content-end mb-3">
                   {/* Nav */}
-                  <ul className="nav nav-segment" id="expensesTab" role="tablist">
-                    <li className="nav-item" data-toggle="chart-doughnut" data-trigger="click" data-action="toggle">
-                      <a className="nav-link active" href="javascript:;" data-toggle="tab">Tất cả</a>
+                  <ul
+                    className="nav nav-segment"
+                    id="expensesTab"
+                    role="tablist"
+                  >
+                    <li
+                      className="nav-item"
+                      data-toggle="chart-doughnut"
+                      data-trigger="click"
+                      data-action="toggle"
+                    >
+                      <a
+                        className="nav-link active"
+                        href="javascript:;"
+                        data-toggle="tab"
+                      >
+                        Tất cả
+                      </a>
                     </li>
-                    <li className="nav-item" data-toggle="chart-doughnut" data-datasets={1} data-trigger="click" data-action="toggle">
-                      <a className="nav-link" href="javascript:;" data-toggle="tab">Tháng này</a>
+                    <li
+                      className="nav-item"
+                      data-toggle="chart-doughnut"
+                      data-datasets={1}
+                      data-trigger="click"
+                      data-action="toggle"
+                    >
+                      <a
+                        className="nav-link"
+                        href="javascript:;"
+                        data-toggle="tab"
+                      >
+                        Tháng này
+                      </a>
                     </li>
                   </ul>
                   {/* End Nav */}
@@ -489,13 +650,22 @@ function Homepage() {
               {/* Body */}
               <div className="card-body">
                 {/* Pie Chart */}
-                <div className="chartjs-custom mb-3 mb-sm-5" style={{ height: '14rem' }}>
-                  <canvas className="js-chart" style={{ height: '18rem' }} id="updatingDoughnutChart" data-hs-chartjs-options={`{
+                <div
+                  className="chartjs-custom mb-3 mb-sm-5"
+                  style={{ height: "14rem" }}
+                >
+                  <canvas
+                    className="js-chart"
+                    style={{ height: "18rem" }}
+                    id="updatingDoughnutChart"
+                    data-hs-chartjs-options={`{
                     "type": "doughnut",
                     "data": {
                       "labels": ${JSON.stringify(doughnutChartData.label)},
                       "datasets": [{
-                        "backgroundColor": ${JSON.stringify(doughnutChartData.backgroundColor)},
+                        "backgroundColor": ${JSON.stringify(
+                          doughnutChartData.backgroundColor
+                        )},
                         "data": ${JSON.stringify(doughnutChartData.data)},
                         "borderWidth": 5,
                         "hoverBorderColor": "#fff"
@@ -514,17 +684,28 @@ function Homepage() {
                         "intersect": true
                       }
                     }
-                  }`} />
+                  }`}
+                  />
                 </div>
                 {/* End Pie Chart */}
                 {/* Legend Indicators */}
                 <div className="row justify-content-center">
-                  { doughnutChartData.data.map((item, index) => 
-                    <div className="col-auto mb-3 mb-sm-0" key={`doughnutChartData-${index}`}>
+                  {doughnutChartData.data.map((item, index) => (
+                    <div
+                      className="col-auto mb-3 mb-sm-0"
+                      key={`doughnutChartData-${index}`}
+                    >
                       <span className="card-title h4">{item}</span>
-                      <span className="legend-indicator" style={{ backgroundColor: doughnutChartData.backgroundColor[index] }} />{doughnutChartData.title[index]}
+                      <span
+                        className="legend-indicator"
+                        style={{
+                          backgroundColor:
+                            doughnutChartData.backgroundColor[index],
+                        }}
+                      />
+                      {doughnutChartData.title[index]}
                     </div>
-                  )}
+                  ))}
                   {/* <div className="col-auto mb-3 mb-sm-0">
                     <span className="card-title h4">$2,332.00</span>
                     <span className="legend-indicator bg-primary" />Giày
@@ -552,19 +733,27 @@ function Homepage() {
                 <h5 className="card-header-title">Báo cáo tổng quan</h5>
                 {/* Unfold */}
                 <div className="hs-unfold">
-                  <a className="js-hs-unfold-invoker btn btn-icon btn-sm btn-ghost-secondary rounded-circle" href="javascript:;" data-hs-unfold-options="{
-                       &quot;target&quot;: &quot;#reportsOverviewDropdown1&quot;,
-                       &quot;type&quot;: &quot;css-animation&quot;
-                     }">
+                  <a
+                    className="js-hs-unfold-invoker btn btn-icon btn-sm btn-ghost-secondary rounded-circle"
+                    href="javascript:;"
+                    data-hs-unfold-options='{
+                       "target": "#reportsOverviewDropdown1",
+                       "type": "css-animation"
+                     }'
+                  >
                     <i className="tio-more-vertical" />
                   </a>
-                  <div id="reportsOverviewDropdown1" className="hs-unfold-content dropdown-unfold dropdown-menu dropdown-menu-right mt-1">
+                  <div
+                    id="reportsOverviewDropdown1"
+                    className="hs-unfold-content dropdown-unfold dropdown-menu dropdown-menu-right mt-1"
+                  >
                     <span className="dropdown-header">Cài đặt</span>
                     <a className="dropdown-item" href="#">
                       <i className="tio-share dropdown-item-icon" /> Chia sẻ
                     </a>
                     <a className="dropdown-item" href="#">
-                      <i className="tio-download-to dropdown-item-icon" /> Tải về máy
+                      <i className="tio-download-to dropdown-item-icon" /> Tải
+                      về máy
                     </a>
                   </div>
                 </div>
@@ -576,9 +765,39 @@ function Homepage() {
                 <span className="h1 d-block mb-4">$7,431.14 USD</span>
                 {/* Progress */}
                 <div className="progress rounded-pill mb-2">
-                  <div className="progress-bar" role="progressbar" style={{ width: '25%' }} aria-valuenow={25} aria-valuemin={0} aria-valuemax={100} data-toggle="tooltip" data-placement="top" title="Gross value" />
-                  <div className="progress-bar opacity" role="progressbar" style={{ width: '33%' }} aria-valuenow={33} aria-valuemin={0} aria-valuemax={100} data-toggle="tooltip" data-placement="top" title="Net volume from sales" />
-                  <div className="progress-bar opacity-xs" role="progressbar" style={{ width: '9%' }} aria-valuenow={9} aria-valuemin={0} aria-valuemax={100} data-toggle="tooltip" data-placement="top" title="New volume from sales" />
+                  <div
+                    className="progress-bar"
+                    role="progressbar"
+                    style={{ width: "25%" }}
+                    aria-valuenow={25}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Gross value"
+                  />
+                  <div
+                    className="progress-bar opacity"
+                    role="progressbar"
+                    style={{ width: "33%" }}
+                    aria-valuenow={33}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Net volume from sales"
+                  />
+                  <div
+                    className="progress-bar opacity-xs"
+                    role="progressbar"
+                    style={{ width: "9%" }}
+                    aria-valuenow={9}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="New volume from sales"
+                  />
                 </div>
                 <div className="d-flex justify-content-between mb-4">
                   <span>0%</span>
@@ -588,25 +807,33 @@ function Homepage() {
                 {/* Table */}
                 <div className="table-responsive">
                   <table className="table table-lg table-nowrap card-table mb-0">
-                    <tbody><tr>
-                      <th scope="row">
-                        <span className="legend-indicator bg-primary" />Tổng doanh thu
-                      </th>
-                      <td>
-                        <span className="badge badge-soft-success">$3,500.71</span>
-                      </td>
-                    </tr>
+                    <tbody>
                       <tr>
                         <th scope="row">
-                          <span className="legend-indicator bg-primary opacity" />Doanh thu từ việc bán giày
+                          <span className="legend-indicator bg-primary" />
+                          Tổng doanh thu
                         </th>
                         <td>
-                          <span className="badge badge-soft-primary">$2,980.45</span>
+                          <span className="badge badge-soft-success">
+                            $3,500.71
+                          </span>
                         </td>
                       </tr>
                       <tr>
                         <th scope="row">
-                          <span className="legend-indicator bg-primary opacity-xs" />Doanh thu từ việc bán áo
+                          <span className="legend-indicator bg-primary opacity" />
+                          Doanh thu từ việc bán giày
+                        </th>
+                        <td>
+                          <span className="badge badge-soft-primary">
+                            $2,980.45
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">
+                          <span className="legend-indicator bg-primary opacity-xs" />
+                          Doanh thu từ việc bán áo
                         </th>
                         <td>
                           <span className="badge badge-soft-info">$950.00</span>
@@ -614,13 +841,17 @@ function Homepage() {
                       </tr>
                       <tr>
                         <th scope="row">
-                          <span className="legend-indicator" />Doanh thu từ việc bán mặt hàng khác
+                          <span className="legend-indicator" />
+                          Doanh thu từ việc bán mặt hàng khác
                         </th>
                         <td>
-                          <span className="badge badge-soft-success">$1,950.00</span>
+                          <span className="badge badge-soft-success">
+                            $1,950.00
+                          </span>
                         </td>
                       </tr>
-                    </tbody></table>
+                    </tbody>
+                  </table>
                 </div>
                 {/* End Table */}
               </div>
@@ -675,7 +906,7 @@ function Homepage() {
       </div>
       {/* End Footer */}
     </main>
-  )
+  );
 }
 
 export default Homepage;

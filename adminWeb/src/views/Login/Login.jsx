@@ -57,6 +57,7 @@ const Login = () => {
         "token"
       )}`;
       navigate("homepage");
+      window.location.reload();
     } catch (error) {
       console.log(error);
       setErr(true);

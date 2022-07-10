@@ -4,13 +4,46 @@ import classNames from 'classnames';
 import "./DetailOrder.scss";
 import { Modal } from "antd";
 import { del, get } from "../../utils/api";
-
+import { doGet, doPost } from "../../utils/api/api";
+import { useParams } from 'react-router-dom';
 export const defaultValue = {
 
 }
 
 function DetailOrder() {
-
+  const [isReload, setIsReload] = useState(false);
+  const [listOrderDetail, setListOrderDetail] = useState([]);
+  const [pageSize,setPageSize]=useState(12);
+  const [pageIndex,setPageIndex]=useState(0);
+  const [userName,setUserName]=useState('');
+  const [phone,setPhone]=useState('');
+  const [address,setAddress]=useState('');
+  const [total,setTotal]=useState(0)
+  const {id}=useParams();
+  console.log(id)
+  useEffect(() => {
+    const initData = async () => {
+      const response = await doPost(`/order/admin/orderDetailByIdOrder/${id}`);
+    
+      if(response.data.status==200){
+          setListOrderDetail(response.data.data.listOrderDetail)
+          setAddress(response.data.data.addressOrder)
+          setPhone(response.data.data.phone)  
+          const initialValue = 0;
+          const sumWithInitial = response.data.data.listOrderDetail.reduce(
+            (previousValue, currentValue) => previousValue + currentValue.totalOrderDetailPrice,
+            initialValue
+          );
+          console.log("sum"+sumWithInitial)
+          setTotal(sumWithInitial)
+         
+      }
+    
+    }
+    
+    initData();
+  }, [isReload])
+  console.log(listOrderDetail)
   return (
    
     <main id="content" role="main" className="main">
@@ -39,7 +72,7 @@ function DetailOrder() {
             </span>
           </div>
           <div className="mt-2">
-            <a className="text-body mr-3" href="javascript:;" onclick="window.print(); return false;">
+            <a className="text-body mr-3">
               <i className="tio-print mr-1" /> In đơn hàng
             </a>
             {/* Unfold */}
@@ -96,118 +129,54 @@ function DetailOrder() {
           {/* Body */}
           <div className="card-body">
             {/* Media */}
-            <div className="media">
-              <div className="avatar avatar-xl mr-3">
-                <img className="img-fluid" src="assets\img\400x400\img26.jpg" alt="Image Description" />
-              </div>
-              <div className="media-body">
-                <div className="row">
-                  <div className="col-md-6 mb-3 mb-md-0">
-                    <a className="h5 d-block" href="ecommerce-product-details.html">Topman shoe in green</a>
-                    <div className="font-size-sm text-body">
-                      <span>Gender:</span>
-                      <span className="font-weight-bold">Women</span>
+            {
+              listOrderDetail.map((item,index)=>{    
+                
+                return <div className="media" key={index}>
+              
+                <div className="avatar avatar-xl mr-3">
+              
+                </div>
+                <div className="media-body">
+                  <div className="row">
+                    <div className="col-md-6 mb-3 mb-md-0">
+                      <a className="h5 d-block" href="ecommerce-product-details.html">{item.productEntity.name}</a>
+                      <div className="font-size-sm text-body">
+                        <span>Gender:</span>
+                        <span className="font-weight-bold">Women</span>
+                      </div>
+                      <div className="font-size-sm text-body">
+                        <span>Color:</span>
+                        <span className="font-weight-bold">Green</span>
+                      </div>
+                      <div className="font-size-sm text-body">
+                        <span>Size:</span>
+                        <span className="font-weight-bold">UK 7</span>
+                      </div>
                     </div>
-                    <div className="font-size-sm text-body">
-                      <span>Color:</span>
-                      <span className="font-weight-bold">Green</span>
+                    <div className="col col-md-2 align-self-center">
+                      <h5>{item.productEntity.price}</h5>
                     </div>
-                    <div className="font-size-sm text-body">
-                      <span>Size:</span>
-                      <span className="font-weight-bold">UK 7</span>
+                    <div className="col col-md-2 align-self-center">
+                      <h5>{item.quantity}</h5>
                     </div>
-                  </div>
-                  <div className="col col-md-2 align-self-center">
-                    <h5>$21.00</h5>
-                  </div>
-                  <div className="col col-md-2 align-self-center">
-                    <h5>2</h5>
-                  </div>
-                  <div className="col col-md-2 align-self-center text-right">
-                    <h5>$42.00</h5>
+                    <div className="col col-md-2 align-self-center text-right">
+                      <h5>{item.totalOrderDetailPrice}</h5>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+              })
+            }
             {/* End Media */}
-            <hr />
-            {/* Media */}
-            <div className="media">
-              <div className="avatar avatar-xl mr-3">
-                <img className="img-fluid" src="assets\img\400x400\img22.jpg" alt="Image Description" />
-              </div>
-              <div className="media-body">
-                <div className="row">
-                  <div className="col-md-6 mb-3 mb-md-0">
-                    <a className="h5 d-block" href="ecommerce-product-details.html">Office Notebook</a>
-                    <div className="font-size-sm text-body">
-                      <span>Color:</span>
-                      <span className="font-weight-bold">Gray</span>
-                    </div>
-                  </div>
-                  <div className="col col-md-2 align-self-center">
-                    <h5>$9</h5>
-                  </div>
-                  <div className="col col-md-2 align-self-center">
-                    <h5>1</h5>
-                  </div>
-                  <div className="col col-md-2 align-self-center text-right">
-                    <h5>$9.00</h5>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* End Media */}
-            <hr />
-            {/* Media */}
-            <div className="media">
-              <div className="avatar avatar-xl mr-3">
-                <img className="img-fluid" src="assets\img\400x400\img15.jpg" alt="Image Description" />
-              </div>
-              <div className="media-body">
-                <div className="row">
-                  <div className="col-md-6 mb-3 mb-md-0">
-                    <a className="h5 d-block" href="ecommerce-product-details.html">RayBan sunglasses</a>
-                    <div className="font-size-sm text-body">
-                      <span>Gender:</span>
-                      <span className="font-weight-bold">Unisex</span>
-                    </div>
-                    <div className="font-size-sm text-body">
-                      <span>Color:</span>
-                      <span className="font-weight-bold">Black</span>
-                    </div>
-                    <div className="font-size-sm text-body">
-                      <span>Size:</span>
-                      <span className="font-weight-bold">One size</span>
-                    </div>
-                  </div>
-                  <div className="col col-md-2 align-self-center">
-                    <h5>$14.00</h5>
-                  </div>
-                  <div className="col col-md-2 align-self-center">
-                    <h5>1</h5>
-                  </div>
-                  <div className="col col-md-2 align-self-center text-right">
-                    <h5>$14.00</h5>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* End Media */}
+        
             <hr />
             <div className="row justify-content-md-end mb-3">
               <div className="col-md-8 col-lg-7">
                 <dl className="row text-sm-right">
                   <dt className="col-sm-6">Tổng giá:</dt>
-                  <dd className="col-sm-6">$65.00</dd>
-                  <dt className="col-sm-6">Phí vận chuyển:</dt>
-                  <dd className="col-sm-6">$0.00</dd>
-                  <dt className="col-sm-6">Thuế:</dt>
-                  <dd className="col-sm-6">$7.00</dd>
-                  <dt className="col-sm-6">Tổng tiền:</dt>
-                  <dd className="col-sm-6">$65.00</dd>
-                  <dt className="col-sm-6">Số tiền đã trả:</dt>
-                  <dd className="col-sm-6">$65.00</dd>
+                  <dd className="col-sm-6">{total}</dd>
+    
                 </dl>
                 {/* End Row */}
               </div>
@@ -320,10 +289,10 @@ function DetailOrder() {
           <div className="card-body">
             <a className="media align-items-center" href="ecommerce-customer-details.html">
               <div className="avatar avatar-circle mr-3">
-                <img className="avatar-img" src="assets\img\160x160\img10.jpg" alt="Image Description" />
+              
               </div>
               <div className="media-body">
-                <span className="text-body text-hover-primary">Amanda Harvey</span>
+                <span className="text-body text-hover-primary">.</span>
               </div>
               <div className="media-body text-right">
                 <i className="tio-chevron-right text-body" />
@@ -353,7 +322,7 @@ function DetailOrder() {
               </li>
               <li>
                 <i className="tio-android-phone-vs mr-2" />
-                +1 (609) 972-22-22
+                {phone}
               </li>
             </ul>
             <hr />
@@ -365,7 +334,7 @@ function DetailOrder() {
               45 Roker Terrace<br />
               Latheronwheel<br />
               KW5 8NW, London<br />
-              UK <img className="avatar avatar-xss avatar-circle ml-1" src="assets\vendor\flag-icon-css\flags\1x1\gb.svg" alt="Great Britain Flag" />
+              UK <img className="avatar avatar-xss avatar-circle ml-1" src="assets\vendor\flag-icon-css\flags\1x1\gb.svg"  />
             </span>
             <hr />
             <div className="mt-3">

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import classNames from "classnames";
 import "antd/dist/antd.css";
-
+import {Link} from "react-router-dom"
 function DefaultLayout({ children }) {
   const [navShow, setNavShow] = useState([false, false, false, false]);
 
@@ -318,7 +318,8 @@ function DefaultLayout({ children }) {
                             title="Customers"
                           >
                             <span className="tio-circle nav-indicator-icon" />
-                            <span className="text-truncate">Danh sách</span>
+                           
+                            <Link to="/listUser"><span className="text-truncate">Danh sách</span></Link>
                           </a>
                         </li>
                       </ul>
@@ -352,7 +353,7 @@ function DefaultLayout({ children }) {
                             title="Orders"
                           >
                             <span className="tio-circle nav-indicator-icon" />
-                            <span className="text-truncate">Danh sách</span>
+                            <Link to="/listOrder"><span className="text-truncate">Danh sách</span></Link>
                           </a>
                         </li>
                       </ul>
@@ -385,7 +386,7 @@ function DefaultLayout({ children }) {
                             title="Products"
                           >
                             <span className="tio-circle nav-indicator-icon" />
-                            <span className="text-truncate">Danh sách</span>
+                            <Link to="/listOrder"><span className="text-truncate">Danh sách</span></Link>
                           </a>
                         </li>
                       </ul>

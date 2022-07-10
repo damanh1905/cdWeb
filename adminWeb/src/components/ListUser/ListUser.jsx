@@ -4,12 +4,37 @@ import classNames from 'classnames';
 import "./ListUser.scss";
 import { Modal } from "antd";
 import { del, get } from "../../utils/api";
+import { doGet, doPost } from "../../utils/api/api";
+import {Link} from 'react-router-dom'
 
 export const defaultValue = {
 
 }
 
 function ListUser() {
+  const [isReload, setIsReload] = useState(false);
+  const [userList, setUserList] = useState([]);
+  const [pageSize,setPageSize]=useState(12);
+  const [pageIndex,setPageIndex]=useState(0);
+  useEffect(() => {
+    const initData = async () => {
+      const response = await doGet(`/manage/admin/findAllUsers?pageIndex=${pageIndex}&pageSize=${pageSize}`);
+    
+      if(response.data.status==200){
+          setUserList(response.data.data.listUser)
+          console.log("hello")
+      }
+    }
+    
+    initData();
+  }, [isReload])
+  console.log(userList)
+  const handleDelete=(userId)=>{
+    const response=doPost(`/manage/admin/deleteUsers?listId=${userId}`)
+   
+          setIsReload(!isReload)
+   
+  }
 
   return (
    
@@ -252,6 +277,7 @@ function ListUser() {
                                 </div>
                                 <div className="d-flex justify-content-between align-items-center">
                                   <span className="mr-2">Ngày tạo</span>
+                               
                                   {/* Checkbox Switch */}
                                   <label className="toggle-switch toggle-switch-sm" htmlFor="toggleColumn_date_created">
                                     <input type="checkbox" className="toggle-switch-input" id="toggleColumn_date_created" />
@@ -309,7 +335,9 @@ function ListUser() {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
+                     {
+                      userList.map((user,key)=>{
+                        return  <tr key={key}>
                         <td className="table-column-pr-0">
                           <div className="custom-control custom-checkbox">
                             <input type="checkbox" className="custom-control-input" id="usersDataCheck1" />
@@ -322,641 +350,29 @@ function ListUser() {
                               <img className="avatar-img" src="assets\img\160x160\img10.jpg" alt="Image Description" />
                             </div>
                             <div className="ml-3">
-                              <span className="h5 text-hover-primary">Amanda Harvey <i className="tio-verified text-primary" data-toggle="tooltip" data-placement="top" title="Top endorsed" /></span>
+                              <Link to={`${user.id}`}>  <span className="h5 text-hover-primary">{user.userName}<i className="tio-verified text-primary" data-toggle="tooltip" data-placement="top" title="Top endorsed" /></span></Link>
+                            
                             </div>
                           </a>
                         </td>
-                        <td>amanda@example.com</td>
-                        <td>+1-202-555-0140</td>
-                        <td>United Kingdom <span className="text-hide">Code: GB</span></td>
+                        <td>{user.email}</td>
+                        <td>{user.phone}</td>
+                        <td>Hồ Chí Minh <span className="text-hide">Code: GB</span></td>
                         <td>
                           <span className="legend-indicator bg-success" />Active
                         </td>
-                        <td>3</td>
-                        <td>$3,511.01</td>
-                        <td>Aug 17, 2020, 5:48 (ET)</td>
-                      </tr>
-                      <tr>
-                        <td className="table-column-pr-0">
-                          <div className="custom-control custom-checkbox">
-                            <input type="checkbox" className="custom-control-input" id="usersDataCheck2" />
-                            <label className="custom-control-label" htmlFor="usersDataCheck2" />
-                          </div>
-                        </td>
-                        <td className="table-column-pl-0">
-                          <a className="d-flex align-items-center" href="ecommerce-customer-details.html">
-                            <div className="avatar avatar-soft-primary avatar-circle">
-                              <span className="avatar-initials">A</span>
-                            </div>
-                            <div className="ml-3">
-                              <span className="h5 text-hover-primary">Anne Richard</span>
-                            </div>
+                        <td>{user.totalOrder}</td>
+                        <td>{user.totalPrice}</td>
+                        <td>{user.dateCreated}</td>
+                        <div className="btn-group" role="group">
+                          <a className="btn btn-sm btn-white" style={{marginTop:"20px"}} onClick={() => handleDelete(user.id)}>
+                            <i className="tio-edit" /> Xóa
                           </a>
-                        </td>
-                        <td>anne@example.com</td>
-                        <td>+1-752-235-2353</td>
-                        <td>United States <span className="text-hide">Code: US</span></td>
-                        <td>
-                          <span className="legend-indicator bg-danger" />Disabled
-                        </td>
-                        <td>1</td>
-                        <td>$235.00</td>
-                        <td>Aug 17, 2020, 2:01 (ET)</td>
+                        </div>
                       </tr>
-                      <tr>
-                        <td className="table-column-pr-0">
-                          <div className="custom-control custom-checkbox">
-                            <input type="checkbox" className="custom-control-input" id="usersDataCheck3" />
-                            <label className="custom-control-label" htmlFor="usersDataCheck3" />
-                          </div>
-                        </td>
-                        <td className="table-column-pl-0">
-                          <a className="d-flex align-items-center" href="ecommerce-customer-details.html">
-                            <div className="avatar avatar-circle">
-                              <img className="avatar-img" src="assets\img\160x160\img3.jpg" alt="Image Description" />
-                            </div>
-                            <div className="ml-3">
-                              <span className="h5 text-hover-primary">David Harrison</span>
-                            </div>
-                          </a>
-                        </td>
-                        <td>david@example.com</td>
-                        <td>+1-235-364-2611</td>
-                        <td>United States <span className="text-hide">Code: US</span></td>
-                        <td>
-                          <span className="legend-indicator bg-success" />Active
-                        </td>
-                        <td>53 <span className="badge badge-soft-dark ml-1">+3 today</span></td>
-                        <td>$346,410.12</td>
-                        <td>Aug 17, 2020, 1:55 (ET)</td>
-                      </tr>
-                      <tr>
-                        <td className="table-column-pr-0">
-                          <div className="custom-control custom-checkbox">
-                            <input type="checkbox" className="custom-control-input" id="usersDataCheck4" />
-                            <label className="custom-control-label" htmlFor="usersDataCheck4" />
-                          </div>
-                        </td>
-                        <td className="table-column-pl-0">
-                          <a className="d-flex align-items-center" href="ecommerce-customer-details.html">
-                            <div className="avatar avatar-circle">
-                              <img className="avatar-img" src="assets\img\160x160\img5.jpg" alt="Image Description" />
-                            </div>
-                            <div className="ml-3">
-                              <span className="h5 text-hover-primary">Finch Hoot</span>
-                            </div>
-                          </a>
-                        </td>
-                        <td>finch@example.com</td>
-                        <td>+1-743-632-9574</td>
-                        <td>Argentina <span className="text-hide">Code: AR</span></td>
-                        <td>
-                          <span className="legend-indicator bg-danger" />Disabled
-                        </td>
-                        <td>12 <span className="badge badge-soft-dark ml-1">+1 today</span></td>
-                        <td>$1,350.04</td>
-                        <td>Aug 17, 2020, 1:54 (ET)</td>
-                      </tr>
-                      <tr>
-                        <td className="table-column-pr-0">
-                          <div className="custom-control custom-checkbox">
-                            <input type="checkbox" className="custom-control-input" id="usersDataCheck5" />
-                            <label className="custom-control-label" htmlFor="usersDataCheck5" />
-                          </div>
-                        </td>
-                        <td className="table-column-pl-0">
-                          <a className="d-flex align-items-center" href="ecommerce-customer-details.html">
-                            <div className="avatar avatar-soft-dark avatar-circle">
-                              <span className="avatar-initials">B</span>
-                            </div>
-                            <div className="ml-3">
-                              <span className="h5 text-hover-primary">Bob Dean</span>
-                            </div>
-                          </a>
-                        </td>
-                        <td>bob@example.com</td>
-                        <td>+1-854-235-9755</td>
-                        <td>Austria <span className="text-hide">Code: AT</span></td>
-                        <td>
-                          <span className="legend-indicator bg-danger" />Disabled
-                        </td>
-                        <td>8</td>
-                        <td>$912.13</td>
-                        <td>Aug 17, 2020, 1:04 (ET)</td>
-                      </tr>
-                      <tr>
-                        <td className="table-column-pr-0">
-                          <div className="custom-control custom-checkbox">
-                            <input type="checkbox" className="custom-control-input" id="usersDataCheck6" />
-                            <label className="custom-control-label" htmlFor="usersDataCheck6" />
-                          </div>
-                        </td>
-                        <td className="table-column-pl-0">
-                          <a className="d-flex align-items-center" href="ecommerce-customer-details.html">
-                            <div className="avatar avatar-circle">
-                              <img className="avatar-img" src="assets\img\160x160\img9.jpg" alt="Image Description" />
-                            </div>
-                            <div className="ml-3">
-                              <span className="h5 text-hover-primary">Ella Lauda <i className="tio-verified text-primary" data-toggle="tooltip" data-placement="top" title="Top endorsed" /></span>
-                            </div>
-                          </a>
-                        </td>
-                        <td>ella@example.com</td>
-                        <td>+1-846-157-2423</td>
-                        <td>United Kingdom <span className="text-hide">Code: GB</span></td>
-                        <td>
-                          <span className="legend-indicator bg-success" />Active
-                        </td>
-                        <td>5</td>
-                        <td>$451.66</td>
-                        <td>Aug 17, 2020, 1:01 (ET)</td>
-                      </tr>
-                      <tr>
-                        <td className="table-column-pr-0">
-                          <div className="custom-control custom-checkbox">
-                            <input type="checkbox" className="custom-control-input" id="usersDataCheck7" />
-                            <label className="custom-control-label" htmlFor="usersDataCheck7" />
-                          </div>
-                        </td>
-                        <td className="table-column-pl-0">
-                          <a className="d-flex align-items-center" href="ecommerce-customer-details.html">
-                            <div className="avatar avatar-soft-info avatar-circle">
-                              <span className="avatar-initials">L</span>
-                            </div>
-                            <div className="ml-3">
-                              <span className="h5 text-hover-primary">Lori Hunter</span>
-                            </div>
-                          </a>
-                        </td>
-                        <td>hunter@example.com</td>
-                        <td>+1-844-235-4378</td>
-                        <td>Estonia <span className="text-hide">Code: EE</span></td>
-                        <td>
-                          <span className="legend-indicator bg-success" />Active
-                        </td>
-                        <td>11 <span className="badge badge-soft-dark ml-1">+4 today</span></td>
-                        <td>$3,582.46</td>
-                        <td>Aug 17, 2020, 12:56 (ET)</td>
-                      </tr>
-                      <tr>
-                        <td className="table-column-pr-0">
-                          <div className="custom-control custom-checkbox">
-                            <input type="checkbox" className="custom-control-input" id="usersDataCheck16" />
-                            <label className="custom-control-label" htmlFor="usersDataCheck16" />
-                          </div>
-                        </td>
-                        <td className="table-column-pl-0">
-                          <a className="d-flex align-items-center" href="ecommerce-customer-details.html">
-                            <div className="avatar avatar-soft-primary avatar-circle">
-                              <span className="avatar-initials">M</span>
-                            </div>
-                            <div className="ml-3">
-                              <span className="h5 text-hover-primary">Mark Colbert</span>
-                            </div>
-                          </a>
-                        </td>
-                        <td>mark@example.com</td>
-                        <td>+1-235-235-7482</td>
-                        <td>Canada <span className="text-hide">Code: CA</span></td>
-                        <td>
-                          <span className="legend-indicator bg-success" />Active
-                        </td>
-                        <td>4</td>
-                        <td>$481.00</td>
-                        <td>Aug 17, 2020, 12:54 (ET)</td>
-                      </tr>
-                      <tr>
-                        <td className="table-column-pr-0">
-                          <div className="custom-control custom-checkbox">
-                            <input type="checkbox" className="custom-control-input" id="usersDataCheck9" />
-                            <label className="custom-control-label" htmlFor="usersDataCheck9" />
-                          </div>
-                        </td>
-                        <td className="table-column-pl-0">
-                          <a className="d-flex align-items-center" href="ecommerce-customer-details.html">
-                            <div className="avatar avatar-circle">
-                              <img className="avatar-img" src="assets\img\160x160\img6.jpg" alt="Image Description" />
-                            </div>
-                            <div className="ml-3">
-                              <span className="h5 text-hover-primary">Costa Quinn</span>
-                            </div>
-                          </a>
-                        </td>
-                        <td>costa@example.com</td>
-                        <td>+1-543-346-6343</td>
-                        <td>France <span className="text-hide">Code: FR</span></td>
-                        <td>
-                          <span className="legend-indicator bg-success" />Active
-                        </td>
-                        <td>9</td>
-                        <td>$2,591.00</td>
-                        <td>Aug 17, 2020, 12:48 (ET)</td>
-                      </tr>
-                      <tr>
-                        <td className="table-column-pr-0">
-                          <div className="custom-control custom-checkbox">
-                            <input type="checkbox" className="custom-control-input" id="usersDataCheck10" />
-                            <label className="custom-control-label" htmlFor="usersDataCheck10" />
-                          </div>
-                        </td>
-                        <td className="table-column-pl-0">
-                          <a className="d-flex align-items-center" href="ecommerce-customer-details.html">
-                            <div className="avatar avatar-soft-danger avatar-circle">
-                              <span className="avatar-initials">R</span>
-                            </div>
-                            <div className="ml-3">
-                              <span className="h5 text-hover-primary">Rachel Doe <i className="tio-verified text-primary" data-toggle="tooltip" data-placement="top" title="Top endorsed" /></span>
-                            </div>
-                          </a>
-                        </td>
-                        <td>rachel@example.com</td>
-                        <td>+1-232-643-3643</td>
-                        <td>United States <span className="text-hide">Code: US</span></td>
-                        <td>
-                          <span className="legend-indicator bg-success" />Active
-                        </td>
-                        <td>21</td>
-                        <td>$5,219.18</td>
-                        <td>Aug 17, 2020, 12:41 (ET)</td>
-                      </tr>
-                      <tr>
-                        <td className="table-column-pr-0">
-                          <div className="custom-control custom-checkbox">
-                            <input type="checkbox" className="custom-control-input" id="usersDataCheck11" />
-                            <label className="custom-control-label" htmlFor="usersDataCheck11" />
-                          </div>
-                        </td>
-                        <td className="table-column-pl-0">
-                          <a className="d-flex align-items-center" href="ecommerce-customer-details.html">
-                            <div className="avatar avatar-circle">
-                              <img className="avatar-img" src="assets\img\160x160\img8.jpg" alt="Image Description" />
-                            </div>
-                            <div className="ml-3">
-                              <span className="h5 text-hover-primary">Linda Bates</span>
-                            </div>
-                          </a>
-                        </td>
-                        <td>linda@example.com</td>
-                        <td>+1-123-523-5433</td>
-                        <td>United Kingdom <span className="text-hide">Code: UK</span></td>
-                        <td>
-                          <span className="legend-indicator bg-danger" />Disabled
-                        </td>
-                        <td>32 <span className="badge badge-soft-dark ml-1">+1 today</span></td>
-                        <td>$8,281.99</td>
-                        <td>Aug 17, 2020, 12:36 (ET)</td>
-                      </tr>
-                      <tr>
-                        <td className="table-column-pr-0">
-                          <div className="custom-control custom-checkbox">
-                            <input type="checkbox" className="custom-control-input" id="usersDataCheck12" />
-                            <label className="custom-control-label" htmlFor="usersDataCheck12" />
-                          </div>
-                        </td>
-                        <td className="table-column-pl-0">
-                          <a className="d-flex align-items-center" href="ecommerce-customer-details.html">
-                            <div className="avatar avatar-soft-info avatar-circle">
-                              <span className="avatar-initials">B</span>
-                            </div>
-                            <div className="ml-3">
-                              <span className="h5 text-hover-primary">Brian Halligan</span>
-                            </div>
-                          </a>
-                        </td>
-                        <td>brian@example.com</td>
-                        <td>+1-141-463-1512</td>
-                        <td>France <span className="text-hide">Code: FR</span></td>
-                        <td>
-                          <span className="legend-indicator bg-success" />Active
-                        </td>
-                        <td>1</td>
-                        <td>$100.00</td>
-                        <td>Aug 17, 2020, 12:25 (ET)</td>
-                      </tr>
-                      <tr>
-                        <td className="table-column-pr-0">
-                          <div className="custom-control custom-checkbox">
-                            <input type="checkbox" className="custom-control-input" id="usersDataCheck13" />
-                            <label className="custom-control-label" htmlFor="usersDataCheck13" />
-                          </div>
-                        </td>
-                        <td className="table-column-pl-0">
-                          <a className="d-flex align-items-center" href="ecommerce-customer-details.html">
-                            <div className="avatar avatar-soft-dark avatar-circle">
-                              <span className="avatar-initials">C</span>
-                            </div>
-                            <div className="ml-3">
-                              <span className="h5 text-hover-primary">Chris Mathew</span>
-                            </div>
-                          </a>
-                        </td>
-                        <td>chris@example.com</td>
-                        <td>+1-253-463-1242</td>
-                        <td>Switzerland <span className="text-hide">Code: CH</span></td>
-                        <td>
-                          <span className="legend-indicator bg-success" />Active
-                        </td>
-                        <td>1</td>
-                        <td>$26.00</td>
-                        <td>Aug 16, 2020, 4:31 (ET)</td>
-                      </tr>
-                      <tr>
-                        <td className="table-column-pr-0">
-                          <div className="custom-control custom-checkbox">
-                            <input type="checkbox" className="custom-control-input" id="usersDataCheck14" />
-                            <label className="custom-control-label" htmlFor="usersDataCheck14" />
-                          </div>
-                        </td>
-                        <td className="table-column-pl-0">
-                          <a className="d-flex align-items-center" href="ecommerce-customer-details.html">
-                            <div className="avatar avatar-circle">
-                              <img className="avatar-img" src="assets\img\160x160\img7.jpg" alt="Image Description" />
-                            </div>
-                            <div className="ml-3">
-                              <span className="h5 text-hover-primary">Clarice Boone <i className="tio-verified text-primary" data-toggle="tooltip" data-placement="top" title="Top endorsed" /></span>
-                            </div>
-                          </a>
-                        </td>
-                        <td>clarice@example.com</td>
-                        <td>+1-532-325-3253</td>
-                        <td>United Kingdom <span className="text-hide">Code: UK</span></td>
-                        <td>
-                          <span className="legend-indicator bg-success" />Active
-                        </td>
-                        <td>2</td>
-                        <td>$274.28</td>
-                        <td>Aug 16, 2020, 3:26 (ET)</td>
-                      </tr>
-                      <tr>
-                        <td className="table-column-pr-0">
-                          <div className="custom-control custom-checkbox">
-                            <input type="checkbox" className="custom-control-input" id="usersDataCheck15" />
-                            <label className="custom-control-label" htmlFor="usersDataCheck15" />
-                          </div>
-                        </td>
-                        <td className="table-column-pl-0">
-                          <a className="d-flex align-items-center" href="ecommerce-customer-details.html">
-                            <div className="avatar avatar-soft-dark avatar-circle">
-                              <span className="avatar-initials">L</span>
-                            </div>
-                            <div className="ml-3">
-                              <span className="h5 text-hover-primary">Lewis Clarke</span>
-                            </div>
-                          </a>
-                        </td>
-                        <td>lewis@example.com</td>
-                        <td>+1-235-235-2355</td>
-                        <td>Switzerland <span className="text-hide">Code: CH</span></td>
-                        <td>
-                          <span className="legend-indicator bg-danger" />Disabled
-                        </td>
-                        <td>4</td>
-                        <td>$999.00</td>
-                        <td>Aug 16, 2020, 2:54 (ET)</td>
-                      </tr>
-                      <tr>
-                        <td className="table-column-pr-0">
-                          <div className="custom-control custom-checkbox">
-                            <input type="checkbox" className="custom-control-input" id="usersDataCheck8" />
-                            <label className="custom-control-label" htmlFor="usersDataCheck8" />
-                          </div>
-                        </td>
-                        <td className="table-column-pl-0">
-                          <a className="d-flex align-items-center" href="ecommerce-customer-details.html">
-                            <div className="avatar avatar-circle">
-                              <img className="avatar-img" src="assets\img\160x160\img4.jpg" alt="Image Description" />
-                            </div>
-                            <div className="ml-3">
-                              <span className="h5 text-hover-primary">Sam Kart</span>
-                            </div>
-                          </a>
-                        </td>
-                        <td>sam@example.com</td>
-                        <td>+1-457-745-7555</td>
-                        <td>Canada <span className="text-hide">Code: CA</span></td>
-                        <td>
-                          <span className="legend-indicator bg-success" />Active
-                        </td>
-                        <td>62 <span className="badge badge-soft-dark ml-1">+9 today</span></td>
-                        <td>$9,281.58</td>
-                        <td>Aug 16, 2020, 2:48 (ET)</td>
-                      </tr>
-                      <tr>
-                        <td className="table-column-pr-0">
-                          <div className="custom-control custom-checkbox">
-                            <input type="checkbox" className="custom-control-input" id="usersDataCheck17" />
-                            <label className="custom-control-label" htmlFor="usersDataCheck17" />
-                          </div>
-                        </td>
-                        <td className="table-column-pl-0">
-                          <a className="d-flex align-items-center" href="ecommerce-customer-details.html">
-                            <div className="avatar avatar-soft-danger avatar-circle">
-                              <span className="avatar-initials">J</span>
-                            </div>
-                            <div className="ml-3">
-                              <span className="h5 text-hover-primary">Johnny Appleseed</span>
-                            </div>
-                          </a>
-                        </td>
-                        <td>johnny@example.com</td>
-                        <td>+1-457-734-4544</td>
-                        <td>United States <span className="text-hide">Code: US</span></td>
-                        <td>
-                          <span className="legend-indicator bg-success" />Active
-                        </td>
-                        <td>30</td>
-                        <td>$23,291.37</td>
-                        <td>Aug 16, 2020, 2:40 (ET)</td>
-                      </tr>
-                      <tr>
-                        <td className="table-column-pr-0">
-                          <div className="custom-control custom-checkbox">
-                            <input type="checkbox" className="custom-control-input" id="usersDataCheck18" />
-                            <label className="custom-control-label" htmlFor="usersDataCheck18" />
-                          </div>
-                        </td>
-                        <td className="table-column-pl-0">
-                          <a className="d-flex align-items-center" href="ecommerce-customer-details.html">
-                            <div className="avatar avatar-soft-danger avatar-circle">
-                              <span className="avatar-initials">P</span>
-                            </div>
-                            <div className="ml-3">
-                              <span className="h5 text-hover-primary">Phileas Fogg</span>
-                            </div>
-                          </a>
-                        </td>
-                        <td>phileas@example.com</td>
-                        <td>+1-065-084-8658</td>
-                        <td>Spain <span className="text-hide">Code: ES</span></td>
-                        <td>
-                          <span className="legend-indicator bg-danger" />Disabled
-                        </td>
-                        <td>10</td>
-                        <td>$82.39</td>
-                        <td>Aug 16, 2020, 1:59 (ET)</td>
-                      </tr>
-                      <tr>
-                        <td className="table-column-pr-0">
-                          <div className="custom-control custom-checkbox">
-                            <input type="checkbox" className="custom-control-input" id="usersDataCheck19" />
-                            <label className="custom-control-label" htmlFor="usersDataCheck19" />
-                          </div>
-                        </td>
-                        <td className="table-column-pl-0">
-                          <a className="d-flex align-items-center" href="ecommerce-customer-details.html">
-                            <div className="avatar avatar-circle">
-                              <img className="avatar-img" src="assets\img\160x160\img6.jpg" alt="Image Description" />
-                            </div>
-                            <div className="ml-3">
-                              <span className="h5 text-hover-primary">Mark Williams <i className="tio-verified text-primary" data-toggle="tooltip" data-placement="top" title="Top endorsed" /></span>
-                            </div>
-                          </a>
-                        </td>
-                        <td>mark@example.com</td>
-                        <td>+1-340-055-4733</td>
-                        <td>United Kingdom <span className="text-hide">Code: GB</span></td>
-                        <td>
-                          <span className="legend-indicator bg-danger" />Disabled
-                        </td>
-                        <td>7</td>
-                        <td>$343.93</td>
-                        <td>Aug 16, 2020, 1:55 (ET)</td>
-                      </tr>
-                      <tr>
-                        <td className="table-column-pr-0">
-                          <div className="custom-control custom-checkbox">
-                            <input type="checkbox" className="custom-control-input" id="usersDataCheck20" />
-                            <label className="custom-control-label" htmlFor="usersDataCheck20" />
-                          </div>
-                        </td>
-                        <td className="table-column-pl-0">
-                          <a className="d-flex align-items-center" href="ecommerce-customer-details.html">
-                            <div className="avatar avatar-soft-dark avatar-circle">
-                              <span className="avatar-initials">T</span>
-                            </div>
-                            <div className="ml-3">
-                              <span className="h5 text-hover-primary">Timothy Silva</span>
-                            </div>
-                          </a>
-                        </td>
-                        <td>timothy@example.com</td>
-                        <td>+1-083-642-4673</td>
-                        <td>Italy <span className="text-hide">Code: IT</span></td>
-                        <td>
-                          <span className="legend-indicator bg-success" />Active
-                        </td>
-                        <td>9</td>
-                        <td>$2,238.29</td>
-                        <td>Aug 16, 2020, 1:15 (ET)</td>
-                      </tr>
-                      <tr>
-                        <td className="table-column-pr-0">
-                          <div className="custom-control custom-checkbox">
-                            <input type="checkbox" className="custom-control-input" id="usersDataCheck21" />
-                            <label className="custom-control-label" htmlFor="usersDataCheck21" />
-                          </div>
-                        </td>
-                        <td className="table-column-pl-0">
-                          <a className="d-flex align-items-center" href="ecommerce-customer-details.html">
-                            <div className="avatar avatar-soft-dark avatar-circle">
-                              <span className="avatar-initials">G</span>
-                            </div>
-                            <div className="ml-3">
-                              <span className="h5 text-hover-primary">Gary Bishop <i className="tio-verified text-primary" data-toggle="tooltip" data-placement="top" title="Top endorsed" /></span>
-                            </div>
-                          </a>
-                        </td>
-                        <td>gary@example.com</td>
-                        <td>+1-325-547-5683</td>
-                        <td>Latvia <span className="text-hide">Code: LV</span></td>
-                        <td>
-                          <span className="legend-indicator bg-success" />Active
-                        </td>
-                        <td>6 <span className="badge badge-soft-dark ml-1">+1 today</span></td>
-                        <td>$2,120.29</td>
-                        <td>Aug 16, 2020, 1:15 (ET)</td>
-                      </tr>
-                      <tr>
-                        <td className="table-column-pr-0">
-                          <div className="custom-control custom-checkbox">
-                            <input type="checkbox" className="custom-control-input" id="usersDataCheck22" />
-                            <label className="custom-control-label" htmlFor="usersDataCheck22" />
-                          </div>
-                        </td>
-                        <td className="table-column-pl-0">
-                          <a className="d-flex align-items-center" href="ecommerce-customer-details.html">
-                            <div className="avatar avatar-soft-dark avatar-circle">
-                              <span className="avatar-initials">Y</span>
-                            </div>
-                            <div className="ml-3">
-                              <span className="h5 text-hover-primary">Yorker Scogings</span>
-                            </div>
-                          </a>
-                        </td>
-                        <td>yorker@example.com</td>
-                        <td>+1-954-236-3235</td>
-                        <td>Norway <span className="text-hide">Code: NO</span></td>
-                        <td>
-                          <span className="legend-indicator bg-success" />Active
-                        </td>
-                        <td>3</td>
-                        <td>$882.00</td>
-                        <td>Aug 16, 2020, 1:15 (ET)</td>
-                      </tr>
-                      <tr>
-                        <td className="table-column-pr-0">
-                          <div className="custom-control custom-checkbox">
-                            <input type="checkbox" className="custom-control-input" id="usersDataCheck23" />
-                            <label className="custom-control-label" htmlFor="usersDataCheck23" />
-                          </div>
-                        </td>
-                        <td className="table-column-pl-0">
-                          <a className="d-flex align-items-center" href="ecommerce-customer-details.html">
-                            <div className="avatar avatar-soft-info avatar-circle">
-                              <span className="avatar-initials">F</span>
-                            </div>
-                            <div className="ml-3">
-                              <span className="h5 text-hover-primary">Frank Phillips</span>
-                            </div>
-                          </a>
-                        </td>
-                        <td>frank@example.com</td>
-                        <td>+1-253-574-3422</td>
-                        <td>Norway <span className="text-hide">Code: NO</span></td>
-                        <td>
-                          <span className="legend-indicator bg-success" />Active
-                        </td>
-                        <td>1</td>
-                        <td>$92.00</td>
-                        <td>Aug 16, 2020, 1:15 (ET)</td>
-                      </tr>
-                      <tr>
-                        <td className="table-column-pr-0">
-                          <div className="custom-control custom-checkbox">
-                            <input type="checkbox" className="custom-control-input" id="usersDataCheck24" />
-                            <label className="custom-control-label" htmlFor="usersDataCheck24" />
-                          </div>
-                        </td>
-                        <td className="table-column-pl-0">
-                          <a className="d-flex align-items-center" href="ecommerce-customer-details.html">
-                            <div className="avatar avatar-soft-primary avatar-circle">
-                              <span className="avatar-initials">E</span>
-                            </div>
-                            <div className="ml-3">
-                              <span className="h5 text-hover-primary">Elizabeth Carter</span>
-                            </div>
-                          </a>
-                        </td>
-                        <td>eliz@example.com</td>
-                        <td>+1-800-724-3303</td>
-                        <td>United States <span className="text-hide">Code: UK</span></td>
-                        <td>
-                          <span className="legend-indicator bg-success" />Active
-                        </td>
-                        <td>2</td>
-                        <td>$50.00</td>
-                        <td>Aug 16, 2020, 1:15 (ET)</td>
-                      </tr>
+                      })
+                     }
+                 
                     </tbody>
                   </table>
                 </div>

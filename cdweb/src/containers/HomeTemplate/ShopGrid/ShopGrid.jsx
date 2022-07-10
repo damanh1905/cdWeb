@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import NavBelowHeader from "../../../components/Layout/NavBelowHeader/NavBelowHeader";
 import SearchProduct from "../../../components/Layout/Search/SearchProduct";
 import "antd/dist/antd.css";
-import { Checkbox, Row, Col, Slider } from "antd";
-import { doGet ,doPost} from "../../../utils/api/api";
+import { Checkbox, Row, Col, Slider, InputNumber } from "antd";
+import { doGet, doPost } from "../../../utils/api/api";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 function ShopGrid() {
-
   const [products, setProduct] = useState([]);
   const [totalProduct, setTotalProduct] = useState(0);
   const [priceProduct, setPriceProduct] = useState([]);
@@ -17,6 +16,11 @@ function ShopGrid() {
   const [nameFilter, setNameFilter] = useState([]);
   const [genders, setGenders] = useState([]);
   const [orders, setOrders] = useState([]);
+  // state = {
+  //   min: 20,
+  //   max: 50
+  // };
+  // const { max, min } = this.state;
   // console.log(nameFilter,orders)
   console.log(catregory);
   const { id } = useParams();
@@ -155,6 +159,22 @@ function ShopGrid() {
     //   })();
     // }
   };
+  // const onChange = (value) => {
+  //   if (value[0] < value[1]) {
+  //     this.setState({ min: value[0], max: value[1] });
+  //   }
+  // };
+
+  // const onChangeMin = (value) => {
+  //   if (this.state.max > value) {
+  //     this.setState({ min: value });
+  //   }
+  // };
+  // const onChangeMax = (value) => {
+  //   if (this.state.min < value) {
+  //     this.setState({ max: value });
+  //   }
+  // };
   const onChangeGender = (checkedValues) => {
     console.log("checked = ", checkedValues);
     //
@@ -266,63 +286,12 @@ function ShopGrid() {
                 <div className="sidebar__item">
                   <h4>Price</h4>
                   <div className="price-range-wrap">
-                    <Checkbox.Group
-                      style={{
-                        width: "100%",
+                    <Slider
+                      range={{
+                        draggableTrack: true,
                       }}
-                      onChange={onChangePrice}
-                    >
-                      <Row>
-                        <Col span={1000}>
-                          <Checkbox
-                            value="0,500000"
-                            style={{ fontSize: "16px" }}
-                          >
-                            0 vnd - 500.000 vnd
-                          </Checkbox>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col span={1000}>
-                          <Checkbox
-                            value="500000,1000000"
-                            style={{ fontSize: "16px" }}
-                          >
-                            500.000 vnd - 1.000.000 vnd
-                          </Checkbox>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col span={1000}>
-                          <Checkbox
-                            value="1000000,1500000"
-                            style={{ fontSize: "16px" }}
-                          >
-                            1.000.000 vnd - 1.500.000 vnd
-                          </Checkbox>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col span={1000}>
-                          <Checkbox
-                            value="1500000,2000000"
-                            style={{ fontSize: "16px" }}
-                          >
-                            1.500.000 vnd - 2.000.000 vnd
-                          </Checkbox>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col span={1000}>
-                          <Checkbox
-                            value="2000000,1000000000"
-                            style={{ fontSize: "16px" }}
-                          >
-                            Over 2.000.000 vnd
-                          </Checkbox>
-                        </Col>
-                      </Row>
-                    </Checkbox.Group>
+                      defaultValue={[20, 50]}
+                    />
                   </div>
                 </div>
                 <div className="sidebar__item sidebar__item__color--option">
@@ -436,12 +405,12 @@ function ShopGrid() {
                         >
                           <ul className="product__item__pic__hover">
                             <li>
-                            <a>
-                              <i
-                                onClick={() => handleWishList(items.id)}
-                                className="fa fa-heart"
-                              />
-                            </a>
+                              <a>
+                                <i
+                                  onClick={() => handleWishList(items.id)}
+                                  className="fa fa-heart"
+                                />
+                              </a>
                             </li>
                             <li>
                               <a href="#">
@@ -449,20 +418,20 @@ function ShopGrid() {
                               </a>
                             </li>
                             <li>
-                            <a>
-                              <i
-                                onClick={() => handleAddCart(items.id)}
-                                className="fa fa-shopping-cart"
-                              />
-                            </a>
+                              <a>
+                                <i
+                                  onClick={() => handleAddCart(items.id)}
+                                  className="fa fa-shopping-cart"
+                                />
+                              </a>
                             </li>
                           </ul>
                         </div>
                         <div className="product__item__text">
                           <h6>
-                          <Link to={{ pathname: `/${items.id}` }}>
-                            {items.name}
-                          </Link>
+                            <Link to={{ pathname: `/${items.id}` }}>
+                              {items.name}
+                            </Link>
                           </h6>
                           <h5>
                             {new Intl.NumberFormat("vi-VN", {

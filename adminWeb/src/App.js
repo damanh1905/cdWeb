@@ -6,7 +6,8 @@ import classNames from "classnames";
 import Homepage from "./views/Homepage/Homepage";
 import User from "./views/User/User";
 import { Fragment } from "react";
-import "antd/dist/antd.css";
+
+import "antd/dist/antd.min.css";
 import { publicRouterUser } from "./routers";
 import {
   BrowserRouter as Router,

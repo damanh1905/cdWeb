@@ -41,8 +41,8 @@ const Login = () => {
       )}`;
       navigate("/");
     } catch (error) {
-      console.log(error);
-      setErr(true);
+      console.log("aaaa", error);
+      // setErr(true);
       navigate("/login");
     }
   };
@@ -62,7 +62,7 @@ const Login = () => {
       )}`;
       navigate("/");
     } catch (error) {
-      console.log(error);
+      console.log("âaaa", error);
       setErr(true);
       navigate("/login");
     }

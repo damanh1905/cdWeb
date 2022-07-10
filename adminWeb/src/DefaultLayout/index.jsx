@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import classNames from "classnames";
 import "antd/dist/antd.css";
+import { Link } from "react-router-dom";
 
 function DefaultLayout({ children }) {
   const [navShow, setNavShow] = useState([false, false, false, false]);
@@ -273,8 +274,9 @@ function DefaultLayout({ children }) {
                     {/* Dashboards */}
                     <li className="navbar-vertical-aside-has-menu show">
                       <a
+                        // to="/homepage"
                         className="js-nav-tooltip-link nav-link"
-                        href="index.html"
+                        href="homepage"
                         title="Dashboards"
                       >
                         <i className="tio-home-vs-1-outlined nav-icon" />
@@ -296,30 +298,32 @@ function DefaultLayout({ children }) {
                     <li
                       className={classNames("navbar-vertical-aside-has-menu")}
                     >
-                      <a
+                      <Link
+                        to="/user"
                         className="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle "
-                        href="javascript:;"
+                        // href="javascript:;"
                         title="Customer Managerment"
                       >
                         <i className="tio-user-outlined nav-icon" />
                         <span className="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">
                           Tài khoản{" "}
                         </span>
-                      </a>
+                      </Link>
                       <ul
                         className={classNames(
                           "js-navbar-vertical-aside-submenu nav nav-sub"
                         )}
                       >
                         <li className="nav-item">
-                          <a
+                          <Link
+                            to="/user"
                             className="nav-link "
-                            href="/user"
+                            // href="/user"
                             title="Customers"
                           >
                             <span className="tio-circle nav-indicator-icon" />
                             <span className="text-truncate">Danh sách</span>
-                          </a>
+                          </Link>
                         </li>
                       </ul>
                     </li>

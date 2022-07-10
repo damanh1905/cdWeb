@@ -1,7 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { doGet } from "../../utils/api/api";
 import "./Homepage.scss";
 import "antd/dist/antd.css";
 function Homepage() {
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await doGet("cart/listCart");
+        console.log(data.data);
+
+        // console.log("listcart", checkChage);
+        // let total = 0;
+        // for (let i = 0; i < data.data.length; i++) {
+        //   total += data.data[i].totalPrice;
+        // }
+        // setTotalPrice(total);
+      } catch (e) {
+        console.log("aaaaa", e);
+
+        console.log("status", e.status);
+        // navigate("/login");
+      }
+    })();
+  }, []);
   const [chartData, setChartData] = useState({
     label: [
       "test",

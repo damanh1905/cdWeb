@@ -345,7 +345,7 @@ function ListUser() {
                           </div>
                         </td>
                         <td className="table-column-pl-0">
-                          <a className="d-flex align-items-center" href="ecommerce-customer-details.html">
+                          <a className="d-flex align-items-center" >
                             <div className="avatar avatar-circle">
                               <img className="avatar-img" src="assets\img\160x160\img10.jpg" alt="Image Description" />
                             </div>

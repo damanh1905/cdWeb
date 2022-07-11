@@ -16,6 +16,7 @@ function ShopGrid() {
   const [nameFilter, setNameFilter] = useState([]);
   const [genders, setGenders] = useState([]);
   const [orders, setOrders] = useState([]);
+  console.log(priceProduct)
   // state = {
   //   min: 20,
   //   max: 50
@@ -299,6 +300,16 @@ function ShopGrid() {
                 <div className="sidebar__item">
                   <h4>Price</h4>
                   <div className="price-range-wrap">
+                    <div style={{display:"flex",justifyContent:"space-between"}}>
+                          <div>{priceProduct[0]==null?'0đ':new Intl.NumberFormat("vi-VN", {
+                            style: "currency",
+                            currency: "VND",
+                          }).format(priceProduct[0])}</div>
+                          <div>{priceProduct[1]==null?'0đ':new Intl.NumberFormat("vi-VN", {
+                            style: "currency",
+                            currency: "VND",
+                          }).format(priceProduct[1])}</div>
+                    </div>
                     <Slider onChange={(value)=>{
                           handleOnChangePrice(value)
                     }}

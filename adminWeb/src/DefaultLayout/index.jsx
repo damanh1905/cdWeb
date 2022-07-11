@@ -314,7 +314,7 @@ function DefaultLayout({ children }) {
                         <li className="nav-item">
                           <a
                             className="nav-link "
-                            href="/user"
+                     
                             title="Customers"
                           >
                             <span className="tio-circle nav-indicator-icon" />
@@ -349,11 +349,11 @@ function DefaultLayout({ children }) {
                         <li className="nav-item">
                           <a
                             className="nav-link"
-                            href="/product"
+                         
                             title="Orders"
                           >
                             <span className="tio-circle nav-indicator-icon" />
-                            <Link to="/listOrder"><span className="text-truncate">Danh sách</span></Link>
+                            <Link to="/"><span className="text-truncate">Danh sách</span></Link>
                           </a>
                         </li>
                       </ul>
@@ -382,7 +382,7 @@ function DefaultLayout({ children }) {
                         <li className="nav-item">
                           <a
                             className="nav-link "
-                            href="/order"
+                            
                             title="Products"
                           >
                             <span className="tio-circle nav-indicator-icon" />

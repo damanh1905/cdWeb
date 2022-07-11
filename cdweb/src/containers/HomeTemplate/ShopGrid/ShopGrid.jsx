@@ -159,6 +159,19 @@ function ShopGrid() {
     //   })();
     // }
   };
+  const handleOnChangePrice=(value)=>{
+    setChange(false);
+        if(value.length>0){
+          setPriceProduct([
+            value[0],value[1]
+          ]);
+          nameFilter[1] = "priceRange=";
+          setNameFilter(nameFilter);
+        }  else {
+          nameFilter[1] = "";
+          setNameFilter(nameFilter);
+        }
+  }
   // const onChange = (value) => {
   //   if (value[0] < value[1]) {
   //     this.setState({ min: value[0], max: value[1] });
@@ -286,11 +299,15 @@ function ShopGrid() {
                 <div className="sidebar__item">
                   <h4>Price</h4>
                   <div className="price-range-wrap">
-                    <Slider
+                    <Slider onChange={(value)=>{
+                          handleOnChangePrice(value)
+                    }}
+                    max={2000000}
+                    min={0}
                       range={{
                         draggableTrack: true,
                       }}
-                      defaultValue={[20, 50]}
+                      // defaultValue={[100, 100000]}
                     />
                   </div>
                 </div>

@@ -7,7 +7,7 @@ import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import { useTranslation } from "react-i18next";
 import NavBelowHeader from "../../../components/Layout/NavBelowHeader/NavBelowHeader";
-import { Pagination } from 'antd';
+import { Pagination } from "antd";
 
 function Home() {
   const [product, setProduct] = useState([]);
@@ -40,10 +40,12 @@ function Home() {
 
   const handleAllProduct = async () => {
     try {
-      const { data } = await doGet(`product/ShowAndsearch?searchValue=all&pageIndex=${pageIndex}`);
+      const { data } = await doGet(
+        `product/ShowAndsearch?searchValue=all&pageIndex=${pageIndex}`
+      );
       // console.log(data.data.products);
       setProduct(data.data.products);
-      setCurrentCategory(0)
+      setCurrentCategory(0);
     } catch (e) {
       console.log(e);
       // setNavigate(true);
@@ -64,7 +66,6 @@ function Home() {
       console.log(e);
     }
   };
-
 
   useEffect(() => {
     (async () => {
@@ -88,9 +89,9 @@ function Home() {
         );
         // console.log(data.data.productResponses);
         setProduct(data.data.productResponses);
-        setCurrentCategory(1)
-        setCurrent(1)
-        setPageIndex(0)
+        setCurrentCategory(1);
+        setCurrent(1);
+        setPageIndex(0);
       } catch (e) {
         console.log(e);
         // setNavigate(true);
@@ -106,9 +107,9 @@ function Home() {
         // console.log(data.data.productResponses);
 
         setProduct(data.data.productResponses);
-        setCurrentCategory(1)
-        setCurrent(1)
-        setPageIndex(0)
+        setCurrentCategory(1);
+        setCurrent(1);
+        setPageIndex(0);
       } catch (e) {
         console.log(e);
         // setNavigate(true);
@@ -122,9 +123,9 @@ function Home() {
         const { data } = await doGet("category/showCategory?nameCategory=tops");
         // console.log(data.data.productResponses);
         setProduct(data.data.productResponses);
-        setCurrentCategory(1)
-        setCurrent(1)
-        setPageIndex(0)
+        setCurrentCategory(1);
+        setCurrent(1);
+        setPageIndex(0);
       } catch (e) {
         console.log(e);
         // setNavigate(true);
@@ -140,9 +141,9 @@ function Home() {
         );
         // console.log(data.data.productResponses);
         setProduct(data.data.productResponses);
-        setCurrentCategory(1)
-        setCurrent(1)
-        setPageIndex(0)
+        setCurrentCategory(1);
+        setCurrent(1);
+        setPageIndex(0);
       } catch (e) {
         console.log(e);
         // setNavigate(true);
@@ -158,9 +159,9 @@ function Home() {
         );
         // console.log(data.data.productResponses);
         setProduct(data.data.productResponses);
-        setCurrentCategory(1)
-        setCurrent(1)
-        setPageIndex(0)
+        setCurrentCategory(1);
+        setCurrent(1);
+        setPageIndex(0);
       } catch (e) {
         console.log(e);
         // setNavigate(true);
@@ -207,7 +208,6 @@ function Home() {
                     <li>
                       <Link to="/shopGrid/5">{t("navHeader.bottoms")}</Link>
                     </li>
-
                   </ul>
                 </div>
               </div>
@@ -359,15 +359,12 @@ function Home() {
                       {t("home.outerwear")}
                     </li>
                     <li data-filter=".tops" onClick={handletops}>
-
                       {t("home.top")}
                     </li>
                     <li data-filter=".bottoms" onClick={handlebottoms}>
-
                       {t("home.bottoms")}
                     </li>
                     <li data-filter=".footwear" onClick={handlefootwear}>
-
                       {t("home.footwear")}
                     </li>
                   </ul>
@@ -432,12 +429,18 @@ function Home() {
             </div>
           </div>
         </section>
-        <Pagination style={{ textAlign: "center", position: "relative", bottom: "35px" }} current={current} defaultCurrent={1} onChange={(e) => {
-          if (currentCategory == 0) {
-            setPageIndex(e - 1)
-            setCurrent(e)
-          }
-        }} total={80} />
+        <Pagination
+          style={{ textAlign: "center", position: "relative", bottom: "35px" }}
+          current={current}
+          defaultCurrent={1}
+          onChange={(e) => {
+            if (currentCategory == 0) {
+              setPageIndex(e - 1);
+              setCurrent(e);
+            }
+          }}
+          total={80}
+        />
         {/* Featured Section End */}
         {/* Banner Begin */}
         <div className="banner">
@@ -472,13 +475,20 @@ function Home() {
                     <div className="latest-prdouct__slider__item">
                       {productSilder1 &&
                         productSilder1.map((items, index) => (
-                          <a key={index} href="#" className="latest-product__item">
+                          <a
+                            key={index}
+                            href="#"
+                            className="latest-product__item"
+                          >
                             <div className="latest-product__item__pic">
-                            <img src={`/assets/img/secondhand/accessories/${items?.imageEntity[0]?.url}`} style={{width:"80px",height:"100px"}}/>
+                              <img
+                                src={`/assets/img/secondhand/accessories/${items?.imageEntity[0]?.url}`}
+                                style={{ width: "80px", height: "100px" }}
+                              />
                             </div>
                             <div className="latest-product__item__text">
                               <h6> {items.name}</h6>
-                              <span> {items.price}  ₫</span>
+                              <span> {items.price} ₫</span>
                             </div>
                           </a>
                         ))}
@@ -486,13 +496,20 @@ function Home() {
                     <div className="latest-prdouct__slider__item">
                       {productSilder1 &&
                         productSilder1.map((items, index) => (
-                          <a href="#" key={index} className="latest-product__item">
+                          <a
+                            href="#"
+                            key={index}
+                            className="latest-product__item"
+                          >
                             <div className="latest-product__item__pic">
-                            <img src={`/assets/img/secondhand/accessories/${items?.imageEntity[0]?.url}`} style={{width:"80px",height:"100px"}}/>
+                              <img
+                                src={`/assets/img/secondhand/accessories/${items?.imageEntity[0]?.url}`}
+                                style={{ width: "80px", height: "100px" }}
+                              />
                             </div>
                             <div className="latest-product__item__text">
                               <h6> {items.name}</h6>
-                              <span> {items.price}  ₫</span>
+                              <span> {items.price} ₫</span>
                             </div>
                           </a>
                         ))}
@@ -511,13 +528,20 @@ function Home() {
                     <div className="latest-prdouct__slider__item">
                       {productSilder2 &&
                         productSilder2.map((items, index) => (
-                          <a href="#" key={index} className="latest-product__item">
+                          <a
+                            href="#"
+                            key={index}
+                            className="latest-product__item"
+                          >
                             <div className="latest-product__item__pic">
-                            <img src={`/assets/img/secondhand/accessories/${items?.imageEntity[0]?.url}`} style={{width:"80px",height:"100px"}}/>
+                              <img
+                                src={`/assets/img/secondhand/accessories/${items?.imageEntity[0]?.url}`}
+                                style={{ width: "80px", height: "100px" }}
+                              />
                             </div>
                             <div className="latest-product__item__text">
                               <h6> {items.name}</h6>
-                              <span> {items.price}  ₫</span>
+                              <span> {items.price} ₫</span>
                             </div>
                           </a>
                         ))}
@@ -525,18 +549,24 @@ function Home() {
                     <div className="latest-prdouct__slider__item">
                       {productSilder2 &&
                         productSilder2.map((items, index) => (
-                          <a href="#" key={index} className="latest-product__item">
+                          <a
+                            href="#"
+                            key={index}
+                            className="latest-product__item"
+                          >
                             <div className="latest-product__item__pic">
-                            <img src={`/assets/img/secondhand/accessories/${items?.imageEntity[0]?.url}`} style={{width:"80px",height:"100px"}}/>
+                              <img
+                                src={`/assets/img/secondhand/accessories/${items?.imageEntity[0]?.url}`}
+                                style={{ width: "80px", height: "100px" }}
+                              />
                             </div>
                             <div className="latest-product__item__text">
                               <h6> {items.name}</h6>
-                              <span> {items.price}  ₫</span>
+                              <span> {items.price} ₫</span>
                             </div>
                           </a>
                         ))}
                     </div>
-
                   </OwlCarousel>
                 </div>
               </div>
@@ -551,13 +581,20 @@ function Home() {
                     <div className="latest-prdouct__slider__item">
                       {productsilder3 &&
                         productsilder3.map((items, index) => (
-                          <a href="#" key={index} className="latest-product__item">
+                          <a
+                            href="#"
+                            key={index}
+                            className="latest-product__item"
+                          >
                             <div className="latest-product__item__pic">
-                            <img src={`/assets/img/secondhand/accessories/${items?.imageEntity[0]?.url}`} style={{width:"80px",height:"100px"}}/>
+                              <img
+                                src={`/assets/img/secondhand/accessories/${items?.imageEntity[0]?.url}`}
+                                style={{ width: "80px", height: "100px" }}
+                              />
                             </div>
                             <div className="latest-product__item__text">
                               <h6> {items.name}</h6>
-                              <span> {items.price}  ₫</span>
+                              <span> {items.price} ₫</span>
                             </div>
                           </a>
                         ))}
@@ -565,18 +602,24 @@ function Home() {
                     <div className="latest-prdouct__slider__item">
                       {productsilder3 &&
                         productsilder3.map((items, index) => (
-                          <a href="#" key={index} className="latest-product__item">
+                          <a
+                            href="#"
+                            key={index}
+                            className="latest-product__item"
+                          >
                             <div className="latest-product__item__pic">
-                            <img src={`/assets/img/secondhand/accessories/${items?.imageEntity[0]?.url}`} style={{width:"80px",height:"100px"}}/>
+                              <img
+                                src={`/assets/img/secondhand/accessories/${items?.imageEntity[0]?.url}`}
+                                style={{ width: "80px", height: "100px" }}
+                              />
                             </div>
                             <div className="latest-product__item__text">
                               <h6> {items.name}</h6>
-                              <span> {items.price}  ₫</span>
+                              <span> {items.price} ₫</span>
                             </div>
                           </a>
                         ))}
                     </div>
-
                   </OwlCarousel>
                 </div>
               </div>

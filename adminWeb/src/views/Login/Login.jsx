@@ -56,8 +56,9 @@ const Login = () => {
       instance.defaults.headers.common["Authorization"] = `Bearer ${Cookies.get(
         "token"
       )}`;
-      navigate("homepage");
-      window.location.reload();
+      // navigate("homepage");
+      window.location.href = "homepage";
+      // window.location.reload();
     } catch (error) {
       console.log(error);
       setErr(true);

@@ -1,20 +1,250 @@
 import React, { useState, useEffect } from "react";
 import { doGet } from "../../utils/api/api";
 import "./Homepage.scss";
+import { Column, Pie } from "@ant-design/plots";
 import "antd/dist/antd.css";
+import { DownOutlined } from "@ant-design/icons";
+import { Dropdown, Menu, message, Button } from "antd";
+import { Doughnut } from "react-chartjs-2";
+import { Chart as ChartJS } from "chart.js/auto";
 function Homepage() {
+  const [month, setMonth] = useState(1);
+  const [newChartData, setNewChartData] = useState({
+    labels: ["accessories", "am", "12", "aa", "ff"],
+    datasets: [
+      {
+        label: "doanh thu ",
+        data: [300, 50, 100, 30, 40],
+        backgroundColor: ["Red", "Orange", "Yellow", "Green", "Blue"],
+      },
+    ],
+  });
+  const data1 = [
+    {
+      type: "1",
+      sales: 0,
+    },
+    {
+      type: "2",
+      sales: 0,
+    },
+    {
+      type: "3",
+      sales: 0,
+    },
+    {
+      type: "4",
+      sales: 0,
+    },
+    {
+      type: "5",
+      sales: 0,
+    },
+    {
+      type: "6",
+      sales: 0,
+    },
+    {
+      type: "7",
+      sales: 0,
+    },
+    {
+      type: "8",
+      sales: 0,
+    },
+    {
+      type: "9",
+      sales: 0,
+    },
+    {
+      type: "10",
+      sales: 0,
+    },
+    {
+      type: "11",
+      sales: 0,
+    },
+    {
+      type: "12",
+      sales: 0,
+    },
+    {
+      type: "13",
+      sales: 0,
+    },
+    {
+      type: "14",
+      sales: 0,
+    },
+    {
+      type: "15",
+      sales: 0,
+    },
+    {
+      type: "16",
+      sales: 0,
+    },
+    {
+      type: "17",
+      sales: 0,
+    },
+    {
+      type: "18",
+      sales: 0,
+    },
+    {
+      type: "19",
+      sales: 0,
+    },
+    {
+      type: "20",
+      sales: 0,
+    },
+    {
+      type: "21",
+      sales: 0,
+    },
+    {
+      type: "22",
+      sales: 0,
+    },
+    {
+      type: "23",
+      sales: 0,
+    },
+    {
+      type: "24",
+      sales: 0,
+    },
+    {
+      type: "25",
+      sales: 0,
+    },
+    {
+      type: "26",
+      sales: 0,
+    },
+    {
+      type: "27",
+      sales: 0,
+    },
+    {
+      type: "28",
+      sales: 0,
+    },
+    {
+      type: "29",
+      sales: 0,
+    },
+    {
+      type: "30",
+      sales: 0,
+    },
+    {
+      type: "31",
+      sales: 0,
+    },
+  ];
+  const [data, setData] = useState(data1);
+  const [totalPrice, setTotalPrice] = useState([]);
+
+  const convertData = (list) => {
+    let newList = data.map((element) => {
+      let result = {
+        type: element.type,
+        sales: element.sales,
+      };
+      list.forEach((ele) => {
+        if (ele.dateCreated.slice(-2) === element.type) {
+          result.type = element.type;
+          result.sales = ele.totalPriceOrder;
+        }
+      });
+      return result;
+    });
+    setData(newList);
+  };
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await doGet("cart/listCart");
+        const { data } = await doGet(
+          `/chart/admin/getChartDayMonth?month=${month}&year=2022`
+        );
         console.log(data.data);
+        convertData(data.data);
+      } catch (e) {
+        console.log("aaaaa", e);
 
-        // console.log("listcart", checkChage);
-        // let total = 0;
-        // for (let i = 0; i < data.data.length; i++) {
-        //   total += data.data[i].totalPrice;
-        // }
-        // setTotalPrice(total);
+        console.log("status", e.status);
+        // navigate("/login");
+      }
+    })();
+  }, [month]);
+
+  const config = {
+    data,
+    xField: "type",
+    yField: "sales",
+    label: {
+      // 可手动配置 label 数据标签位置
+      position: "middle",
+      // 'top', 'bottom', 'middle',
+      // 配置样式
+      style: {
+        fill: "#FFFFFF",
+        opacity: 0.6,
+      },
+    },
+    xAxis: {
+      label: {
+        autoHide: true,
+        autoRotate: false,
+      },
+    },
+    meta: {
+      type: {
+        alias: "Ngày",
+      },
+      sales: {
+        alias: "doanh thu",
+      },
+    },
+  };
+
+  const [doughnutChartData, setDoughnutChartData] = useState({
+    title: [],
+    label: ["VNĐ", "VNĐ", "VNĐ", "VNĐ", "VNĐ"],
+    backgroundColor: ["Red", "Orange", "Yellow", "Green", "Blue"],
+    data: [],
+    cutoutPercentage: 80,
+    postfix: "k",
+  });
+  console.log(month);
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await doGet(
+          "/chart/admin/getChartMonthCi?month=08&year=2022"
+        );
+        setDoughnutChartData({
+          ...doughnutChartData,
+          title: data.data.title,
+          data: data.data.data,
+        });
+        setNewChartData({
+          ...newChartData,
+          labels: data.data.title,
+          datasets: [
+            {
+              label: "Doanh thu",
+              data: data.data.data,
+              backgroundColor: ["Red", "Orange", "Yellow", "Green", "Blue"],
+              // hoverBackgroundColor: "#377dff",
+              borderColor: "#377dff",
+            },
+          ],
+        });
+        // console.log(data.data.data);
       } catch (e) {
         console.log("aaaaa", e);
 
@@ -23,42 +253,66 @@ function Homepage() {
       }
     })();
   }, []);
-  const [chartData, setChartData] = useState({
-    label: [
-      "test",
-      "2AM",
-      "3AM",
-      "4AM",
-      "5AM",
-      "6AM",
-      "7AM",
-      "8AM",
-      "9AM",
-      "10AM",
-      "11AM",
-    ],
-    prevData: [
-      200, 300, 290, 350, 150, 350, 300, 100, 125, 220, 200, 300, 290, 350, 150,
-      350, 300, 100, 125, 220, 225,
-    ],
-    nowData: [
-      150, 230, 382, 204, 169, 290, 300, 100, 300, 225, 120, 150, 230, 382, 204,
-      169, 290, 300, 100, 300, 140,
-    ],
-    stepSize: 50,
-    colorInActive: "#377dff",
-    colorActive: "#17ed0c",
-  });
+  const onClick = ({ key }) => {
+    setMonth(parseInt(key));
+  };
+  const menu = (
+    <Menu
+      onClick={onClick}
+      items={[
+        {
+          label: "Tháng 1",
+          key: "1",
+        },
+        {
+          label: "Tháng 2",
+          key: "2",
+        },
+        {
+          label: "Tháng 3",
+          key: "3",
+        },
+        {
+          label: "Tháng 4",
+          key: "4",
+        },
+        {
+          label: "Tháng 5",
+          key: "5",
+        },
+        {
+          label: "Tháng 6",
+          key: "6",
+        },
+        {
+          label: "Tháng 7",
+          key: "7",
+        },
+        {
+          label: "Tháng 8",
+          key: "8",
+        },
+        {
+          label: "Tháng 9",
+          key: "9",
+        },
+        {
+          label: "Tháng 10",
+          key: "10",
+        },
+        {
+          label: "Tháng 11",
+          key: "11",
+        },
+        {
+          label: "Tháng 12",
+          key: "12",
+        },
+      ]}
+    />
+  );
 
-  const [doughnutChartData, setDoughnutChartData] = useState({
-    title: ["Giay", "Ao", "Quan"],
-    label: ["USD", "USD", "USD"],
-    backgroundColor: ["#377dff", "#00c9db", "#e7eaf3"],
-    data: [100, 100, 100],
-    cutoutPercentage: 80,
-    postfix: "k",
-  });
-
+  console.log("doughnutChartData", doughnutChartData);
   return (
     <main id="content" role="main" className="main homepage-main">
       {/* Content */}
@@ -180,17 +434,14 @@ function Homepage() {
                   />
                 </h4>
               </div>
-              <div className="col-sm-auto">
-                {/* Daterangepicker */}
-                <button
-                  id="js-daterangepicker-predefined"
-                  className="btn btn-sm btn-white dropdown-toggle mb-2 mb-sm-0"
-                >
-                  <i className="tio-date-range" />
-                  <span className="js-daterangepicker-predefined-preview ml-1" />
-                </button>
-                {/* End Daterangepicker */}
-              </div>
+              <Dropdown overlay={menu}>
+                <a onClick={(e) => e.preventDefault()}>
+                  <Button>
+                    Tháng {month}
+                    <DownOutlined />
+                  </Button>
+                </a>
+              </Dropdown>
             </div>
             {/* End Row */}
           </div>
@@ -200,25 +451,24 @@ function Homepage() {
             <div className="row">
               <div className="col-md-9 mb-5 mb-md-0">
                 {/* Bar Chart */}
-                <div className="chartjs-custom mb-4">
-                  <canvas
-                    className="js-chart"
-                    style={{ height: "18rem" }}
-                    data-hs-chartjs-options={`{
+                {/* <div className="chartjs-custom mb-4">
+                  {prevData && (
+                    <>
+                      {console.log("first")}
+                      <canvas
+                        className="js-chart"
+                        style={{ height: "18rem" }}
+                        data-hs-chartjs-options={`{
                     "type": "bar",
                     "data": {
                       "labels": ${JSON.stringify(chartData.label)},
                       "datasets": [{
-                        "data": ${JSON.stringify(chartData.prevData)},
+                        "data": ${JSON.stringify(prevData)},
                         "backgroundColor": "${chartData.colorInActive}",
                         "hoverBackgroundColor": "${chartData.colorInActive}",
                         "borderColor": "${chartData.colorInActive}"
-                      },
-                      {
-                        "data": ${JSON.stringify(chartData.nowData)},
-                        "backgroundColor": "${chartData.colorActive}",
-                        "borderColor": "${chartData.colorActive}"
-                      }]
+                      }
+                    ]
                     },
                     "options": {
                       "scales": {
@@ -264,24 +514,20 @@ function Homepage() {
                       }
                     }
                   }`}
-                  />
-                </div>
+                      />
+                    </>
+                  )}
+                </div> */}
+                <Column {...config} />
                 {/* End Bar Chart */}
                 {/* Legend Indicators */}
                 <div className="row justify-content-center">
                   <div className="col-auto">
                     <span
                       className="legend-indicator"
-                      style={{ backgroundColor: chartData.colorActive }}
+                      style={{ backgroundColor: "blue" }}
                     />{" "}
                     Doanh thu
-                  </div>
-                  <div className="col-auto">
-                    <span
-                      className="legend-indicator bg-primary"
-                      style={{ backgroundColor: chartData.colorInActive }}
-                    />{" "}
-                    Đơn hàng
                   </div>
                 </div>
                 {/* End Legend Indicators */}
@@ -673,9 +919,9 @@ function Homepage() {
                 {/* Pie Chart */}
                 <div
                   className="chartjs-custom mb-3 mb-sm-5"
-                  style={{ height: "14rem" }}
+                  style={{ overflow: "unset" }}
                 >
-                  <canvas
+                  {/* <canvas
                     className="js-chart"
                     style={{ height: "18rem" }}
                     id="updatingDoughnutChart"
@@ -706,7 +952,8 @@ function Homepage() {
                       }
                     }
                   }`}
-                  />
+                  /> */}
+                  <Doughnut data={newChartData} />
                 </div>
                 {/* End Pie Chart */}
                 {/* Legend Indicators */}

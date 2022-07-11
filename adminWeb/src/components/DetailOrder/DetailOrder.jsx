@@ -135,7 +135,7 @@ function DetailOrder() {
                 return <div className="media" key={index}>
               
                 <div className="avatar avatar-xl mr-3">
-              
+                      <img src={`http://localhost:3001/assets/img/secondhand/accessories/${item.productEntity.imageEntity[0].url}`} alt="" style={{width:"50px",height:"50px"}} />
                 </div>
                 <div className="media-body">
                   <div className="row">

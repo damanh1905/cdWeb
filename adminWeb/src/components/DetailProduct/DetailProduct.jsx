@@ -4,13 +4,32 @@ import classNames from 'classnames';
 import "./DetailProduct.scss";
 import { Modal } from "antd";
 import { del, get } from "../../utils/api";
-
+import { useParams } from 'react-router-dom';
+import { doGet, doPost } from "../../utils/api/api";
 export const defaultValue = {
 
 }
 
 function DetailProduct() {
-
+  const [isReload, setIsReload] = useState(false);
+  const [productDetail,setProductDetail]=useState({});
+  const {id}=useParams();
+  useEffect(() => {
+    const initData = async () => {
+      const response = await doGet(`/product/admin/product-detail/${id}`);
+      if(response.data.status==200){
+        console.log(response.data.data)
+        setProductDetail(response.data.data)
+       
+       
+      }
+    }
+    
+    initData();
+  }, [isReload])
+  // window.location.reload();
+  console.log(productDetail)
+  console.log(id)
   return (
   
     <main id="content" role="main" className="main">
@@ -26,7 +45,7 @@ function DetailProduct() {
                 <li className="breadcrumb-item active" aria-current="page">Chi tiết</li>
               </ol>
             </nav>
-            <h1 className="page-header-title">Tiro track jacket</h1>
+            <h1 className="page-header-title">{productDetail.name}</h1>
             <div className="mt-2">
               {/* <a class="text-body mr-3" href="javascript:;">
               <i class="tio-copy mr-1"></i> Duplicate
@@ -61,7 +80,7 @@ function DetailProduct() {
               {/* Form Group */}
               <div className="form-group">
                 <label htmlFor="productNameLabel" className="input-label">Tên <i className="tio-help-outlined text-body ml-1" data-toggle="tooltip" data-placement="top" title="Tên sản phẩm" /></label>
-                <input type="text" className="form-control" name="productName" id="productNameLabel" placeholder="Shirt, t-shirts, etc." aria-label="Shirt, t-shirts, etc." defaultValue="Tiro track jacket" />
+                <input type="text" className="form-control" name="productName" id="productNameLabel" placeholder="Shirt, t-shirts, etc." aria-label="Shirt, t-shirts, etc." defaultValue={productDetail.name} />
               </div>
               {/* End Form Group */}
               <div className="row">
@@ -69,7 +88,7 @@ function DetailProduct() {
                   {/* Form Group */}
                   <div className="form-group">
                     <label htmlFor="quantityLabel" className="input-label">Số lượng</label>
-                    <input type="number" className="form-control" name="quantity" id="quantityLabel" placeholder={100} aria-label={100} defaultValue={10} />
+                    <input type="number" className="form-control" name="quantity" id="quantityLabel" placeholder={100} aria-label={100} defaultValue={productDetail.amount} />
                   </div>
                   {/* End Form Group */}
                 </div>
@@ -101,9 +120,7 @@ function DetailProduct() {
                 <div className="js-quill" style={{minHeight: '15rem'}} data-hs-quill-options="{
                       &quot;placeholder&quot;: &quot;Type your description...&quot;
                      }">
-                  <p>Train hard. Stay dry. This soccer jacket is made of soft, sweat-wicking fabric that keeps you
-                    moving on the practice field. Stretch panels at the elbows and sides give you a full range of motion
-                    as you work.</p>
+                  <p>{productDetail.descriptions}</p>
                   <p><br /></p>
                   <h3>Specifications</h3>
                   <ul>
@@ -154,7 +171,7 @@ function DetailProduct() {
                 <div className="col-6 col-sm-4 col-md-3 mb-3 mb-lg-5">
                   {/* Card */}
                   <div className="card card-sm">
-                    <img className="card-img-top" src="assets\img\400x400\img7.jpg" alt="Image Description" />
+                    <img className="card-img-top" src={`http://localhost:3001/assets/img/secondhand/accessories/${productDetail?.imageEntity?.[0]?.url}`} alt="" style={{width:"150px",height:"200px"}} />
                     <div className="card-body">
                       <div className="row text-center">
                         <div className="col">
@@ -176,7 +193,7 @@ function DetailProduct() {
                 <div className="col-6 col-sm-4 col-md-3 mb-3 mb-lg-5">
                   {/* Card */}
                   <div className="card card-sm">
-                    <img className="card-img-top" src="assets\img\400x400\img8.jpg" alt="Image Description" />
+                  <img className="card-img-top" src={`http://localhost:3001/assets/img/secondhand/accessories/${productDetail?.imageEntity?.[1]?.url}`} alt="" style={{width:"150px",height:"200px"}} />
                     <div className="card-body">
                       <div className="row text-center">
                         <div className="col">
@@ -198,7 +215,7 @@ function DetailProduct() {
                 <div className="col-6 col-sm-4 col-md-3 mb-3 mb-lg-5">
                   {/* Card */}
                   <div className="card card-sm">
-                    <img className="card-img-top" src="assets\img\400x400\img9.jpg" alt="Image Description" />
+                  <img className="card-img-top" src={`http://localhost:3001/assets/img/secondhand/accessories/${productDetail?.imageEntity?.[2]?.url}`} alt="" style={{width:"150px",height:"200px"}} />
                     <div className="card-body">
                       <div className="row text-center">
                         <div className="col">
@@ -217,28 +234,7 @@ function DetailProduct() {
                   </div>
                   {/* End Card */}
                 </div>
-                <div className="col-6 col-sm-4 col-md-3 mb-3 mb-lg-5">
-                  {/* Card */}
-                  <div className="card card-sm">
-                    <img className="card-img-top" src="assets\img\400x400\img10.jpg" alt="Image Description" />
-                    <div className="card-body">
-                      <div className="row text-center">
-                        <div className="col">
-                          <a className="js-fancybox-item text-body" href="javascript:;" data-toggle="tooltip" data-placement="top" title="View" data-src="./assets/img/1920x1080/img3.jpg" data-caption="Image #04">
-                            <i className="tio-visible-outlined" />
-                          </a>
-                        </div>
-                        <div className="col column-divider">
-                          <a className="text-danger" href="javascript:;" data-toggle="tooltip" data-placement="top" title="Delete">
-                            <i className="tio-delete-outlined" />
-                          </a>
-                        </div>
-                      </div>
-                      {/* End Row */}
-                    </div>
-                  </div>
-                  {/* End Card */}
-                </div>
+               
               </div>
               {/* End Gallery */}
               {/* Dropzone */}
@@ -340,7 +336,7 @@ function DetailProduct() {
               {/* Form Group */}
               <div className="form-group">
                 <label htmlFor="brandLabel" className="input-label">Thương hiệu</label>
-                <input type="text" className="form-control" name="brandProduct" id="brandLabel" placeholder="eg. Nike" aria-label="eg. Nike" defaultValue="Adidas" />
+                <input type="text" className="form-control" name="brandProduct" id="brandLabel" placeholder="eg. Nike" aria-label="eg. Nike" defaultValue={productDetail.sourceOrigin} />
               </div>
               {/* End Form Group */}
               {/* Form Group */}
@@ -352,10 +348,10 @@ function DetailProduct() {
                         &quot;placeholder&quot;: &quot;Select category&quot;
                       }">
                   <option label="empty" />
-                  <option value="Clothing" selected>Clothing</option>
+                  {/* <option value="Clothing" selected>Clothing</option>
                   <option value="Shoes">Shoes</option>
                   <option value="Electronics">Electronics</option>
-                  <option value="Others">Others</option>
+                  <option value="Others">Others</option> */}
                 </select>
                 {/* End Select */}
               </div>

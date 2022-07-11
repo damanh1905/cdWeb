@@ -353,7 +353,7 @@ function DefaultLayout({ children }) {
                             title="Orders"
                           >
                             <span className="tio-circle nav-indicator-icon" />
-                            <Link to="/"><span className="text-truncate">Danh sách</span></Link>
+                            <Link to="/listProduct"><span className="text-truncate">Danh sách</span></Link>
                           </a>
                         </li>
                       </ul>

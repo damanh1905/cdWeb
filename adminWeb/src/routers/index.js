@@ -34,6 +34,7 @@ const publicRouterUser = [
   {path:"/listProduct",component:ListProduct},
   {path:"/listSell",component:ListSell},
   {path:"/listUser",component:ListUser},//done
+  {path:"/listProduct/:id",component:DetailProduct},
 
 ];
 export { publicRouterUser };

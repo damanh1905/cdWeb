@@ -16,23 +16,31 @@ function ListUser() {
   const [userList, setUserList] = useState([]);
   const [pageSize,setPageSize]=useState(12);
   const [pageIndex,setPageIndex]=useState(0);
+  const [totalUser,setTotalUser]=useState(0);
+  console.log(totalUser)
   useEffect(() => {
     const initData = async () => {
       const response = await doGet(`/manage/admin/findAllUsers?pageIndex=${pageIndex}&pageSize=${pageSize}`);
     
       if(response.data.status==200){
           setUserList(response.data.data.listUser)
+          setTotalUser(response.data.data.listUser.length)
           console.log("hello")
       }
+      
+   
+
     }
     
     initData();
   }, [isReload])
+  
   console.log(userList)
   const handleDelete=(userId)=>{
     const response=doPost(`/manage/admin/deleteUsers?listId=${userId}`)
    
           setIsReload(!isReload)
+          window.location.reload();
    
   }
 
@@ -45,7 +53,7 @@ function ListUser() {
               <div className="page-header">
                 <div className="row align-items-center mb-3">
                   <div className="col-sm mb-2 mb-sm-0">
-                    <h1 className="page-header-title">Khách hàng <span className="badge badge-soft-dark ml-2">97,524</span></h1>
+                    <h1 className="page-header-title">Khách hàng <span className="badge badge-soft-dark ml-2">{totalUser}</span></h1>
                     <div className="mt-2">
                       {/* <a class="text-body mr-3" href="javascript:;" data-toggle="modal" data-target="#importCustomersModal">
                     <i class="tio-publish mr-1"></i> Import customers

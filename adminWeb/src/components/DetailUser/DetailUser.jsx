@@ -6,7 +6,7 @@ import { Modal } from "antd";
 import { del, get } from "../../utils/api";
 import { useParams } from 'react-router-dom';
 import { doGet, doPost } from "../../utils/api/api";
-
+import {Link} from 'react-router-dom'
 export const defaultValue = {
 
 }
@@ -310,7 +310,8 @@ function DetailUser() {
                         </div>
                       </td>
                       <td className="table-column-pl-0">
-                        <a href="ecommerce-order-details.html">{order.id}</a>
+                        {/* <a >{order.id}</a> */}
+                        <Link to={`${order.id}`}>{order.id}</Link>
                       </td>
                       <td>{order.dateCreated}</td>
                       <td>

@@ -60,7 +60,7 @@ function DetailOrder() {
             </ol>
           </nav>
           <div className="d-sm-flex align-items-sm-center">
-            <h1 className="page-header-title">Đơn hàng #32543</h1>
+            <h1 className="page-header-title">Mã đơn hàng {id}</h1>
             <span className="badge badge-soft-success ml-sm-3">
               <span className="legend-indicator bg-success" />Đã thanh toán
             </span>
@@ -122,7 +122,7 @@ function DetailOrder() {
         <div className="card mb-3 mb-lg-5">
           {/* Header */}
           <div className="card-header">
-            <h4 className="card-header-title">Chi tiết đơn hàng <span className="badge badge-soft-dark rounded-circle ml-1">4</span></h4>
+            <h4 className="card-header-title">Chi tiết đơn hàng <span className="badge badge-soft-dark rounded-circle ml-1"></span></h4>
             {/* <a class="link" href="javascript:;">Chỉnh sửa</a> */}
           </div>
           {/* End Header */}

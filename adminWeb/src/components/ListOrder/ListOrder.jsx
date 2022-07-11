@@ -15,6 +15,8 @@ function ListOrder() {
   const [orderList, setOrderList] = useState([]);
   const [pageSize,setPageSize]=useState(12);
   const [pageIndex,setPageIndex]=useState(0);
+  const [totalOrder,setTotalOrder]=useState(0);
+  console.log("re-render")
   useEffect(() => {
     const initData = async () => {
       const response = await doGet(`/order/admin/listOrders`);
@@ -22,6 +24,7 @@ function ListOrder() {
       if(response.data.status==200){
          console.log(response.data.data.listOrderAdmin)
          setOrderList(response.data.data.listOrderAdmin)
+         setTotalOrder(response.data.data.listOrderAdmin.length)
       }
     }
     
@@ -31,6 +34,7 @@ function ListOrder() {
     const response=doPost(`/order/admin/deleteOrder/${id}`)
    
     setIsReload(!isReload)
+    window.location.reload();
 
 }
   
@@ -43,7 +47,7 @@ function ListOrder() {
       <div className="page-header">
         <div className="row align-items-center mb-3">
           <div className="col-sm">
-            <h1 className="page-header-title">Orders <span className="badge badge-soft-dark ml-2">106,905</span></h1>
+            <h1 className="page-header-title">Orders <span className="badge badge-soft-dark ml-2">{totalOrder}</span></h1>
             <div className="mt-2">
               <a className="text-body mr-3" href="javascript:;" data-toggle="modal" data-target="#exportOrdersModal">
                 <i className="tio-download-to mr-1" /> Export

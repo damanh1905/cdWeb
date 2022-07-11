@@ -27,6 +27,7 @@ const publicRouterUser = [
   {path:"/detailSell",component:DetailSell},
   {path:"/detailSell",component:DetailSell},
   {path:"/listUser/:id",component:DetailUser},//done
+  {path:"/listUser/:id/:id",component:DetailOrder},//test
   {path:"/detailUser",component:DetailUser},
   {path:"/listOrder",component:ListOrder},//done
   {path:"/listOrder/:id",component:DetailOrder},

@@ -5,12 +5,12 @@ import { Column, Pie } from "@ant-design/plots";
 import "antd/dist/antd.css";
 import { DownOutlined } from "@ant-design/icons";
 import { Dropdown, Menu, message, Button } from "antd";
-import { Doughnut } from "react-chartjs-2";
+import { Doughnut, Bar } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 function Homepage() {
   const [month, setMonth] = useState(1);
   const [newChartData, setNewChartData] = useState({
-    labels: ["accessories", "am", "12", "aa", "ff"],
+    labels: ["accessories", "outerwear", "footwear", "tops", "bottoms"],
     datasets: [
       {
         label: "doanh thu ",
@@ -19,197 +19,257 @@ function Homepage() {
       },
     ],
   });
-  const data1 = [
-    {
-      type: "1",
-      sales: 0,
-    },
-    {
-      type: "2",
-      sales: 0,
-    },
-    {
-      type: "3",
-      sales: 0,
-    },
-    {
-      type: "4",
-      sales: 0,
-    },
-    {
-      type: "5",
-      sales: 0,
-    },
-    {
-      type: "6",
-      sales: 0,
-    },
-    {
-      type: "7",
-      sales: 0,
-    },
-    {
-      type: "8",
-      sales: 0,
-    },
-    {
-      type: "9",
-      sales: 0,
-    },
-    {
-      type: "10",
-      sales: 0,
-    },
-    {
-      type: "11",
-      sales: 0,
-    },
-    {
-      type: "12",
-      sales: 0,
-    },
-    {
-      type: "13",
-      sales: 0,
-    },
-    {
-      type: "14",
-      sales: 0,
-    },
-    {
-      type: "15",
-      sales: 0,
-    },
-    {
-      type: "16",
-      sales: 0,
-    },
-    {
-      type: "17",
-      sales: 0,
-    },
-    {
-      type: "18",
-      sales: 0,
-    },
-    {
-      type: "19",
-      sales: 0,
-    },
-    {
-      type: "20",
-      sales: 0,
-    },
-    {
-      type: "21",
-      sales: 0,
-    },
-    {
-      type: "22",
-      sales: 0,
-    },
-    {
-      type: "23",
-      sales: 0,
-    },
-    {
-      type: "24",
-      sales: 0,
-    },
-    {
-      type: "25",
-      sales: 0,
-    },
-    {
-      type: "26",
-      sales: 0,
-    },
-    {
-      type: "27",
-      sales: 0,
-    },
-    {
-      type: "28",
-      sales: 0,
-    },
-    {
-      type: "29",
-      sales: 0,
-    },
-    {
-      type: "30",
-      sales: 0,
-    },
-    {
-      type: "31",
-      sales: 0,
-    },
-  ];
-  const [data, setData] = useState(data1);
+  // const data1 = [
+  //   {
+  //     type: "1",
+  //     sales: 0,
+  //   },
+  //   {
+  //     type: "2",
+  //     sales: 0,
+  //   },
+  //   {
+  //     type: "3",
+  //     sales: 0,
+  //   },
+  //   {
+  //     type: "4",
+  //     sales: 0,
+  //   },
+  //   {
+  //     type: "5",
+  //     sales: 0,
+  //   },
+  //   {
+  //     type: "6",
+  //     sales: 0,
+  //   },
+  //   {
+  //     type: "7",
+  //     sales: 0,
+  //   },
+  //   {
+  //     type: "8",
+  //     sales: 0,
+  //   },
+  //   {
+  //     type: "9",
+  //     sales: 0,
+  //   },
+  //   {
+  //     type: "10",
+  //     sales: 0,
+  //   },
+  //   {
+  //     type: "11",
+  //     sales: 0,
+  //   },
+  //   {
+  //     type: "12",
+  //     sales: 0,
+  //   },
+  //   {
+  //     type: "13",
+  //     sales: 0,
+  //   },
+  //   {
+  //     type: "14",
+  //     sales: 0,
+  //   },
+  //   {
+  //     type: "15",
+  //     sales: 0,
+  //   },
+  //   {
+  //     type: "16",
+  //     sales: 0,
+  //   },
+  //   {
+  //     type: "17",
+  //     sales: 0,
+  //   },
+  //   {
+  //     type: "18",
+  //     sales: 0,
+  //   },
+  //   {
+  //     type: "19",
+  //     sales: 0,
+  //   },
+  //   {
+  //     type: "20",
+  //     sales: 0,
+  //   },
+  //   {
+  //     type: "21",
+  //     sales: 0,
+  //   },
+  //   {
+  //     type: "22",
+  //     sales: 0,
+  //   },
+  //   {
+  //     type: "23",
+  //     sales: 0,
+  //   },
+  //   {
+  //     type: "24",
+  //     sales: 0,
+  //   },
+  //   {
+  //     type: "25",
+  //     sales: 0,
+  //   },
+  //   {
+  //     type: "26",
+  //     sales: 0,
+  //   },
+  //   {
+  //     type: "27",
+  //     sales: 0,
+  //   },
+  //   {
+  //     type: "28",
+  //     sales: 0,
+  //   },
+  //   {
+  //     type: "29",
+  //     sales: 0,
+  //   },
+  //   {
+  //     type: "30",
+  //     sales: 0,
+  //   },
+  //   {
+  //     type: "31",
+  //     sales: 0,
+  //   },
+  // ];
+  // const [data, setData] = useState(data1);
   const [totalPrice, setTotalPrice] = useState([]);
 
-  const convertData = (list) => {
-    let newList = data.map((element) => {
-      let result = {
-        type: element.type,
-        sales: element.sales,
-      };
-      list.forEach((ele) => {
-        if (ele.dateCreated.slice(-2) === element.type) {
-          result.type = element.type;
-          result.sales = ele.totalPriceOrder;
-        }
-      });
-      return result;
-    });
-    setData(newList);
-  };
-  useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await doGet(
-          `/chart/admin/getChartDayMonth?month=${month}&year=2022`
-        );
-        console.log(data.data);
-        convertData(data.data);
-      } catch (e) {
-        console.log("aaaaa", e);
+  // const convertData = (list) => {
+  //   let newList = data.map((element) => {
+  //     let result = {
+  //       type: element.type,
+  //       sales: element.sales,
+  //     };
+  //     list.forEach((ele) => {
+  //       if (ele.dateCreated.slice(-2) === element.type) {
+  //         result.type = element.type;
+  //         result.sales = ele.totalPriceOrder;
+  //       }
+  //     });
+  //     return result;
+  //   });
+  //   setData(newList);
+  // };
+  const [newChart, setNewChart] = useState({
+    labels: [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "20",
+      "21",
+      "22",
+      "23",
+      "24",
+      "25",
+      "26",
+      "27",
+      "28",
+      "29",
+      "30",
+    ],
+    datasets: [
+      {
+        label: "Doanh thu",
+        data: [
+          200, 300, 290, 350, 150, 350, 300, 100, 125, 220, 200, 300, 290, 350,
+          150, 200, 300, 290, 350, 150, 350, 300, 100, 125, 220, 200, 300, 290,
+          350, 150,
+        ],
+        backgroundColor: "#377dff",
+        hoverBackgroundColor: "#377dff",
+        borderColor: "#377dff",
+      },
+    ],
+  });
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const { data } = await doGet(
+  //         `chart/admin/getChartDayMonth?month=${month}&year=2022`
+  //       );
+  //       console.log(data.data);
+  //       // convertData(data.data);
+  //       setNewChart({
+  //         ...newChart,
+  //         labels: data.data.title,
+  //         datasets: [
+  //           {
+  //             label: "Doanh thu",
+  //             data: data.data.data,
+  //             backgroundColor: "#377dff",
+  //             hoverBackgroundColor: "#377dff",
+  //             borderColor: "#377dff",
+  //           },
+  //         ],
+  //       });
+  //     } catch (e) {
+  //       console.log("aaaaa", e);
 
-        console.log("status", e.status);
-        // navigate("/login");
-      }
-    })();
-  }, [month]);
+  //       console.log("status", e.status);
+  //       // navigate("/login");
+  //     }
+  //   })();
+  // }, [month]);
 
-  const config = {
-    data,
-    xField: "type",
-    yField: "sales",
-    label: {
-      // 可手动配置 label 数据标签位置
-      position: "middle",
-      // 'top', 'bottom', 'middle',
-      // 配置样式
-      style: {
-        fill: "#FFFFFF",
-        opacity: 0.6,
-      },
-    },
-    xAxis: {
-      label: {
-        autoHide: true,
-        autoRotate: false,
-      },
-    },
-    meta: {
-      type: {
-        alias: "Ngày",
-      },
-      sales: {
-        alias: "doanh thu",
-      },
-    },
-  };
+  // const config = {
+  //   data,
+  //   xField: "type",
+  //   yField: "sales",
+  //   label: {
+  //     // 可手动配置 label 数据标签位置
+  //     position: "middle",
+  //     // 'top', 'bottom', 'middle',
+  //     // 配置样式
+  //     style: {
+  //       fill: "#FFFFFF",
+  //       opacity: 0.6,
+  //     },
+  //   },
+  //   xAxis: {
+  //     label: {
+  //       autoHide: true,
+  //       autoRotate: false,
+  //     },
+  //   },
+  //   meta: {
+  //     type: {
+  //       alias: "Ngày",
+  //     },
+  //     sales: {
+  //       alias: "doanh thu",
+  //     },
+  //   },
+  // };
 
   const [doughnutChartData, setDoughnutChartData] = useState({
     title: [],
@@ -220,40 +280,80 @@ function Homepage() {
     postfix: "k",
   });
   console.log(month);
-  useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await doGet(
-          "/chart/admin/getChartMonthCi?month=08&year=2022"
-        );
-        setDoughnutChartData({
-          ...doughnutChartData,
-          title: data.data.title,
-          data: data.data.data,
-        });
-        setNewChartData({
-          ...newChartData,
-          labels: data.data.title,
-          datasets: [
-            {
-              label: "Doanh thu",
-              data: data.data.data,
-              backgroundColor: ["Red", "Orange", "Yellow", "Green", "Blue"],
-              // hoverBackgroundColor: "#377dff",
-              borderColor: "#377dff",
-            },
-          ],
-        });
-        // console.log(data.data.data);
-      } catch (e) {
-        console.log("aaaaa", e);
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const rep = await doGet(
+  //         `/chart/admin/getChartMonthCi?month=${month}&year=2022`
+  //       );
+  //       console.log(rep.data.data.title);
+  //       setDoughnutChartData({
+  //         ...doughnutChartData,
+  //         title: rep.data.data.title,
+  //         data: rep.data.data.data,
+  //       });
+  //       setNewChartData({
+  //         ...newChartData,
+  //         labels: rep.data.data.title,
+  //         datasets: [
+  //           {
+  //             label: "Doanh thu",
+  //             data: rep.data.data.data,
+  //             backgroundColor: ["Red", "Orange", "Yellow", "Green", "Blue"],
+  //             // hoverBackgroundColor: "#377dff",
+  //             borderColor: "#377dff",
+  //           },
+  //         ],
+  //       });
+  //       console.log(rep.data.data.data);
+  //     } catch (e) {
+  //       console.log("aaaaa", e);
 
-        console.log("status", e.status);
-        // navigate("/login");
-      }
-    })();
-  }, []);
-  const onClick = ({ key }) => {
+  //       console.log("status", e.status);
+  //       // navigate("/login");
+  //     }
+  //   })();
+  // }, [month]);
+  const onClick = async ({ key }) => {
+    const { data } = await doGet(
+      `chart/admin/getChartDayMonth?month=${key}&year=2022`
+    );
+    setNewChart({
+      ...newChart,
+      labels: data.data.title,
+      datasets: [
+        {
+          label: "Doanh thu",
+          data: data.data.data,
+          backgroundColor: "#377dff",
+          hoverBackgroundColor: "#377dff",
+          borderColor: "#377dff",
+        },
+      ],
+    });
+
+    const rep = await doGet(
+      `/chart/admin/getChartMonthCi?month=${key}&year=2022`
+    );
+    console.log(rep.data.data.title);
+    setDoughnutChartData({
+      ...doughnutChartData,
+      title: rep.data.data.title,
+      data: rep.data.data.data,
+    });
+    setNewChartData({
+      ...newChartData,
+      labels: rep.data.data.title,
+      datasets: [
+        {
+          label: "Doanh thu",
+          data: rep.data.data.data,
+          backgroundColor: ["Red", "Orange", "Yellow", "Green", "Blue"],
+          // hoverBackgroundColor: "#377dff",
+          borderColor: "#377dff",
+        },
+      ],
+    });
     setMonth(parseInt(key));
   };
   const menu = (
@@ -262,39 +362,39 @@ function Homepage() {
       items={[
         {
           label: "Tháng 1",
-          key: "1",
+          key: "01",
         },
         {
           label: "Tháng 2",
-          key: "2",
+          key: "02",
         },
         {
           label: "Tháng 3",
-          key: "3",
+          key: "03",
         },
         {
           label: "Tháng 4",
-          key: "4",
+          key: "04",
         },
         {
           label: "Tháng 5",
-          key: "5",
+          key: "05",
         },
         {
           label: "Tháng 6",
-          key: "6",
+          key: "06",
         },
         {
           label: "Tháng 7",
-          key: "7",
+          key: "07",
         },
         {
           label: "Tháng 8",
-          key: "8",
+          key: "08",
         },
         {
           label: "Tháng 9",
-          key: "9",
+          key: "09",
         },
         {
           label: "Tháng 10",
@@ -449,7 +549,7 @@ function Homepage() {
           {/* Body */}
           <div className="card-body">
             <div className="row">
-              <div className="col-md-9 mb-5 mb-md-0">
+              <div className="col-md-12 mb-5 mb-md-0">
                 {/* Bar Chart */}
                 {/* <div className="chartjs-custom mb-4">
                   {prevData && (
@@ -518,7 +618,11 @@ function Homepage() {
                     </>
                   )}
                 </div> */}
-                <Column {...config} />
+                {/* <Column {...config} /> */}
+
+                <div className="chartjs-custom mb-4">
+                  <Bar data={newChart} />
+                </div>
                 {/* End Bar Chart */}
                 {/* Legend Indicators */}
                 <div className="row justify-content-center">
@@ -532,49 +636,6 @@ function Homepage() {
                 </div>
                 {/* End Legend Indicators */}
               </div>
-              <div className="col-md-3 column-divider-md">
-                <div className="row">
-                  <div className="col-sm-6 col-md-12">
-                    {/* Stats */}
-                    <div
-                      className="d-flex justify-content-center flex-column"
-                      style={{ minHeight: "10.5rem" }}
-                    >
-                      <h6 className="card-subtitle">Doanh thu</h6>
-                      <span className="d-block display-4 text-dark mb-1 mr-3">
-                        $97,458.20
-                      </span>
-                      <span className="d-block text-success">
-                        <i className="tio-trending-up mr-1" /> $2,401.02 (3.7%)
-                      </span>
-                    </div>
-                    {/* End Stats */}
-                    <div className="d-sm-none">
-                      <hr className="my-0" />
-                    </div>
-                    <div className="d-none d-md-block">
-                      <hr className="my-0" />
-                    </div>
-                  </div>
-                  <div className="col-sm-6 col-md-12">
-                    {/* Stats */}
-                    <div
-                      className="d-flex justify-content-center flex-column"
-                      style={{ minHeight: "10.5rem" }}
-                    >
-                      <h6 className="card-subtitle">Đơn hàng</h6>
-                      <span className="d-block display-4 text-dark mb-1 mr-3">
-                        67,893
-                      </span>
-                      <span className="d-block text-danger">
-                        <i className="tio-trending-down mr-1" /> +3,301 (1.2%)
-                      </span>
-                    </div>
-                    {/* End Stats */}
-                  </div>
-                </div>
-                {/* End Row */}
-              </div>
             </div>
             {/* End Row */}
           </div>
@@ -582,278 +643,7 @@ function Homepage() {
         </div>
         {/* End Card */}
         {/* Row (Gồm 2 card: 1.Chức năng Tạo Product, Tạo Discount, ... và 2.Top list product best sales) ) */}
-        <div className="row">
-          <div className="col-lg-4 mb-3 mb-lg-5">
-            {/* Card */}
-            <a
-              className="card card-hover-shadow mb-4"
-              href="./ecommerce-add-product.html"
-            >
-              <div className="card-body">
-                {/* Row */}
-                <div className="media align-items-center">
-                  <img
-                    className="avatar avatar-xl mr-4"
-                    src="assets\svg\illustrations\create.svg"
-                    alt="Image Description"
-                  />
-                  <div className="media-body">
-                    <h3 className="text-hover-primary mb-1">Sản phẩm</h3>
-                    <span className="text-body">Tạo một sản phẩm mới</span>
-                  </div>
-                  <div className="ml-2 text-right">
-                    <i className="tio-chevron-right tio-lg text-body text-hover-primary" />
-                  </div>
-                </div>
-                {/* End Row */}
-              </div>
-            </a>
-            {/* End Card */}
-            {/* Card */}
-            <a
-              className="card card-hover-shadow mb-4"
-              href="./sale-request-management.html"
-            >
-              <div className="card-body">
-                <div className="media align-items-center">
-                  <img
-                    className="avatar avatar-xl mr-4"
-                    src="assets\svg\illustrations\choice.svg"
-                    alt="Image Description"
-                  />
-                  <div className="media-body">
-                    <h3 className="text-hover-primary mb-1">
-                      Yêu cầu bán hàng
-                    </h3>
-                    <span className="text-body">
-                      Duyệt các yêu cầu từ khách hàng.
-                    </span>
-                  </div>
-                  <div className="ml-2 text-right">
-                    <i className="tio-chevron-right tio-lg text-body text-hover-primary" />
-                  </div>
-                </div>
-                {/* End Row */}
-              </div>
-            </a>
-            {/* End Card */}
-            {/* Card */}
-            <a className="card card-hover-shadow" href="#">
-              <div className="card-body">
-                <div className="media align-items-center">
-                  <img
-                    className="avatar avatar-xl mr-4"
-                    src="assets\svg\illustrations\presenting.svg"
-                    alt="Image Description"
-                  />
-                  <div className="media-body">
-                    <h3 className="text-hover-primary mb-1">Giảm giá</h3>
-                    <span className="text-body">Tạo một giảm giá mới</span>
-                  </div>
-                  <div className="ml-2 text-right">
-                    <i className="tio-chevron-right tio-lg text-body text-hover-primary" />
-                  </div>
-                </div>
-                {/* End Row */}
-              </div>
-            </a>
-            {/* End Card */}
-          </div>
-          <div className="col-lg-8 mb-3 mb-lg-5">
-            {/* Card */}
-            <div className="card h-100">
-              {/* Header */}
-              <div className="card-header">
-                <h4 className="card-header-title">Thương hiệu bán chạy nhất</h4>
-                <a
-                  className="btn btn-sm btn-ghost-secondary"
-                  href="product-management.html"
-                >
-                  Xem tất cả
-                </a>
-              </div>
-              {/* End Header */}
-              {/* Body */}
-              <div className="card-body-height">
-                {/* Table */}
-                <div className="table-responsive">
-                  <table className="table table-borderless table-thead-bordered table-nowrap table-align-middle card-table">
-                    <thead className="thead-light">
-                      <tr>
-                        <th scope="col">Thương hiệu</th>
-                        {/* <th scope="col">Change</th>
-                        <th scope="col">Price</th> */}
-                        <th scope="col">Đã bán</th>
-                        <th scope="col">Doanh số bán hàng</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          {/* Media */}
-                          <a
-                            className="media align-items-center"
-                            href="./ecommerce-product-details.html"
-                          >
-                            <img
-                              className="avatar mr-3"
-                              src="assets\img\400x400\img4.jpg"
-                              alt="Image Description"
-                            />
-                            <div className="media-body">
-                              <h5 className="text-hover-primary mb-0">Nike</h5>
-                            </div>
-                          </a>
-                          {/* End Media */}
-                        </td>
-                        {/* <td><i class="tio-trending-down text-danger mr-1"></i> 72%</td>
-                        <td>$65</td> */}
-                        <td>7,545</td>
-                        <td>
-                          <h4 className="mb-0">$15,302.00</h4>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          {/* Media */}
-                          <a
-                            className="media align-items-center"
-                            href="./ecommerce-product-details.html"
-                          >
-                            <img
-                              className="avatar mr-3"
-                              src="assets\img\400x400\img26.jpg"
-                              alt="Image Description"
-                            />
-                            <div className="media-body">
-                              <h5 className="text-hover-primary mb-0">
-                                Adidas
-                              </h5>
-                            </div>
-                          </a>
-                          {/* End Media */}
-                        </td>
-                        {/* <td><i class="tio-trending-up text-success mr-1"></i> 69%</td>
-                        <td>$21</td> */}
-                        <td>6,643</td>
-                        <td>
-                          <h4 className="mb-0">$12,492.21</h4>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          {/* Media */}
-                          <a
-                            className="media align-items-center"
-                            href="./ecommerce-product-details.html"
-                          >
-                            <img
-                              className="avatar mr-3"
-                              src="assets\img\400x400\img25.jpg"
-                              alt="Image Description"
-                            />
-                            <div className="media-body">
-                              <h5 className="text-hover-primary mb-0">Puma</h5>
-                            </div>
-                          </a>
-                          {/* End Media */}
-                        </td>
-                        {/* <td><i class="tio-trending-down text-danger mr-1"></i> 65%</td>
-                        <td>$37</td> */}
-                        <td>5,951</td>
-                        <td>
-                          <h4 className="mb-0">$10,351.71</h4>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          {/* Media */}
-                          <a
-                            className="media align-items-center"
-                            href="./ecommerce-product-details.html"
-                          >
-                            <img
-                              className="avatar mr-3"
-                              src="assets\img\400x400\img6.jpg"
-                              alt="Image Description"
-                            />
-                            <div className="media-body">
-                              <h5 className="text-hover-primary mb-0">
-                                Supreme
-                              </h5>
-                            </div>
-                          </a>
-                          {/* End Media */}
-                        </td>
-                        {/* <td><i class="tio-trending-down text-danger mr-1"></i> 53%</td>
-                        <td>$65</td> */}
-                        <td>5,002</td>
-                        <td>
-                          <h4 className="mb-0">$9,917.45</h4>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          {/* Media */}
-                          <a
-                            className="media align-items-center"
-                            href="./ecommerce-product-details.html"
-                          >
-                            <img
-                              className="avatar mr-3"
-                              src="assets\img\400x400\img3.jpg"
-                              alt="Image Description"
-                            />
-                            <div className="media-body">
-                              <h5 className="text-hover-primary mb-0">
-                                Louis vuitton
-                              </h5>
-                            </div>
-                          </a>
-                          {/* End Media */}
-                        </td>
-                        {/* <td><i class="tio-trending-up text-success mr-1"></i> 50%</td>
-                        <td>$89</td> */}
-                        <td>4,714</td>
-                        <td>
-                          <h4 className="mb-0">$8,466.02</h4>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          {/* Media */}
-                          <a
-                            className="media align-items-center"
-                            href="./ecommerce-product-details.html"
-                          >
-                            <img
-                              className="avatar mr-3"
-                              src="assets\img\400x400\img5.jpg"
-                              alt="Image Description"
-                            />
-                            <div className="media-body">
-                              <h5 className="text-hover-primary mb-0">Gucci</h5>
-                            </div>
-                          </a>
-                          {/* End Media */}
-                        </td>
-                        {/* <td><i class="tio-trending-up text-success mr-1"></i> 50%</td>
-                        <td>$99</td> */}
-                        <td>4,155</td>
-                        <td>
-                          <h4 className="mb-0">$7,715.89</h4>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                {/* End Table */}
-              </div>
-              {/* End Body */}
-            </div>
-            {/* End Card */}
-          </div>
-        </div>
+
         {/* End Row */}
         {/* Biểu đồ tròn, biểu diễn tổng doanh thu theo danh mục sản phẩm */}
         <div className="row gx-2 gx-lg-3">
@@ -885,13 +675,13 @@ function Homepage() {
                       data-trigger="click"
                       data-action="toggle"
                     >
-                      <a
+                      {/* <a
                         className="nav-link active"
                         href="javascript:;"
                         data-toggle="tab"
                       >
                         Tất cả
-                      </a>
+                      </a> */}
                     </li>
                     <li
                       className="nav-item"
@@ -900,13 +690,22 @@ function Homepage() {
                       data-trigger="click"
                       data-action="toggle"
                     >
-                      <a
+                      {/* <a
                         className="nav-link"
                         href="javascript:;"
                         data-toggle="tab"
                       >
                         Tháng này
-                      </a>
+                      </a> */}
+
+                      {/* <Dropdown overlay={menu}>
+                        <a onClick={(e) => e.preventDefault()}>
+                          <Button>
+                            Tháng {month}
+                            <DownOutlined />
+                          </Button>
+                        </a>
+                      </Dropdown> */}
                     </li>
                   </ul>
                   {/* End Nav */}

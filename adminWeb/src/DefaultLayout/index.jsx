@@ -318,11 +318,13 @@ function DefaultLayout({ children }) {
                           <Link
                             to="/user"
                             className="nav-link "
-                            // href="/user"
                             title="Customers"
                           >
                             <span className="tio-circle nav-indicator-icon" />
-                            <span className="text-truncate">Danh sách</span>
+
+                            <Link to="/listUser">
+                              <span className="text-truncate">Danh sách</span>
+                            </Link>
                           </Link>
                         </li>
                       </ul>
@@ -350,13 +352,11 @@ function DefaultLayout({ children }) {
                         )}
                       >
                         <li className="nav-item">
-                          <a
-                            className="nav-link"
-                            href="/product"
-                            title="Orders"
-                          >
+                          <a className="nav-link" title="Orders">
                             <span className="tio-circle nav-indicator-icon" />
-                            <span className="text-truncate">Danh sách</span>
+                            <Link to="/listProduct">
+                              <span className="text-truncate">Danh sách</span>
+                            </Link>
                           </a>
                         </li>
                       </ul>
@@ -383,60 +383,18 @@ function DefaultLayout({ children }) {
                         )}
                       >
                         <li className="nav-item">
-                          <a
-                            className="nav-link "
-                            href="/order"
-                            title="Products"
-                          >
+                          <a className="nav-link " title="Products">
                             <span className="tio-circle nav-indicator-icon" />
-                            <span className="text-truncate">Danh sách</span>
+                            <Link to="/listOrder">
+                              <span className="text-truncate">Danh sách</span>
+                            </Link>
                           </a>
                         </li>
                       </ul>
                     </li>
                     {/* End Product Managerment */}
                     {/* Sale Request Managerment */}
-                    <li
-                      className={classNames("navbar-vertical-aside-has-menu")}
-                    >
-                      <a
-                        className="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle "
-                        href="javascript:;"
-                        title="Sale Request Managerment"
-                        onClick={() => handleNavShow(3)}
-                      >
-                        <i className="tio-dollar-outlined nav-icon" />
-                        <span className="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">
-                          Yêu cầu bán hàng{" "}
-                        </span>
-                      </a>
-                      <ul
-                        className={classNames(
-                          "js-navbar-vertical-aside-submenu nav nav-sub"
-                        )}
-                      >
-                        <li className="nav-item">
-                          <a
-                            className="nav-link "
-                            href="./sale-request-management.html"
-                            title="Sale Request"
-                          >
-                            <span className="tio-circle nav-indicator-icon" />
-                            <span className="text-truncate">Kho</span>
-                          </a>
-                        </li>
-                        <li className="nav-item">
-                          <a
-                            className="nav-link "
-                            href="unchecked-sale-request-details.html"
-                            title="Sale Requests details"
-                          >
-                            <span className="tio-circle nav-indicator-icon" />
-                            <span className="text-truncate">Chi tiết</span>
-                          </a>
-                        </li>
-                      </ul>
-                    </li>
+
                     {/* No Sale Request Managerment */}
                     <li className="nav-item">
                       <div className="nav-divider" />

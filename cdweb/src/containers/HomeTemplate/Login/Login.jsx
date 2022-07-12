@@ -137,12 +137,23 @@ const Login = () => {
             {t("login.or")} <Link to={"/register"}>{t("login.register")}</Link>
           </Form.Item>
         </Form>
+
         <div className="container-right-login">
           <div className="container-button">
-            {/* <button className="login-with-facebook">
+            <GoogleLogin
+              clientId="176687431821-4q6tbvv2rn86p6rtvp4919tljbnofq3v.apps.googleusercontent.com"
+              buttonText="Google"
+              onSuccess={responseGoogle}
+              onFailure={responseGoogle}
+              cookiePolicy={"single_host_origin"}
+            />
+            <button
+              className="login-with-facebook"
+              style={{ marginTop: "10px" }}
+            >
               <i className="fa-brands fa-facebook-f"></i>
               Facebook
-            </button> */}
+            </button>
             {/* <FacebookLogin
               appId="1088597931155576"
               autoLoad={true}
@@ -155,13 +166,7 @@ const Login = () => {
               <i className="fa-brands fa-google"></i>
               Google
             </button> */}
-            <GoogleLogin
-              clientId="176687431821-4q6tbvv2rn86p6rtvp4919tljbnofq3v.apps.googleusercontent.com"
-              buttonText="Login"
-              onSuccess={responseGoogle}
-              onFailure={responseGoogle}
-              cookiePolicy={"single_host_origin"}
-            />
+
             <Button type="default" style={{ marginTop: "125px" }}>
               <Link to={"/"}>{t("login.cancel")}</Link>
             </Button>

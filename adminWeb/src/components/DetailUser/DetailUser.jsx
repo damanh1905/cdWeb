@@ -1,15 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState} from "react";
 import { useForm } from "react-hook-form";
 import classNames from 'classnames';
 import "./DetailUser.scss";
 import { Modal } from "antd";
 import { del, get } from "../../utils/api";
-
+import { useParams } from 'react-router-dom';
+import { doGet, doPost } from "../../utils/api/api";
+import {Link} from 'react-router-dom'
 export const defaultValue = {
 
 }
 
 function DetailUser() {
+  const [isReload, setIsReload] = useState(false);
+  const [listDetail, setListDetail] = useState([]);
+  const [userName,setUserName]=useState('');
+  const {id}=useParams();
+  console.log(id)
+  useEffect(() => {
+    const initData = async () => {
+      const response = await doPost(`/manage/admin/listOrderByUser/${id}`);
+    
+      if(response.data.status==200){
+          console.log(response.data.data)
+          setListDetail(response.data.data.listDetail)
+          setUserName(response.data.data.userName)
+       
+      }
+    }
+    
+    initData();
+  }, [isReload])
+
+
 
   return (
    
@@ -27,7 +50,7 @@ function DetailUser() {
                 <li className="breadcrumb-item active" aria-current="page">Chi tiết</li>
               </ol>
             </nav>
-            <h1 className="page-header-title">Anne Richard</h1>
+            <h1 className="page-header-title">{userName}</h1>
           </div>
           <div className="col-sm-auto">
             <a className="btn btn-icon btn-sm btn-ghost-secondary rounded-circle mr-1" href="#" data-toggle="tooltip" data-placement="top" title="Khách hàng trước đó">
@@ -49,11 +72,11 @@ function DetailUser() {
               {/* Media */}
               <div className="d-flex align-items-center mb-5">
                 <div className="avatar avatar-lg avatar-circle">
-                  <img className="avatar-img" src="assets\img\160x160\img9.jpg" alt="Image Description" />
+                  <img className="avatar-img" src="data:image/jpeg;base64,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"  />
                 </div>
                 <div className="mx-3">
                   <div className="d-flex mb-1">
-                    <h3 className="mb-0 mr-3">Anne Richard</h3>
+                    <h3 className="mb-0 mr-3">{userName}</h3>
                     {/* Unfold */}
                     {/* <div class="hs-unfold">
                   <a class="js-hs-unfold-invoker btn btn-icon btn-xs btn-white rounded-circle" href="javascript:;"
@@ -277,308 +300,36 @@ function DetailUser() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td className="table-column-pr-0">
-                      <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" id="ordersCheck1" />
-                        <label className="custom-control-label" htmlFor="ordersCheck1" />
-                      </div>
-                    </td>
-                    <td className="table-column-pl-0">
-                      <a href="ecommerce-order-details.html">#35463</a>
-                    </td>
-                    <td>Aug 17, 2020</td>
-                    <td>
-                      <span className="badge badge-soft-success">
-                        <span className="legend-indicator bg-success" />Paid
-                      </span>
-                    </td>
-                    <td>$256.39</td>
-                    <td>
-                      <a className="btn btn-sm btn-white" href="javascript:;" data-toggle="modal" data-target="#invoiceReceiptModal">
-                        <i className="tio-receipt-outlined mr-1" /> Hóa đơn
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="table-column-pr-0">
-                      <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" id="ordersCheck2" />
-                        <label className="custom-control-label" htmlFor="ordersCheck2" />
-                      </div>
-                    </td>
-                    <td className="table-column-pl-0">
-                      <a href="ecommerce-order-details.html">#23513</a>
-                    </td>
-                    <td>Aug 17, 2020</td>
-                    <td>
-                      <span className="badge badge-soft-success">
-                        <span className="legend-indicator bg-success" />Paid
-                      </span>
-                    </td>
-                    <td>$2,125.00</td>
-                    <td>
-                      <a className="btn btn-sm btn-white" href="javascript:;" data-toggle="modal" data-target="#invoiceReceiptModal">
-                        <i className="tio-receipt-outlined mr-1" /> Invoice
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="table-column-pr-0">
-                      <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" id="ordersCheck3" />
-                        <label className="custom-control-label" htmlFor="ordersCheck3" />
-                      </div>
-                    </td>
-                    <td className="table-column-pl-0">
-                      <a href="ecommerce-order-details.html">#62311</a>
-                    </td>
-                    <td>Aug 03, 2020</td>
-                    <td>
-                      <span className="badge badge-soft-success">
-                        <span className="legend-indicator bg-success" />Paid
-                      </span>
-                    </td>
-                    <td>$532.99</td>
-                    <td>
-                      <a className="btn btn-sm btn-white" href="javascript:;" data-toggle="modal" data-target="#invoiceReceiptModal">
-                        <i className="tio-receipt-outlined mr-1" /> Invoice
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="table-column-pr-0">
-                      <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" id="ordersCheck4" />
-                        <label className="custom-control-label" htmlFor="ordersCheck4" />
-                      </div>
-                    </td>
-                    <td className="table-column-pl-0">
-                      <a href="ecommerce-order-details.html">#12453</a>
-                    </td>
-                    <td>July 29, 2020</td>
-                    <td>
-                      <span className="badge badge-soft-warning">
-                        <span className="legend-indicator bg-warning" />Pending
-                      </span>
-                    </td>
-                    <td>$1,035.02</td>
-                    <td>
-                      <a className="btn btn-sm btn-white" href="javascript:;" data-toggle="modal" data-target="#invoiceReceiptModal">
-                        <i className="tio-receipt-outlined mr-1" /> Invoice
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="table-column-pr-0">
-                      <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" id="ordersCheck5" />
-                        <label className="custom-control-label" htmlFor="ordersCheck5" />
-                      </div>
-                    </td>
-                    <td className="table-column-pl-0">
-                      <a href="ecommerce-order-details.html">#84223</a>
-                    </td>
-                    <td>July 11, 2020</td>
-                    <td>
-                      <span className="badge badge-soft-success">
-                        <span className="legend-indicator bg-success" />Paid
-                      </span>
-                    </td>
-                    <td>$68.53</td>
-                    <td>
-                      <a className="btn btn-sm btn-white" href="javascript:;" data-toggle="modal" data-target="#invoiceReceiptModal">
-                        <i className="tio-receipt-outlined mr-1" /> Invoice
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="table-column-pr-0">
-                      <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" id="ordersCheck6" />
-                        <label className="custom-control-label" htmlFor="ordersCheck6" />
-                      </div>
-                    </td>
-                    <td className="table-column-pl-0">
-                      <a href="ecommerce-order-details.html">#46542</a>
-                    </td>
-                    <td>July 04, 2020</td>
-                    <td>
-                      <span className="badge badge-soft-success">
-                        <span className="legend-indicator bg-success" />Paid
-                      </span>
-                    </td>
-                    <td>$100.00</td>
-                    <td>
-                      <a className="btn btn-sm btn-white" href="javascript:;" data-toggle="modal" data-target="#invoiceReceiptModal">
-                        <i className="tio-receipt-outlined mr-1" /> Invoice
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="table-column-pr-0">
-                      <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" id="ordersCheck7" />
-                        <label className="custom-control-label" htmlFor="ordersCheck7" />
-                      </div>
-                    </td>
-                    <td className="table-column-pl-0">
-                      <a className="text-danger" href="ecommerce-order-details.html">#35378</a>
-                      <i className="tio-warning text-warning" />
-                    </td>
-                    <td>June 27, 2020</td>
-                    <td>
-                      <span className="badge badge-soft-warning">
-                        <span className="legend-indicator bg-warning" />Pending
-                      </span>
-                    </td>
-                    <td className="text-danger">$89.46</td>
-                    <td>
-                      <a className="btn btn-sm btn-white" href="javascript:;" data-toggle="modal" data-target="#invoiceReceiptModal">
-                        <i className="tio-receipt-outlined mr-1" /> Invoice
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="table-column-pr-0">
-                      <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" id="ordersCheck8" />
-                        <label className="custom-control-label" htmlFor="ordersCheck8" />
-                      </div>
-                    </td>
-                    <td className="table-column-pl-0">
-                      <a className="text-danger" href="ecommerce-order-details.html">#24562</a>
-                      <i className="tio-warning text-warning" />
-                    </td>
-                    <td>June 15, 2020</td>
-                    <td>
-                      <span className="badge badge-soft-warning">
-                        <span className="legend-indicator bg-warning" />Pending
-                      </span>
-                    </td>
-                    <td className="text-danger">$3,535.46</td>
-                    <td>
-                      <a className="btn btn-sm btn-white" href="javascript:;" data-toggle="modal" data-target="#invoiceReceiptModal">
-                        <i className="tio-receipt-outlined mr-1" /> Invoice
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="table-column-pr-0">
-                      <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" id="ordersCheck9" />
-                        <label className="custom-control-label" htmlFor="ordersCheck9" />
-                      </div>
-                    </td>
-                    <td className="table-column-pl-0">
-                      <a href="ecommerce-order-details.html">#78531</a>
-                    </td>
-                    <td>June 12, 2020</td>
-                    <td>
-                      <span className="badge badge-soft-success">
-                        <span className="legend-indicator bg-success" />Paid
-                      </span>
-                    </td>
-                    <td>$23.89</td>
-                    <td>
-                      <a className="btn btn-sm btn-white" href="javascript:;" data-toggle="modal" data-target="#invoiceReceiptModal">
-                        <i className="tio-receipt-outlined mr-1" /> Invoice
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="table-column-pr-0">
-                      <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" id="ordersCheck10" />
-                        <label className="custom-control-label" htmlFor="ordersCheck10" />
-                      </div>
-                    </td>
-                    <td className="table-column-pl-0">
-                      <a href="ecommerce-order-details.html">#34634</a>
-                    </td>
-                    <td>June 02, 2020</td>
-                    <td>
-                      <span className="badge badge-soft-success">
-                        <span className="legend-indicator bg-success" />Paid
-                      </span>
-                    </td>
-                    <td>$77.00</td>
-                    <td>
-                      <a className="btn btn-sm btn-white" href="javascript:;" data-toggle="modal" data-target="#invoiceReceiptModal">
-                        <i className="tio-receipt-outlined mr-1" /> Invoice
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="table-column-pr-0">
-                      <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" id="ordersCheck11" />
-                        <label className="custom-control-label" htmlFor="ordersCheck11" />
-                      </div>
-                    </td>
-                    <td className="table-column-pl-0">
-                      <a className="text-danger" href="ecommerce-order-details.html">#93817</a>
-                      <i className="tio-warning text-warning" />
-                    </td>
-                    <td>May 30, 2020</td>
-                    <td>
-                      <span className="badge badge-soft-warning">
-                        <span className="legend-indicator bg-warning" />Pending
-                      </span>
-                    </td>
-                    <td className="text-danger">$77.00</td>
-                    <td>
-                      <a className="btn btn-sm btn-white" href="javascript:;" data-toggle="modal" data-target="#invoiceReceiptModal">
-                        <i className="tio-receipt-outlined mr-1" /> Invoice
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="table-column-pr-0">
-                      <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" id="ordersCheck12" />
-                        <label className="custom-control-label" htmlFor="ordersCheck12" />
-                      </div>
-                    </td>
-                    <td className="table-column-pl-0">
-                      <a href="ecommerce-order-details.html">#43113</a>
-                    </td>
-                    <td>May 25, 2020</td>
-                    <td>
-                      <span className="badge badge-soft-success">
-                        <span className="legend-indicator bg-success" />Paid
-                      </span>
-                    </td>
-                    <td>$1,421.47</td>
-                    <td>
-                      <a className="btn btn-sm btn-white" href="javascript:;" data-toggle="modal" data-target="#invoiceReceiptModal">
-                        <i className="tio-receipt-outlined mr-1" /> Invoice
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="table-column-pr-0">
-                      <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" id="ordersCheck13" />
-                        <label className="custom-control-label" htmlFor="ordersCheck13" />
-                      </div>
-                    </td>
-                    <td className="table-column-pl-0">
-                      <a href="ecommerce-order-details.html">#12412</a>
-                    </td>
-                    <td>May 16, 2020</td>
-                    <td>
-                      <span className="badge badge-soft-success">
-                        <span className="legend-indicator bg-success" />Paid
-                      </span>
-                    </td>
-                    <td>$45.00</td>
-                    <td>
-                      <a className="btn btn-sm btn-white" href="javascript:;" data-toggle="modal" data-target="#invoiceReceiptModal">
-                        <i className="tio-receipt-outlined mr-1" /> Invoice
-                      </a>
-                    </td>
-                  </tr>
+                  {
+                    listDetail.map((order,index)=>{
+                    return   <tr key={index}>
+                      <td className="table-column-pr-0">
+                        <div className="custom-control custom-checkbox">
+                          <input type="checkbox" className="custom-control-input" id="ordersCheck1" />
+                          <label className="custom-control-label" htmlFor="ordersCheck1" />
+                        </div>
+                      </td>
+                      <td className="table-column-pl-0">
+                        {/* <a >{order.id}</a> */}
+                        <Link to={`${order.id}`}>{order.id}</Link>
+                      </td>
+                      <td>{order.dateCreated}</td>
+                      <td>
+                        <span className="badge badge-soft-success">
+                          <span className="legend-indicator bg-success" />Paid
+                        </span>
+                      </td>
+                      <td>{order.totalPriceOrder}</td>
+                      <td>
+                        <a className="btn btn-sm btn-white" href="javascript:;" data-toggle="modal" data-target="#invoiceReceiptModal">
+                          <i className="tio-receipt-outlined mr-1" /> Hóa đơn
+                        </a>
+                      </td>
+                    </tr>
+                    })
+                  }
+                 
+           
                 </tbody>
               </table>
             </div>
@@ -643,7 +394,7 @@ function DetailUser() {
                 </li>
                 <li>
                   <i className="tio-android-phone-vs mr-2" />
-                  +1 (609) 972-22-22
+                    03634666954
                 </li>
               </ul>
               <hr />

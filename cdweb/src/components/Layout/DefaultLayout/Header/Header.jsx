@@ -177,7 +177,7 @@ function Header(props) {
                   </li>
                 </ul>
                 <div className="header__cart__price">
-                  {t("header.item")}: <span>$150.00</span>
+                  {t("header.item")}: <span></span>
                 </div>
               </div>
             </div>

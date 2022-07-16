@@ -6,16 +6,20 @@ import { Checkbox, Row, Col, Slider, InputNumber } from "antd";
 import { doGet, doPost } from "../../../utils/api/api";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { number } from "yup";
 
 function ShopGrid() {
   const [products, setProduct] = useState([]);
   const [totalProduct, setTotalProduct] = useState(0);
-  const [priceProduct, setPriceProduct] = useState([]);
+  const [priceProduct, setPriceProduct] = useState([null,null]);
   const [catregory, setCategory] = useState([]);
   const [change, setChange] = useState(true);
   const [nameFilter, setNameFilter] = useState([]);
   const [genders, setGenders] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [messageErrorPrice, setMessageErrorPrice] = useState("");
+  console.log(priceProduct)
+  
   // console.log(priceProduct);
   // state = {
   //   min: 20,
@@ -25,8 +29,9 @@ function ShopGrid() {
   // console.log(nameFilter,orders)
   // console.log(catregory);
   const { id } = useParams();
+  console.log(id);
   const handleAddCart = (id) => {
-    console.log(id);
+   
     (async () => {
       try {
         const data = await doPost(`cart/addUpdateRemove?action=add`, {
@@ -55,7 +60,6 @@ function ShopGrid() {
       nameFilter[0] = "categoryId=";
       setNameFilter(nameFilter);
       setCategory(["1"]);
-      // setChange(false)
     } else if (id == 2) {
       nameFilter[0] = "categoryId=";
       setNameFilter(nameFilter);
@@ -106,7 +110,7 @@ function ShopGrid() {
         }
       })();
     }
-  }, [change]);
+  }, [change,catregory]);
 
   const onChangeCategories = (checkedValues) => {
     setChange(false);
@@ -221,6 +225,46 @@ function ShopGrid() {
     }
     setNameFilter(nameFilter);
   };
+
+
+  const handleOnchangePriceInput1=(value)=>{
+            priceProduct[0]=value;
+          
+          setPriceProduct([parseInt(priceProduct[0]),parseInt(priceProduct[1])])
+           
+       
+  }
+  const handleOnchangePriceInput2=(value)=>{
+    priceProduct[1]=value;
+  
+        setPriceProduct([parseInt(priceProduct[0]),parseInt(priceProduct[1])])
+   
+      
+  }
+  const handleSubmitPrice=()=>{
+   
+    if(priceProduct[0]>priceProduct[1]||priceProduct[1]===priceProduct[0]&&priceProduct[1]!==0&&priceProduct[0]!==0){
+      setMessageErrorPrice("Khoảng giá áp dụng không hợp lệ")
+    }else if(isNaN(priceProduct[0])||isNaN(priceProduct[1])){
+      console.log("NaN")
+      priceProduct[0]=null;
+      priceProduct[1]=null;
+      nameFilter[1] = "";
+      setNameFilter(nameFilter);
+      setMessageErrorPrice("")
+      setChange(!change)
+    }
+     else if (priceProduct[1] > 0 && priceProduct[1]>priceProduct[0]) {
+      console.log("aaaaaaa")
+      setPriceProduct([...priceProduct]);
+      nameFilter[1] = "priceRange=";
+      setNameFilter(nameFilter);
+      setMessageErrorPrice("")
+      setChange(!change)
+      
+    } 
+  
+  }
   return (
     <>
       <NavBelowHeader />
@@ -342,10 +386,14 @@ function ShopGrid() {
                     // onChange={(e) => setQuantity(e.target.value)}
                     type="number"
                     name="points"
-                    min="0"
-                    max="100000"
-                    step="1"
+                    min={0}
+                    value={priceProduct[0]}
+                    max={100000}
+                    step={1}
                     defaultValue={null}
+                    onInput={(e)=>{
+                        handleOnchangePriceInput1(e.target.value)
+                    }}
                     // onInput={(e) =>
                     //   e.target.value < 1
                     //     ? (e.target.value = null)
@@ -360,8 +408,14 @@ function ShopGrid() {
                     min="0"
                     max="100000"
                     step="1"
+                    value={priceProduct[1]}
                     defaultValue={null}
+                    onInput={(e)=>{
+                      handleOnchangePriceInput2(e.target.value)
+                  }}
                   />
+                <p style={{color:"red"}}>{messageErrorPrice}</p>
+                  <button style={{width:"82%",marginTop:"8px",backgroundColor:"rgb(24, 144, 255)",border:"none"}} onClick={handleSubmitPrice}>Áp dụng</button>
                 </div>
                 <div className="sidebar__item sidebar__item__color--option">
                   <h4>Gender</h4>

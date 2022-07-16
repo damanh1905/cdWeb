@@ -16,14 +16,14 @@ function ShopGrid() {
   const [nameFilter, setNameFilter] = useState([]);
   const [genders, setGenders] = useState([]);
   const [orders, setOrders] = useState([]);
-  console.log(priceProduct)
+  // console.log(priceProduct);
   // state = {
   //   min: 20,
   //   max: 50
   // };
   // const { max, min } = this.state;
   // console.log(nameFilter,orders)
-  console.log(catregory);
+  // console.log(catregory);
   const { id } = useParams();
   const handleAddCart = (id) => {
     console.log(id);
@@ -79,6 +79,8 @@ function ShopGrid() {
     console.log(catregory);
     console.log(priceProduct);
     if (nameFilter.length > 0) {
+      console.log("price", nameFilter.length);
+      console.log(priceProduct);
       (async () => {
         try {
           const { data } = await doGet(
@@ -86,6 +88,7 @@ function ShopGrid() {
           );
           setProduct(data.data.products);
           setTotalProduct(data.data.totalitems);
+          console.log(products);
         } catch (error) {
           console.log(error);
         }
@@ -103,7 +106,7 @@ function ShopGrid() {
         }
       })();
     }
-  }, [change, catregory]);
+  }, [change]);
 
   const onChangeCategories = (checkedValues) => {
     setChange(false);
@@ -113,7 +116,9 @@ function ShopGrid() {
       nameFilter[0] = "categoryId=";
       setNameFilter(nameFilter);
     } else {
-      nameFilter[0] = "categoryId=";
+      // nameFilter[0] = "categoryId=";
+      nameFilter[0] = "";
+
       setNameFilter(nameFilter);
       setCategory(checkedValues);
     }
@@ -160,19 +165,17 @@ function ShopGrid() {
     //   })();
     // }
   };
-  const handleOnChangePrice=(value)=>{
+  const handleOnChangePrice = (value) => {
     setChange(false);
-        if(value.length>0){
-          setPriceProduct([
-            value[0],value[1]
-          ]);
-          nameFilter[1] = "priceRange=";
-          setNameFilter(nameFilter);
-        }  else {
-          nameFilter[1] = "";
-          setNameFilter(nameFilter);
-        }
-  }
+    if (value.length > 0) {
+      setPriceProduct([value[0], value[1]]);
+      nameFilter[1] = "priceRange=";
+      setNameFilter(nameFilter);
+    } else {
+      nameFilter[1] = "";
+      setNameFilter(nameFilter);
+    }
+  };
   // const onChange = (value) => {
   //   if (value[0] < value[1]) {
   //     this.setState({ min: value[0], max: value[1] });
@@ -299,28 +302,66 @@ function ShopGrid() {
                 </div>
                 <div className="sidebar__item">
                   <h4>Price</h4>
-                  <div className="price-range-wrap">
-                    <div style={{display:"flex",justifyContent:"space-between"}}>
-                          <div>{priceProduct[0]==null?'0đ':new Intl.NumberFormat("vi-VN", {
-                            style: "currency",
-                            currency: "VND",
-                          }).format(priceProduct[0])}</div>
-                          <div>{priceProduct[1]==null?'0đ':new Intl.NumberFormat("vi-VN", {
-                            style: "currency",
-                            currency: "VND",
-                          }).format(priceProduct[1])}</div>
+                  {/* <div className="price-range-wrap">
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <div>
+                        {priceProduct[0] == null
+                          ? "0đ"
+                          : new Intl.NumberFormat("vi-VN", {
+                              style: "currency",
+                              currency: "VND",
+                            }).format(priceProduct[0])}
+                      </div>
+                      <div>
+                        {priceProduct[1] == null
+                          ? "0đ"
+                          : new Intl.NumberFormat("vi-VN", {
+                              style: "currency",
+                              currency: "VND",
+                            }).format(priceProduct[1])}
+                      </div>
                     </div>
-                    <Slider onChange={(value)=>{
-                          handleOnChangePrice(value)
-                    }}
-                    max={2000000}
-                    min={0}
+                    <Slider
+                      onChange={(value) => {
+                        handleOnChangePrice(value);
+                      }}
+                      max={2000000}
+                      min={0}
                       range={{
                         draggableTrack: true,
                       }}
                       // defaultValue={[100, 100000]}
                     />
-                  </div>
+                  </div> */}
+                  <input
+                    // onChange={(e) => setQuantity(e.target.value)}
+                    type="number"
+                    name="points"
+                    min="0"
+                    max="100000"
+                    step="1"
+                    defaultValue={null}
+                    // onInput={(e) =>
+                    //   e.target.value < 1
+                    //     ? (e.target.value = null)
+                    //     : (e.target.value = e.target.value.slice(0, 2))
+                    // }
+                  />
+                  -
+                  <input
+                    // onChange={(e) => setQuantity(e.target.value)}
+                    type="number"
+                    name="points"
+                    min="0"
+                    max="100000"
+                    step="1"
+                    defaultValue={null}
+                  />
                 </div>
                 <div className="sidebar__item sidebar__item__color--option">
                   <h4>Gender</h4>

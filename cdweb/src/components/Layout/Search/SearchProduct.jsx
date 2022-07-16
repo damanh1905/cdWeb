@@ -6,7 +6,7 @@ import styles from "./SearchProduct.module.scss";
 import Wrapper from "../Popper";
 import ProductItem from "../ProductItem/ProductItem";
 import { useDebounce } from "../../../Hooks";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 function SearchProduct() {
   const { t, i18n } = useTranslation();
@@ -15,7 +15,7 @@ function SearchProduct() {
   const [searchValue, setSearchValue] = useState("");
   const [showResult, setShowResult] = useState(true);
   const [loading, setLoading] = useState(false);
-console.log(searchResult)
+  // console.log(searchResult)
   const useBounce = useDebounce(searchValue, 700);
   useEffect(() => {
     if (!searchValue) {
@@ -57,7 +57,7 @@ console.log(searchResult)
         render={(attrs) => (
           <div className={styles["search-result"]} tabIndex="-1" {...attrs}>
             <Wrapper>
-              <h6 style={{ marginLeft: "25px" }}>{t('product')} </h6>
+              <h6 style={{ marginLeft: "25px" }}>{t("product")} </h6>
               {searchResult.map((result) => (
                 <ProductItem key={result.id} data={result} />
               ))}
@@ -73,7 +73,7 @@ console.log(searchResult)
               value={searchValue}
               onChange={handleChange}
               className={styles.valueInput}
-              placeholder={t('search.placehoder')}
+              placeholder={t("search.placehoder")}
               onFocus={() => setShowResult(true)}
             />
             {!!searchValue && !loading && (
@@ -95,7 +95,7 @@ console.log(searchResult)
               </button>
             )}
             <button onClick={handleSearch} type="submit" className="site-btn">
-            {t('search.button')}
+              {t("search.button")}
             </button>
           </div>
         </div>

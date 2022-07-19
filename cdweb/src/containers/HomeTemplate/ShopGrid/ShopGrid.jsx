@@ -242,10 +242,7 @@ function ShopGrid() {
       
   }
   const handleSubmitPrice=()=>{
-   
-    if(priceProduct[0]>priceProduct[1]||priceProduct[1]===priceProduct[0]&&priceProduct[1]!==0&&priceProduct[0]!==0){
-      setMessageErrorPrice("Khoảng giá áp dụng không hợp lệ")
-    }else if(isNaN(priceProduct[0])||isNaN(priceProduct[1])){
+    if(isNaN(priceProduct[0])&&isNaN(priceProduct[1])){
       console.log("NaN")
       priceProduct[0]=null;
       priceProduct[1]=null;
@@ -253,6 +250,9 @@ function ShopGrid() {
       setNameFilter(nameFilter);
       setMessageErrorPrice("")
       setChange(!change)
+    }
+    else if(priceProduct[0]>priceProduct[1]||priceProduct[1]===priceProduct[0]&&(priceProduct[1]!==null&&priceProduct[0]!==null)||isNaN(priceProduct[0])||isNaN(priceProduct[1])){
+      setMessageErrorPrice("Khoảng giá áp dụng không hợp lệ")
     }
      else if (priceProduct[1] > 0 && priceProduct[1]>priceProduct[0]) {
       console.log("aaaaaaa")

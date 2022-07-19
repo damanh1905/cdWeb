@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import NavBelowHeader from "../../../components/Layout/NavBelowHeader/NavBelowHeader";
 import SearchProduct from "../../../components/Layout/Search/SearchProduct";
 import "antd/dist/antd.css";
@@ -21,6 +21,11 @@ function ShopGrid() {
   const [pageIndex, setPageIndex] = useState(0);
   const [current, setCurrent] = useState(1);
   console.log(priceProduct)
+  // 
+  const input1 = useRef(0);
+  const input2 = useRef(0);
+
+  // 
   const handleOnChangePagination=(e)=>{
     setPageIndex(e - 1);
     setCurrent(e);
@@ -390,6 +395,7 @@ function ShopGrid() {
                   </div> */}
                   <input
                     // onChange={(e) => setQuantity(e.target.value)}
+                    ref={input1}
                     type="number"
                     name="points"
                     min={0}
@@ -409,6 +415,7 @@ function ShopGrid() {
                   -
                   <input
                     // onChange={(e) => setQuantity(e.target.value)}
+                    ref={input2}
                     type="number"
                     name="points"
                     min="0"
@@ -422,6 +429,18 @@ function ShopGrid() {
                   />
                 <p style={{color:"red"}}>{messageErrorPrice}</p>
                   <button style={{width:"82%",marginTop:"8px",backgroundColor:"rgb(24, 144, 255)",border:"none"}} onClick={handleSubmitPrice}>Áp dụng</button>
+                  <button style={{width:"82%",marginTop:"8px",backgroundColor:"rgb(24, 144, 255)",border:"none"}} onClick={()=>{
+                              input1.current.value=null;
+                              input2.current.value=null;
+                              // priceProduct[0]=null;
+                              // priceProduct[1]=null;
+                              nameFilter[1] = "";
+                              setPriceProduct([null,null])
+                              setNameFilter(nameFilter);
+                              setMessageErrorPrice("")
+                              setChange(!change)
+                           
+                  }}>Xóa Tất Cả Giá</button>
                 </div>
                 <div className="sidebar__item sidebar__item__color--option">
                   <h4>Gender</h4>

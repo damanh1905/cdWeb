@@ -7,7 +7,7 @@ import { doGet, doPost } from "../../../utils/api/api";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { number } from "yup";
-
+import { Pagination } from "antd";
 function ShopGrid() {
   const [products, setProduct] = useState([]);
   const [totalProduct, setTotalProduct] = useState(0);
@@ -18,8 +18,14 @@ function ShopGrid() {
   const [genders, setGenders] = useState([]);
   const [orders, setOrders] = useState([]);
   const [messageErrorPrice, setMessageErrorPrice] = useState("");
+  const [pageIndex, setPageIndex] = useState(0);
+  const [current, setCurrent] = useState(1);
   console.log(priceProduct)
-  
+  const handleOnChangePagination=(e)=>{
+    setPageIndex(e - 1);
+    setCurrent(e);
+    setChange(!change);
+  }
   // console.log(priceProduct);
   // state = {
   //   min: 20,
@@ -88,7 +94,7 @@ function ShopGrid() {
       (async () => {
         try {
           const { data } = await doGet(
-            `http://localhost:8082/api/product/productFilter?${nameFilter[0]}&category=${catregory}&${nameFilter[1]}&priceRanges=${priceProduct}&${nameFilter[2]}&genderId=${genders}&${nameFilter[3]}&ordersProduct=${orders}`
+            `http://localhost:8082/api/product/productFilter?${nameFilter[0]}&category=${catregory}&${nameFilter[1]}&priceRanges=${priceProduct}&${nameFilter[2]}&genderId=${genders}&${nameFilter[3]}&ordersProduct=${orders}&pageIndex=${pageIndex}`
           );
           setProduct(data.data.products);
           setTotalProduct(data.data.totalitems);
@@ -101,7 +107,7 @@ function ShopGrid() {
       console.log("full");
       (async () => {
         try {
-          const { data } = await doGet("product/productFilter");
+          const { data } = await doGet(`product/productFilter?pageIndex=${pageIndex}`);
           // console.log(data.data.products);
           setProduct(data.data.products);
           setTotalProduct(data.data.totalitems);
@@ -567,14 +573,18 @@ function ShopGrid() {
                     </div>
                   ))}
               </div>
-              <div className="product__pagination">
-                <a href="#">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">
-                  <i className="fa fa-long-arrow-right" />
-                </a>
-              </div>
+              <Pagination
+          style={{ textAlign: "center", position: "relative", bottom: "35px" }}
+          current={current}
+          defaultCurrent={1}
+          onChange={(e) => 
+           
+            
+              handleOnChangePagination(e)
+            
+          }
+          total={80}
+        />
             </div>
           </div>
         </div>

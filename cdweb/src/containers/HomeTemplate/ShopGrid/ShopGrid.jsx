@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import NavBelowHeader from "../../../components/Layout/NavBelowHeader/NavBelowHeader";
 import SearchProduct from "../../../components/Layout/Search/SearchProduct";
 import "antd/dist/antd.css";
@@ -11,7 +11,7 @@ import { Pagination } from "antd";
 function ShopGrid() {
   const [products, setProduct] = useState([]);
   const [totalProduct, setTotalProduct] = useState(0);
-  const [priceProduct, setPriceProduct] = useState([null,null]);
+  const [priceProduct, setPriceProduct] = useState([null, null]);
   const [catregory, setCategory] = useState([]);
   const [change, setChange] = useState(true);
   const [nameFilter, setNameFilter] = useState([]);
@@ -20,17 +20,17 @@ function ShopGrid() {
   const [messageErrorPrice, setMessageErrorPrice] = useState("");
   const [pageIndex, setPageIndex] = useState(0);
   const [current, setCurrent] = useState(1);
-  console.log(priceProduct)
-  // 
+  // console.log(priceProduct);
+  //
   const input1 = useRef(0);
   const input2 = useRef(0);
 
-  // 
-  const handleOnChangePagination=(e)=>{
+  //
+  const handleOnChangePagination = (e) => {
     setPageIndex(e - 1);
     setCurrent(e);
     setChange(!change);
-  }
+  };
   // console.log(priceProduct);
   // state = {
   //   min: 20,
@@ -40,9 +40,8 @@ function ShopGrid() {
   // console.log(nameFilter,orders)
   // console.log(catregory);
   const { id } = useParams();
-  console.log(id);
+  // console.log(id);
   const handleAddCart = (id) => {
-   
     (async () => {
       try {
         const data = await doPost(`cart/addUpdateRemove?action=add`, {
@@ -112,7 +111,9 @@ function ShopGrid() {
       console.log("full");
       (async () => {
         try {
-          const { data } = await doGet(`product/productFilter?pageIndex=${pageIndex}`);
+          const { data } = await doGet(
+            `product/productFilter?pageIndex=${pageIndex}`
+          );
           // console.log(data.data.products);
           setProduct(data.data.products);
           setTotalProduct(data.data.totalitems);
@@ -121,7 +122,7 @@ function ShopGrid() {
         }
       })();
     }
-  }, [change,catregory]);
+  }, [change, catregory]);
 
   const onChangeCategories = (checkedValues) => {
     setChange(false);
@@ -165,20 +166,6 @@ function ShopGrid() {
       nameFilter[1] = "";
       setNameFilter(nameFilter);
     }
-
-    // if (priceProduct) {
-    //   (async () => {
-    //     try {
-    //       const { data } = await doGet(
-    //         `http://localhost:8082/api/product/productFilter?priceRange=&priceRanges=${priceProduct}`
-    //       );
-    //       setProduct(data.data.products);
-    //       setTotalProduct(data.data.totalitems);
-    //     } catch (error) {
-    //       console.log(error);
-    //     }
-    //   })();
-    // }
   };
   const handleOnChangePrice = (value) => {
     setChange(false);
@@ -237,45 +224,43 @@ function ShopGrid() {
     setNameFilter(nameFilter);
   };
 
+  const handleOnchangePriceInput1 = (value) => {
+    priceProduct[0] = value;
 
-  const handleOnchangePriceInput1=(value)=>{
-            priceProduct[0]=value;
-          
-          setPriceProduct([parseInt(priceProduct[0]),parseInt(priceProduct[1])])
-           
-       
-  }
-  const handleOnchangePriceInput2=(value)=>{
-    priceProduct[1]=value;
-  
-        setPriceProduct([parseInt(priceProduct[0]),parseInt(priceProduct[1])])
-   
-      
-  }
-  const handleSubmitPrice=()=>{
-    if(isNaN(priceProduct[0])&&isNaN(priceProduct[1])){
-      console.log("NaN")
-      priceProduct[0]=null;
-      priceProduct[1]=null;
+    setPriceProduct([parseInt(priceProduct[0]), parseInt(priceProduct[1])]);
+  };
+  const handleOnchangePriceInput2 = (value) => {
+    priceProduct[1] = value;
+
+    setPriceProduct([parseInt(priceProduct[0]), parseInt(priceProduct[1])]);
+  };
+  const handleSubmitPrice = () => {
+    if (isNaN(priceProduct[0]) && isNaN(priceProduct[1])) {
+      console.log("NaN");
+      priceProduct[0] = null;
+      priceProduct[1] = null;
       nameFilter[1] = "";
       setNameFilter(nameFilter);
-      setMessageErrorPrice("")
-      setChange(!change)
-    }
-    else if(priceProduct[0]>priceProduct[1]||priceProduct[1]===priceProduct[0]&&(priceProduct[1]!==null&&priceProduct[0]!==null)||isNaN(priceProduct[0])||isNaN(priceProduct[1])){
-      setMessageErrorPrice("Khoảng giá áp dụng không hợp lệ")
-    }
-     else if (priceProduct[1] > 0 && priceProduct[1]>priceProduct[0]) {
-      console.log("aaaaaaa")
+      setMessageErrorPrice("");
+      setChange(!change);
+    } else if (
+      priceProduct[0] > priceProduct[1] ||
+      (priceProduct[1] === priceProduct[0] &&
+        priceProduct[1] !== null &&
+        priceProduct[0] !== null) ||
+      isNaN(priceProduct[0]) ||
+      isNaN(priceProduct[1])
+    ) {
+      setMessageErrorPrice("Khoảng giá áp dụng không hợp lệ");
+    } else if (priceProduct[1] > 0 && priceProduct[1] > priceProduct[0]) {
+      console.log("aaaaaaa");
       setPriceProduct([...priceProduct]);
       nameFilter[1] = "priceRange=";
       setNameFilter(nameFilter);
-      setMessageErrorPrice("")
-      setChange(!change)
-      
-    } 
-  
-  }
+      setMessageErrorPrice("");
+      setChange(!change);
+    }
+  };
   return (
     <>
       <NavBelowHeader />
@@ -403,8 +388,8 @@ function ShopGrid() {
                     max={100000}
                     step={1}
                     defaultValue={null}
-                    onInput={(e)=>{
-                        handleOnchangePriceInput1(e.target.value)
+                    onInput={(e) => {
+                      handleOnchangePriceInput1(e.target.value);
                     }}
                     // onInput={(e) =>
                     //   e.target.value < 1
@@ -423,24 +408,43 @@ function ShopGrid() {
                     step="1"
                     value={priceProduct[1]}
                     defaultValue={null}
-                    onInput={(e)=>{
-                      handleOnchangePriceInput2(e.target.value)
-                  }}
+                    onInput={(e) => {
+                      handleOnchangePriceInput2(e.target.value);
+                    }}
                   />
-                <p style={{color:"red"}}>{messageErrorPrice}</p>
-                  <button style={{width:"82%",marginTop:"8px",backgroundColor:"rgb(24, 144, 255)",border:"none"}} onClick={handleSubmitPrice}>Áp dụng</button>
-                  <button style={{width:"82%",marginTop:"8px",backgroundColor:"rgb(24, 144, 255)",border:"none"}} onClick={()=>{
-                              input1.current.value=null;
-                              input2.current.value=null;
-                              // priceProduct[0]=null;
-                              // priceProduct[1]=null;
-                              nameFilter[1] = "";
-                              setPriceProduct([null,null])
-                              setNameFilter(nameFilter);
-                              setMessageErrorPrice("")
-                              setChange(!change)
-                           
-                  }}>Xóa Tất Cả Giá</button>
+                  <p style={{ color: "red" }}>{messageErrorPrice}</p>
+                  <button
+                    style={{
+                      width: "82%",
+                      marginTop: "8px",
+                      backgroundColor: "rgb(24, 144, 255)",
+                      border: "none",
+                    }}
+                    onClick={handleSubmitPrice}
+                  >
+                    Áp dụng
+                  </button>
+                  <button
+                    style={{
+                      width: "82%",
+                      marginTop: "8px",
+                      backgroundColor: "rgb(24, 144, 255)",
+                      border: "none",
+                    }}
+                    onClick={() => {
+                      input1.current.value = null;
+                      input2.current.value = null;
+                      // priceProduct[0]=null;
+                      // priceProduct[1]=null;
+                      nameFilter[1] = "";
+                      setPriceProduct([null, null]);
+                      setNameFilter(nameFilter);
+                      setMessageErrorPrice("");
+                      setChange(!change);
+                    }}
+                  >
+                    Xóa Tất Cả Giá
+                  </button>
                 </div>
                 <div className="sidebar__item sidebar__item__color--option">
                   <h4>Gender</h4>
@@ -473,6 +477,26 @@ function ShopGrid() {
                     </Row>
                   </Checkbox.Group>
                 </div>
+                <button
+                  style={{
+                    width: "82%",
+                    marginTop: "8px",
+                    backgroundColor: "rgb(24, 144, 255)",
+                    border: "none",
+                  }}
+                  onClick={() => {
+                    setNameFilter([]);
+                    setChange(!change);
+                    setCategory([]);
+                    setGenders([]);
+                    setOrders([]);
+                    setPriceProduct([null, null]);
+                    console.log(nameFilter);
+                    console.log("first");
+                  }}
+                >
+                  Xóa Tất Cả
+                </button>
                 {/* <div className="sidebar__item">
                   <h4>Popular Size</h4>
                   <div className="sidebar__item__size">
@@ -593,17 +617,16 @@ function ShopGrid() {
                   ))}
               </div>
               <Pagination
-          style={{ textAlign: "center", position: "relative", bottom: "35px" }}
-          current={current}
-          defaultCurrent={1}
-          onChange={(e) => 
-           
-            
-              handleOnChangePagination(e)
-            
-          }
-          total={80}
-        />
+                style={{
+                  textAlign: "center",
+                  position: "relative",
+                  bottom: "35px",
+                }}
+                current={current}
+                defaultCurrent={1}
+                onChange={(e) => handleOnChangePagination(e)}
+                total={80}
+              />
             </div>
           </div>
         </div>

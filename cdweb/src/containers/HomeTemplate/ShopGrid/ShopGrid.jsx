@@ -432,10 +432,10 @@ function ShopGrid() {
                       border: "none",
                     }}
                     onClick={() => {
-                      input1.current.value = 0;
-                      input2.current.value = 0;
-                      // priceProduct[0]=null;
-                      // priceProduct[1]=null;
+                      input1.current.value = NaN;
+                      input2.current.value = NaN;
+                      priceProduct[0]=null;
+                      priceProduct[1]=null;
                       nameFilter[1] = "";
                       setPriceProduct([null, null]);
                       setNameFilter(nameFilter);
@@ -491,7 +491,12 @@ function ShopGrid() {
                     setCategory([]);
                     setGenders([]);
                     setOrders([]);
-                    setPriceProduct([NaN, NaN]);
+                    setPriceProduct([null, null]);
+                    input1.current.value = NaN;
+                    input2.current.value = NaN;
+                    priceProduct[0]=null;
+                    priceProduct[1]=null;
+                    setPriceProduct([null, null]);
                     console.log(nameFilter);
                     console.log("first");
                   }}

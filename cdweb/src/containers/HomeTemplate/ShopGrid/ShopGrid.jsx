@@ -24,7 +24,7 @@ function ShopGrid() {
   //
   const input1 = useRef(0);
   const input2 = useRef(0);
-
+  console.log("Gia"+input1.current.value,input2.current.value)
   //
   const handleOnChangePagination = (e) => {
     setPageIndex(e - 1);
@@ -432,8 +432,8 @@ function ShopGrid() {
                       border: "none",
                     }}
                     onClick={() => {
-                      input1.current.value = null;
-                      input2.current.value = null;
+                      input1.current.value = 0;
+                      input2.current.value = 0;
                       // priceProduct[0]=null;
                       // priceProduct[1]=null;
                       nameFilter[1] = "";
@@ -453,6 +453,7 @@ function ShopGrid() {
                       width: "100%",
                     }}
                     onChange={onChangeGender}
+                    value={genders}
                   >
                     <Row>
                       <Col span={1000}>
@@ -490,7 +491,7 @@ function ShopGrid() {
                     setCategory([]);
                     setGenders([]);
                     setOrders([]);
-                    setPriceProduct([null, null]);
+                    setPriceProduct([NaN, NaN]);
                     console.log(nameFilter);
                     console.log("first");
                   }}

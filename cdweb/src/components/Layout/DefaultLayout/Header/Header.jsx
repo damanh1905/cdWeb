@@ -23,14 +23,21 @@ function Header(props) {
   const [userName, setUserName] = useState();
   const [checkLogin, setCheckLogin] = useState(true);
   console.log(checkLogin);
+
   useEffect(() => {
+    const token = Cookies.get("token");
+    console.log(token);
     const userName = localStorage.getItem("username");
     console.log(userName);
-    if (userName !== null) {
-      setUserName(userName);
-      console.log(checkLogin);
-      setCheckLogin(false);
-      console.log(checkLogin);
+    if (token !== undefined) {
+      if (userName !== null) {
+        setUserName(userName);
+        console.log(checkLogin);
+        setCheckLogin(false);
+        console.log(checkLogin);
+      }
+    } else {
+      setCheckLogin(true);
     }
   }, []);
 
@@ -142,6 +149,9 @@ function Header(props) {
                       </li>
                       <li>
                         <Link to={"/manageOrder"}>ManageOrder</Link>
+                      </li>
+                      <li>
+                        <Link to={"/manageSell"}>ManageSell</Link>
                       </li>
                     </ul>
                   </li>

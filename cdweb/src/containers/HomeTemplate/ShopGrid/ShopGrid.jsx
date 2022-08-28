@@ -24,7 +24,7 @@ function ShopGrid() {
   //
   const input1 = useRef(0);
   const input2 = useRef(0);
-  console.log("Gia"+input1.current.value,input2.current.value)
+  // console.log("Gia"+input1.current.value,input2.current.value)
   //
   const handleOnChangePagination = (e) => {
     setPageIndex(e - 1);
@@ -178,22 +178,7 @@ function ShopGrid() {
       setNameFilter(nameFilter);
     }
   };
-  // const onChange = (value) => {
-  //   if (value[0] < value[1]) {
-  //     this.setState({ min: value[0], max: value[1] });
-  //   }
-  // };
 
-  // const onChangeMin = (value) => {
-  //   if (this.state.max > value) {
-  //     this.setState({ min: value });
-  //   }
-  // };
-  // const onChangeMax = (value) => {
-  //   if (this.state.min < value) {
-  //     this.setState({ max: value });
-  //   }
-  // };
   const onChangeGender = (checkedValues) => {
     console.log("checked = ", checkedValues);
     //
@@ -235,8 +220,8 @@ function ShopGrid() {
     setPriceProduct([parseInt(priceProduct[0]), parseInt(priceProduct[1])]);
   };
   const handleSubmitPrice = () => {
+    console.log(priceProduct[0]);
     if (isNaN(priceProduct[0]) && isNaN(priceProduct[1])) {
-      console.log("NaN");
       priceProduct[0] = null;
       priceProduct[1] = null;
       nameFilter[1] = "";
@@ -434,8 +419,8 @@ function ShopGrid() {
                     onClick={() => {
                       input1.current.value = NaN;
                       input2.current.value = NaN;
-                      priceProduct[0]=null;
-                      priceProduct[1]=null;
+                      priceProduct[0] = null;
+                      priceProduct[1] = null;
                       nameFilter[1] = "";
                       setPriceProduct([null, null]);
                       setNameFilter(nameFilter);
@@ -494,8 +479,8 @@ function ShopGrid() {
                     setPriceProduct([null, null]);
                     input1.current.value = NaN;
                     input2.current.value = NaN;
-                    priceProduct[0]=null;
-                    priceProduct[1]=null;
+                    priceProduct[0] = null;
+                    priceProduct[1] = null;
                     setPriceProduct([null, null]);
                     console.log(nameFilter);
                     console.log("first");
